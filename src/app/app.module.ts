@@ -13,7 +13,9 @@ import { AgencyNotFoundComponent } from './agency-not-found/agency-not-found.com
 import { DestinationComponent } from './destination/destination.component';
 import { EditAgencyComponent } from './edit-agency/edit-agency.component';
 import { DestinationsComponent } from './destinations/destinations.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { UsersComponent } from './users/users.component';
+import { AgencySearchFilterPipe } from './agency-search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -27,12 +29,15 @@ import {ReactiveFormsModule} from "@angular/forms";
     AgencyNotFoundComponent,
     EditDestinationComponent,
     EditAgencyComponent,
-    DestinationsComponent
+    DestinationsComponent,
+    UsersComponent,
+    AgencySearchFilterPipe
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

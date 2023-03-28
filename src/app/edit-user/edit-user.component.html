@@ -1,1 +1,40 @@
-<p>edit-user works!</p>
+<h1>Edit destination</h1>
+<form [formGroup]="userForm">
+  <fieldset>
+    <legend>{{user.username}}</legend>
+    <label for="username">Username:
+      <input type="text" id="username" formControlName="username">
+    </label>
+    <br>
+    <label for="password">Password:
+      <input type="text" id="password" formControlName="password">
+    </label>
+    <br>
+    <label for="name">Name:
+      <input type="text" id="name" formControlName="name">
+    </label>
+    <br>
+    <label for="surname">Surname:
+      <input type="text" id="surname" formControlName="surname">
+    </label>
+    <br>
+    <label for="email">Email:
+      <input type="email" id="email" formControlName="email">
+    </label>
+    <br>
+    <label for="birthday">Birthday:
+      <input type="date" id="birthday" formControlName="birthday">
+    </label>
+    <br>
+    <label for="address">Address:
+      <input type="text" id="address" formControlName="address">
+    </label>
+    <br>
+    <label for="phoneNumber">Phone number;
+      <input type="text" id="phoneNumber" formControlName="phoneNumber">
+    </label>
+    <br>
+    <input name="update" type="submit" (click)="updateUser()" value="Update">
+    <input name="delete" type="submit" (click)="deleteUser()" value="Delete">
+  </fieldset>
+</form>

@@ -1,5 +1,5 @@
 <h1>Edit destination</h1>
-<form [formGroup]="destinationForm" (ngSubmit)="updateDestination()">
+<form [formGroup]="destinationForm">
   <fieldset>
     <legend>{{destination.name}}</legend>
     <label for="name">Name:
@@ -26,7 +26,7 @@
       <input type="number" id="capacity" formControlName="capacity">
     </label>
     <br>
-    <input type="button" name="update" (click)="updateDestination()" value="Update">
+    <input name="update" type="submit" (click)="updateDestination()" value="Update">
     <input name="delete" type="submit" (click)="deleteDestination()" value="Delete">
   </fieldset>
 </form>

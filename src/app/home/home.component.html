@@ -1,4 +1,8 @@
-<div class="card" *ngFor="let agency of agencies">
+<input type="text" name="agencyNameSearch" placeholder="Search by agency name" [(ngModel)]="agencyNameSearchText"
+(input)="searchAgencies(agencyNameSearchText)">
+<input type="text" name="destinationNameSearch" placeholder="Search by destination name" [(ngModel)]="destinationNameSearchText"
+       (input)="searchDestinations(destinationNameSearchText)">
+<div class="card" *ngFor="let agency of filtered_agencies | agencySearchFilter: agencyNameSearchText : destinationNameSearchText">
   <div class="container">
     <p>Name: {{agency.name}}</p>
     <p>Address: {{agency.address}}</p>

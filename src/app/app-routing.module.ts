@@ -9,6 +9,7 @@ import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {EditAgencyComponent} from "./edit-agency/edit-agency.component";
 import {DestinationsComponent} from "./destinations/destinations.component";
 import {EditDestinationComponent} from "./edit-destination/edit-destination.component";
+import {UsersComponent} from "./users/users.component";
 
 const routes: Route[] = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -25,6 +26,7 @@ const routes: Route[] = [
   {path: 'edit_destination', component: EditDestinationComponent},
   {path: 'edit_agency', component: EditAgencyComponent},
   {path: 'edit_user', component: EditUserComponent},
+  {path: 'users', component: UsersComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: '**', component: PageNotFoundComponent} // Redirect any other invalid URL to PageNotFound

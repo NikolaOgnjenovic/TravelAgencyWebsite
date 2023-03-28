@@ -7,6 +7,7 @@ export class User {
   birthday: Date;
   address: string;
   phoneNumber: number;
+  id: number;
 
   constructor(user: any) {
     this.username = user.username;
@@ -17,5 +18,6 @@ export class User {
     this.birthday = user.birthday;
     this.address = user.address;
     this.phoneNumber = user.phoneNumber;
+    this.id = new Date().getTime();
   }
 }

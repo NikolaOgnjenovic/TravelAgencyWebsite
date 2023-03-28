@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Agency} from "./objects/Agency";
 import {Destination} from "./objects/Destination";
+import {User} from "./objects/User";
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import {Destination} from "./objects/Destination";
 export class AgencyService {
 
   private agencies: Agency[] = [];
+  private users: User[] = [];
   constructor() {
     this.agencies.push(
       new Agency(
@@ -66,21 +68,40 @@ export class AgencyService {
             })
           ]}
       ));
+
+    this.users.push(new User({
+      username: 'Mrmi',
+      password: '1234',
+      name: 'Nikola',
+      surname: 'O',
+      email: 'o@o.com',
+      birthday: new Date(),
+      address: 'Novi Sad',
+      phoneNumber: '+38161'
+    }));
   }
 
   getAgencies(): Agency[] {
     return this.agencies;
   }
 
-  getAgencyIndex(agencyId: number) {
-    return this.agencies.findIndex(a => a.id == agencyId);
-  }
-  getAgencyName(agencyId: number): string {
-    return this.agencies[this.getAgencyIndex(agencyId)].name;
-  }
-
   getDestinations(agencyId: number): Destination[] {
     return this.agencies[this.getAgencyIndex(agencyId)].destinations;
+  }
+
+  getAllDestinations(): Destination[] {
+    let destinations: Destination[] = [];
+    this.agencies.forEach((a) => a.destinations.forEach((d) => destinations.push(d)));
+    return destinations;
+  }
+
+  getUsers(): User[] {
+    console.table(this.users);
+    return this.users;
+  }
+
+  getAgencyName(agencyId: number): string {
+    return this.agencies[this.getAgencyIndex(agencyId)].name;
   }
 
   private getDestinationIndex(destination: Destination, agencyId: number): number {
@@ -88,15 +109,12 @@ export class AgencyService {
   }
 
   updateDestination(destination: Destination, agencyId: number, destinationId: number) {
-    destination.id = destinationId; // The edit-destination component sends a DestinationForm without an id
     let destinationIndex = this.getDestinationIndex(destination, agencyId);
     if (destinationIndex == -1) {
       return;
     }
-    console.log(destinationIndex);
-    console.table(this.getDestinations(agencyId));
+    destination.id = destinationId; // The edit-destination component sends a DestinationForm without an ida
     this.getDestinations(agencyId)[destinationIndex] = destination;
-    console.table(this.getDestinations(agencyId));
   }
 
   deleteDestination(destination: Destination, agencyId: number) {
@@ -107,18 +125,45 @@ export class AgencyService {
     this.getDestinations(agencyId).splice(destinationIndex, 1);
   }
 
+  private getAgencyIndex(agencyId: number) {
+    return this.agencies.findIndex(a => a.id == agencyId);
+  }
+
   updateAgency(agency: Agency, agencyId: number, destinations: Destination[]) {
     let agencyIndex = this.getAgencyIndex(agencyId);
-    if (agencyIndex != -1) {
-      this.agencies[agencyIndex] = agency;
-      this.agencies[agencyIndex].destinations = destinations;
+    if (agencyIndex == -1) {
+      return;
     }
+    agency.id = agencyId;
+    agency.destinations = destinations;
+    this.agencies[agencyIndex] = agency;
   }
 
   deleteAgency(agencyId: number) {
     let agencyIndex = this.getAgencyIndex(agencyId);
-    if (agencyIndex != -1) {
-      this.agencies.splice(agencyIndex, 1);
+    if (agencyIndex == -1) {
+      return;
     }
+    this.agencies.splice(agencyIndex, 1);
+  }
+
+  private getUserIndex(userId: number) {
+    return this.users.findIndex(u => u.id == userId);
+  }
+  updateUser(user: User, userId: number) {
+    let userIndex = this.getUserIndex(userId);
+    if (userIndex == -1) {
+      return;
+    }
+    user.id = userId;
+    this.users[userIndex] = user;
+  }
+
+  deleteUser(userId: number) {
+    let userIndex = this.getUserIndex(userId);
+    if (userIndex == -1) {
+      return;
+    }
+    this.users.splice(userIndex, 1);
   }
 }

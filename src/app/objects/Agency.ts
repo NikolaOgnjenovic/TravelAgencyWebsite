@@ -8,6 +8,7 @@ export class Agency {
   phone_number: string;
   email: string;
   destinations: Destination[];
+  filteredDestinations: Destination[]; // used in pipes
   id: number; // TODO: promeni na firebase ID
   static counter = 0; // zato sto system.time da isto vreme za moje hard-coded vrednosti
   constructor(agency: any) {
@@ -18,6 +19,7 @@ export class Agency {
     this.email = agency.email;
     this.destinations = agency.destinations;
     this.id = this.generateId();
+    this.filteredDestinations = this.destinations;
   }
 
   private generateId(): number {
