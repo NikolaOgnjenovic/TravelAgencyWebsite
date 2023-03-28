@@ -1,0 +1,8 @@
+<h1>{{agencyName}}'s destinations:</h1>
+<div class="card" *ngFor="let destination of destinations">
+  <div class="container">
+    <p>{{destination.name}}</p>
+    <button (click)="viewDestination(destination)">View destination</button>
+    <button (click)="editDestination(destination)">Edit destination</button>
+  </div>
+</div>

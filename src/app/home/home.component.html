@@ -1,0 +1,17 @@
+<div class="card" *ngFor="let agency of agencies">
+  <div class="container">
+    <p>Name: {{agency.name}}</p>
+    <p>Address: {{agency.address}}</p>
+    <p>Founded: {{agency.founded_year}}</p>
+    <p>Phone number: {{agency.phone_number}}</p>
+    <p>Email: {{agency.email}}</p>
+    <button (click)="viewDestinations(agency.destinations, agency.name)">View destinations</button>
+    <!--<table>
+      <td class="card" *ngFor="let destination of agency.destinations; index as i">
+        <button (click)="viewDestination(destination)">{{destination.name}}</button>
+      </td>
+    </table>-->
+
+    <button (click)="editAgency(agency)" *ngIf="this.isAdmin">Edit agency</button>
+  </div>
+</div>

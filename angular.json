@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "turisticka_agencija": {
+    "travel_agency": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/turisticka_agencija",
+            "outputPath": "dist/travel_agency",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "turisticka_agencija:build:production"
+              "browserTarget": "travel_agency:build:production"
             },
             "development": {
-              "browserTarget": "turisticka_agencija:build:development"
+              "browserTarget": "travel_agency:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "turisticka_agencija:build"
+            "browserTarget": "travel_agency:build"
           }
         },
         "test": {

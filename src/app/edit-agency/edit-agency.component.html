@@ -1,0 +1,25 @@
+<h1>Edit agency</h1>
+<form action="#">
+  <fieldset>
+    <legend>{{agency.name}}</legend>
+    <label for="name">Agency name:
+      <input type="text" id="name" [value]="agency.name">
+    </label>
+    <br>
+    <label for="address">Address:
+      <input type="text" id="address" [value]="agency.address">
+    </label>
+    <br>
+    <label for="founded_year">Founded year:
+      <input type="number" id="founded_year" [value]="agency.founded_year">
+    </label>
+    <br>
+    <label for="phone_number">Phone number:
+      <input type="text" id="phone_number" [value]="agency.phone_number">
+    </label>
+    <br>
+    <label for="email">Email:
+      <input type="text" id="email" [value]="agency.email">
+    </label>
+  </fieldset>
+</form>

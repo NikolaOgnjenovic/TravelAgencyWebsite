@@ -1,0 +1,32 @@
+<h1>Edit agency</h1>
+<form [formGroup]="destinationForm" (ngSubmit)="updateDestination()">
+  <fieldset>
+    <legend>{{destination.name}}</legend>
+    <label for="name">Name:
+      <input type="text" id="name" formControlName="name">
+    </label>
+    <br>
+    <label for="description">Description:
+      <input type="text" id="description" formControlName="description">
+    </label>
+    <br>
+    <label for="type">Type:
+      <input type="text" id="type" formControlName="type">
+    </label>
+    <br>
+    <label for="transport">Transport:
+      <input type="text" id="transport" formControlName="transport">
+    </label>
+    <br>
+    <label for="price">Price:
+      <input type="number" id="price" formControlName="price">
+    </label>
+    <br>
+    <label for="capacity">Capacity:
+      <input type="number" id="capacity" formControlName="capacity">
+    </label>
+    <br>
+    <input type="button" name="update" (click)="updateDestination()" value="Update">
+    <input name="delete" type="submit" (click)="deleteDestination()" value="Delete">
+  </fieldset>
+</form>
