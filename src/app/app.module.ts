@@ -16,6 +16,7 @@ import { DestinationsComponent } from './destinations/destinations.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UsersComponent } from './users/users.component';
 import { AgencySearchFilterPipe } from './agency-search-filter.pipe';
+import { DestinationSearchFilterPipe } from './destination-search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AgencySearchFilterPipe } from './agency-search-filter.pipe';
     EditAgencyComponent,
     DestinationsComponent,
     UsersComponent,
-    AgencySearchFilterPipe
+    AgencySearchFilterPipe,
+    DestinationSearchFilterPipe
   ],
     imports: [
         BrowserModule,

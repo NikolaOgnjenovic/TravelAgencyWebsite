@@ -1,5 +1,11 @@
 <h1>{{agencyName}}'s destinations:</h1>
-<div class="card" *ngFor="let destination of destinations">
+<input type="text" name="destinationNameSearch" placeholder="Search by destination name" [(ngModel)]="destinationNameSearchText"
+       (input)="searchDestinationsByName(destinationNameSearchText)">
+<input type="text" name="destinationTypeSearch" placeholder="Search by destination type" [(ngModel)]="destinationTypeSearchText"
+       (input)="searchDestinationsByType(destinationTypeSearchText)">
+<input type="text" name="destinationTransportSearch" placeholder="Search by transport type" [(ngModel)]="destinationTransportSearchText"
+       (input)="searchDestinationsByTransport(destinationTransportSearchText)">
+<div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText">
   <div class="container">
     <p>{{destination.name}}</p>
     <button (click)="viewDestination(destination)">View destination</button>

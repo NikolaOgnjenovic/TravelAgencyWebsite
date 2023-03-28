@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Agency} from "./objects/Agency";
-import {Destination} from "./objects/Destination";
 
 @Pipe({
   name: 'agencySearchFilter'

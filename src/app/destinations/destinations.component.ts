@@ -9,9 +9,13 @@ import {AgencyService} from "../agency.service";
   styleUrls: ['./destinations.component.css'],
 })
 export class DestinationsComponent implements OnInit {
-  destinations: Destination[] = [];
+  allDestinations: Destination[] = [];
   agencyId: number;
   agencyName: string;
+  filteredDestinations: Destination[] = [];
+  destinationNameSearchText: string = "";
+  destinationTypeSearchText: string = "";
+  destinationTransportSearchText: string = "";
   constructor(private router: Router, private agencyService: AgencyService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state;
     this.agencyId = routerExtras?.['agencyId'];
@@ -19,8 +23,8 @@ export class DestinationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.destinations = this.agencyService.getDestinations(this.agencyId);
-    console.table(this.destinations);
+    this.allDestinations = this.agencyService.getDestinations(this.agencyId);
+    this.filteredDestinations = this.allDestinations;
   }
 
   viewDestination(destination: Destination) {
@@ -29,5 +33,20 @@ export class DestinationsComponent implements OnInit {
 
   editDestination(destination: Destination) {
     this.router.navigate(['edit_destination'], {state: {destination: destination, agencyId: this.agencyId}});
+  }
+
+  searchDestinationsByName(destinationName: string) {
+    this.filteredDestinations = this.allDestinations.filter(
+      (destination) => destination.name.toLowerCase().includes(destinationName.toLowerCase()));
+  }
+
+  searchDestinationsByType(destinationType: string) {
+    this.filteredDestinations = this.allDestinations.filter(
+      (destination) => destination.type.toLowerCase().includes(destinationType.toLowerCase()));
+  }
+
+  searchDestinationsByTransport(destinationTransport: string) {
+    this.filteredDestinations = this.allDestinations.filter(
+      (destination) => destination.transport.toLowerCase().includes(destinationTransport.toLowerCase()));
   }
 }
