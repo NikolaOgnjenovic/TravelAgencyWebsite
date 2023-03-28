@@ -107,10 +107,11 @@ export class AgencyService {
     this.getDestinations(agencyId).splice(destinationIndex, 1);
   }
 
-  updateAgency(agency: Agency, agencyId: number) {
+  updateAgency(agency: Agency, agencyId: number, destinations: Destination[]) {
     let agencyIndex = this.getAgencyIndex(agencyId);
     if (agencyIndex != -1) {
       this.agencies[agencyIndex] = agency;
+      this.agencies[agencyIndex].destinations = destinations;
     }
   }
 
