@@ -10,15 +10,17 @@ import {AgencyService} from "../agency.service";
 })
 export class DestinationsComponent implements OnInit {
   destinations: Destination[] = [];
+  agencyId: number;
   agencyName: string;
   constructor(private router: Router, private agencyService: AgencyService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state;
-    this.agencyName = routerExtras?.['agencyName'];
-
+    this.agencyId = routerExtras?.['agencyId'];
+    this.agencyName = agencyService.getAgencyName(this.agencyId);
   }
 
   ngOnInit(): void {
-    this.destinations = this.agencyService.getDestinations(this.agencyName);
+    this.destinations = this.agencyService.getDestinations(this.agencyId);
+    console.table(this.destinations);
   }
 
   viewDestination(destination: Destination) {
@@ -26,6 +28,6 @@ export class DestinationsComponent implements OnInit {
   }
 
   editDestination(destination: Destination) {
-    this.router.navigate(['edit_destination'], {state: {destination: destination, agencyName: this.agencyName}});
+    this.router.navigate(['edit_destination'], {state: {destination: destination, agencyId: this.agencyId}});
   }
 }

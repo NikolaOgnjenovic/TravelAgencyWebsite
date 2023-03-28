@@ -11,5 +11,6 @@ export class DestinationComponent {
   destination: Destination;
   constructor(private router: Router) {
     this.destination = this.router.getCurrentNavigation()?.extras.state?.['destination'];
+    console.table(this.destination);
   }
 }

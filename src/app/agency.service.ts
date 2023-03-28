@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Agency} from "./objects/Agency";
 import {Destination} from "./objects/Destination";
 
@@ -18,24 +18,24 @@ export class AgencyService {
           phone_number: "+38166",
           email: "email@email.com",
           destinations: [
-            {
+            new Destination({
               name: "Prag",
               description: "Putovanje u Prag",
               //photos: slika[];
               type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
               transport: "Avionom", // avion, autobus, sopstveni prevoz
               price: 100,
-              capacity: 40 // max broj osoba
-            },
-            {
+              capacity: 40, // max broj osoba
+            }),
+            new Destination({
               name: "Ljubljana",
               description: "Putovanje u Ljubljanu",
               //photos: slika[];
               type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
               transport: "Autobusom", // avion, autobus, sopstveni prevoz
               price: 200,
-              capacity: 50 // max broj osoba
-            }
+              capacity: 50, // max broj osoba
+            })
           ]}
       ),
       new Agency(
@@ -46,24 +46,24 @@ export class AgencyService {
           phone_number: "+38165",
           email: "email@email.com",
           destinations: [
-            {
+            new Destination({
               name: "Prag",
               description: "Putovanje u Prag",
               //photos: slika[];
               type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
               transport: "Avionom", // avion, autobus, sopstveni prevoz
               price: 100,
-              capacity: 40 // max broj osoba
-            },
-            {
+              capacity: 40, // max broj osoba
+            }),
+            new Destination({
               name: "Ljubljana",
               description: "Putovanje u Ljubljanu",
               //photos: slika[];
               type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
               transport: "Autobusom", // avion, autobus, sopstveni prevoz
               price: 200,
-              capacity: 50 // max broj osoba
-            }
+              capacity: 50, // max broj osoba
+            })
           ]}
       ));
   }
@@ -72,34 +72,52 @@ export class AgencyService {
     return this.agencies;
   }
 
-  deleteDestination(destination: Destination, agencyName: string) {
-    this.agencies.forEach((a) => {
-      if (a.name == agencyName) {
-        const destinationIndex = a.destinations.findIndex(d => d.id == destination.id);
-        a.destinations.splice(destinationIndex, 1);
-      }
-    });
+  getAgencyIndex(agencyId: number) {
+    return this.agencies.findIndex(a => a.id == agencyId);
+  }
+  getAgencyName(agencyId: number): string {
+    return this.agencies[this.getAgencyIndex(agencyId)].name;
   }
 
-  getDestinations(agencyName: string): Destination[] {
-    let destinations: Destination[] = [];
-    this.agencies.forEach((a) => {
-      if (a.name == agencyName) {
-        destinations = a.destinations;
-      }
-    });
-    return destinations;
+  getDestinations(agencyId: number): Destination[] {
+    return this.agencies[this.getAgencyIndex(agencyId)].destinations;
   }
 
-  updateDestination(destination: Destination, agencyName: string) {
-    this.agencies.forEach((a) => {
-      if (a.name == agencyName) {
-        const destinationIndex = a.destinations.findIndex(d => d.id == destination.id);
-        if (destinationIndex == -1) {
-          return;
-        }
-        a.destinations[destinationIndex] = destination;
-      }
-    });
+  private getDestinationIndex(destination: Destination, agencyId: number): number {
+    return this.getDestinations(agencyId).findIndex(d => d.id == destination.id);
+  }
+
+  updateDestination(destination: Destination, agencyId: number, destinationId: number) {
+    destination.id = destinationId; // The edit-destination component sends a DestinationForm without an id
+    let destinationIndex = this.getDestinationIndex(destination, agencyId);
+    if (destinationIndex == -1) {
+      return;
+    }
+    console.log(destinationIndex);
+    console.table(this.getDestinations(agencyId));
+    this.getDestinations(agencyId)[destinationIndex] = destination;
+    console.table(this.getDestinations(agencyId));
+  }
+
+  deleteDestination(destination: Destination, agencyId: number) {
+    let destinationIndex = this.getDestinationIndex(destination, agencyId);
+    if (destinationIndex == -1) {
+      return;
+    }
+    this.getDestinations(agencyId).splice(destinationIndex, 1);
+  }
+
+  updateAgency(agency: Agency, agencyId: number) {
+    let agencyIndex = this.getAgencyIndex(agencyId);
+    if (agencyIndex != -1) {
+      this.agencies[agencyIndex] = agency;
+    }
+  }
+
+  deleteAgency(agencyId: number) {
+    let agencyIndex = this.getAgencyIndex(agencyId);
+    if (agencyIndex != -1) {
+      this.agencies.splice(agencyIndex, 1);
+    }
   }
 }

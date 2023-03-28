@@ -16,12 +16,8 @@ export class HomeComponent {
   constructor(private router: Router, private agencyService: AgencyService) {
     this.agencies = agencyService.getAgencies();
   }
-  /*viewDestination(agencyDestination: Destination) {
-    this.router.navigate(['destination'], {state: {destination: agencyDestination}});
-    console.log("VIEW DESITNATIONS");
-  }*/
-  viewDestinations(agencyDestinations: Destination[], agencyName: string) {
-    this.router.navigate(['destinations'], {state: {agencyName: agencyName}});
+  viewDestinations(agencyDestinations: Destination[], agencyId: number) {
+    this.router.navigate(['destinations'], {state: {agencyId: agencyId}});
     console.log("VIEW DESITNATIONS");
   }
 
