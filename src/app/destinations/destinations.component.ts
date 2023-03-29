@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {Destination} from "../objects/Destination";
 import {Agency} from "../objects/Agency";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-destinations',
@@ -33,7 +34,7 @@ export class DestinationsComponent implements OnInit {
   }
 
   editDestination(destination: Destination) {
-    this.router.navigate(['edit_destination'], {state: {destination: destination}});
+    this.router.navigate(['edit_destination'], {state: {destination: destination , agency: this.agency}});
   }
 
   searchDestinationsByName(destinationName: string) {
@@ -49,5 +50,9 @@ export class DestinationsComponent implements OnInit {
   searchDestinationsByTransport(destinationTransport: string) {
     this.filteredDestinations = this.allDestinations.filter(
       (destination) => destination.transport.toLowerCase().includes(destinationTransport.toLowerCase()));
+  }
+
+  isAdmin() {
+    return AuthService.isAdmin;
   }
 }

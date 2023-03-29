@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Destination} from "../objects/Destination";
+import {Agency} from "../objects/Agency";
 
 @Component({
   selector: 'app-edit-destination',
@@ -11,12 +12,12 @@ import {Destination} from "../objects/Destination";
 })
 export class EditDestinationComponent{
   destination: Destination;
-  agencyId: number;
+  agency: Agency;
   destinationForm: FormGroup;
   constructor(private router: Router, private agencyService: AgencyService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state
     this.destination = routerExtras?.['destination'];
-    this.agencyId = routerExtras?.['agencyId'];
+    this.agency = routerExtras?.['agency'];
     this.destinationForm = new FormGroup({
       name: new FormControl(this.destination.name),
       description: new FormControl(this.destination.description),
@@ -32,7 +33,7 @@ export class EditDestinationComponent{
       console.log("Denied");
     } else {
       this.agencyService.deleteDestination(this.destination.id);
-      this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
+      this.router.navigate(['destinations'], {state: {agency: this.agency}});
     }
   }
 
@@ -41,7 +42,7 @@ export class EditDestinationComponent{
       console.log("Denied");
     } else {
       this.agencyService.updateDestination(this.destinationForm.value, this.destination.id, this.destination.destinationGroupId);
-      this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
+      this.router.navigate(['destinations'], {state: {agency: this.agency}});
     }
   }
 }

@@ -9,6 +9,6 @@
   <div class="container">
     <p>{{destination.name}}</p>
     <button (click)="viewDestination(destination)">View destination</button>
-    <button (click)="editDestination(destination)">Edit destination</button>
+    <button *ngIf="isAdmin()" (click)="editDestination(destination)">Edit destination</button>
   </div>
 </div>

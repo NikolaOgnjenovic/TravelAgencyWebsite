@@ -10,6 +10,6 @@
     <p>Phone number: {{agency.phone_number}}</p>
     <p>Email: {{agency.email}}</p>
     <button (click)="viewDestinations(agency)">View destinations</button>
-    <button (click)="editAgency(agency)">Edit agency</button>
+    <button *ngIf="isAdmin()" (click)="editAgency(agency)">Edit agency</button>
   </div>
 </div>

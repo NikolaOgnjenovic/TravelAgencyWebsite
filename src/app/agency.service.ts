@@ -221,7 +221,7 @@ export class AgencyService {
   }
 
   getDestinationsByGroupId(destinationGroupId: string): Destination[] {
-    let destinations: Destination[] = [];
+    let destinations: Destination[];
     destinations = this.destinations.filter(dest => dest.destinationGroupId == destinationGroupId);
     return destinations;
   }
