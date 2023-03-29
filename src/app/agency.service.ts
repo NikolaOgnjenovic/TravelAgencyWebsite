@@ -3,6 +3,13 @@ import {Agency} from "./objects/Agency";
 import {Destination} from "./objects/Destination";
 import {User} from "./objects/User";
 import {AuthService} from "./auth.service";
+//import { initializeApp } from 'firebase/app';
+//import { getFirestore, collection, getDocs, Firestore} from 'firebase/firestore/lite';
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue} from "firebase/database";
+import {FirebaseAgency} from "./objects/FirebaseAgency";
+import {FirebaseDestination} from "./objects/FirebaseDestination";
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +18,29 @@ export class AgencyService {
 
   private agencies: Agency[] = [];
   private users: User[] = [];
+
+  // TODO: Replace the following with your app's Firebase project configuration
+  firebaseConfig = {
+    apiKey: "AIzaSyAt_PKPZxWswHK2KEq15oS1IixzjiJLVDE",
+
+    authDomain: "travelagency-4a308.firebaseapp.com",
+
+    projectId: "travelagency-4a308",
+
+    storageBucket: "travelagency-4a308.appspot.com",
+
+    messagingSenderId: "556550710811",
+
+    appId: "1:556550710811:web:dfd5606a6acfd040a63abe",
+
+    databaseURL: "https://travelagency-4a308-default-rtdb.europe-west1.firebasedatabase.app/"
+  };
+  firebase: any;
+  realtimeDatabase: any;
+
   constructor() {
+    this.firebase = initializeApp(this.firebaseConfig);
+    this.realtimeDatabase = getDatabase(this.firebase);
     this.agencies.push(
       new Agency(
         {
@@ -89,8 +118,65 @@ export class AgencyService {
       birthday: new Date(),
       address: 'b'
     }));
+
+    this.getDatabaseAgencies();
+    this.getDatabaseDestinations();
+    this.getDatabaseUsers();
   }
 
+  private getDatabaseAgencies(): any[] {
+    let agencies: any[] = [];
+    const agenciesRef = ref(this.realtimeDatabase, 'agencies/');
+    onValue(agenciesRef, (snapshot) => {
+      snapshot.forEach((child) => {
+        let a: FirebaseAgency = child.val();
+        if (child.key != null) {
+          a.id = child.key;
+        }
+        agencies.push(a);
+      });
+    });
+    console.log("\nAGENCIES:");
+    console.table(agencies);
+    return agencies;
+  }
+
+  private getDatabaseDestinations(): any[] {
+    let destinations: FirebaseDestination[] = [];
+    const destinationsRef = ref(this.realtimeDatabase, 'destinations/');
+    onValue(destinationsRef, (snapshot) => {
+      snapshot.forEach((destinationGroup) => {
+        destinationGroup.forEach((destination) => {
+          let d: FirebaseDestination = destination.val();
+          if (destination.key != null) {
+            d.id = destination.key;
+            d.destinationGroupId = destinationGroup.key;
+          }
+          destinations.push(d);
+        })
+      })
+    });
+    console.log("\nDESTINATIONS:");
+    console.table(destinations);
+    return destinations;
+  }
+
+  private getDatabaseUsers(): any[] {
+    let users: any[] = [];
+    const usersRef = ref(this.realtimeDatabase, 'users/');
+    onValue(usersRef, (snapshot) => {
+      snapshot.forEach((child) => {
+        let u: FirebaseAgency = child.val();
+        if (child.key != null) {
+          u.id = child.key;
+        }
+        users.push(u);
+      });
+    });
+    console.log("\nUSERS:");
+    console.table(users);
+    return users;
+  }
   getAgencies(): Agency[] {
     return this.agencies;
   }
