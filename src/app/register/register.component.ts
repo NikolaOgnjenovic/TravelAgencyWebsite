@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {User} from "../objects/User";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";

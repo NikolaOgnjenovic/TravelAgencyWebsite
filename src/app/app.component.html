@@ -1,7 +1,8 @@
 <header>
   <h1>Mrmitravel nav</h1>
   <nav>
-    <a *ngFor="let route of routes" [routerLink]="route.url">{{route.linkName}}</a>
+    <a routerLink="home">Home</a>
+    <a *ngIf="loggedIn" routerLink="users">User page</a>
     <a *ngIf="!loggedIn" routerLink="register">Register</a>
     <a *ngIf="!loggedIn" routerLink="login">Login</a>
     <input style="color:black" *ngIf="loggedIn" name="logout" type="button" (click)="logout()" value="Logout">

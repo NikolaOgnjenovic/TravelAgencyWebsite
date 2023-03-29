@@ -1,8 +1,9 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {Agency} from "../objects/Agency";
-import {Destination} from "../objects/Destination";
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
+import {Destination} from "../objects/Destination";
+import {AuthService} from "../auth.service";
+import {Agency} from "../objects/Agency";
 
 @Component({
   selector: 'app-home',
@@ -21,16 +22,15 @@ export class HomeComponent {
   constructor(private router: Router, private agencyService: AgencyService) {
     this.allAgencies = agencyService.getAgencies();
     this.filtered_agencies = this.allAgencies;
-    this.allDestinations = agencyService.getAllDestinations();
+    this.allDestinations = agencyService.getDestinations();
     this.filteredDestinations = this.allDestinations;
   }
-  viewDestinations(agencyDestinations: Destination[], agencyId: number) {
-    this.router.navigate(['destinations'], {state: {agencyId: agencyId}});
+  viewDestinations(agency: Agency) {
+    this.router.navigate(['destinations'], {state: {agency: agency}});
   }
 
-  // TODO: Verification (iako projekat ne trazi)
   isAdmin() {
-    return true;
+    return AuthService.isAdmin;
   }
   editAgency(agency: Agency) {
     this.router.navigate(['edit_agency'], {state: {agency: agency}});

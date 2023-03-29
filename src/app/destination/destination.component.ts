@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {Destination} from "../objects/Destination";
 import {Router} from "@angular/router";
+import {Destination} from "../objects/Destination";
 
 @Component({
   selector: 'app-destination',
@@ -11,6 +11,5 @@ export class DestinationComponent {
   destination: Destination;
   constructor(private router: Router) {
     this.destination = this.router.getCurrentNavigation()?.extras.state?.['destination'];
-    console.table(this.destination);
   }
 }

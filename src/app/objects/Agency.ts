@@ -4,27 +4,22 @@ export class Agency {
   name: string;
   address: string;
   founded_year: string;
-  //logo: slika;
+  photos: string[];
   phone_number: string;
   email: string;
-  destinations: Destination[];
-  filteredDestinations: Destination[]; // used in pipes
-  id: number; // TODO: promeni na firebase ID
-  static counter = 0; // zato sto system.time da isto vreme za moje hard-coded vrednosti
+  destinations: string;
+  filteredDestinations: Destination[];
+  id: string;
+
   constructor(agency: any) {
     this.name = agency.name;
     this.address = agency.address;
     this.founded_year = agency.founded_year;
+    this.photos = agency.photos;
     this.phone_number = agency.phone_number;
     this.email = agency.email;
     this.destinations = agency.destinations;
-    this.id = this.generateId();
-    this.filteredDestinations = this.destinations;
-  }
-
-  private generateId(): number {
-    let newId = new Date().getTime() + Agency.counter;
-    Agency.counter += 1000;
-    return newId;
+    this.filteredDestinations = [];
+    this.id = agency.id;
   }
 }

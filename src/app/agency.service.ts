@@ -1,25 +1,16 @@
 import {Injectable} from '@angular/core';
-import {Agency} from "./objects/Agency";
-import {Destination} from "./objects/Destination";
-import {User} from "./objects/User";
 import {AuthService} from "./auth.service";
-//import { initializeApp } from 'firebase/app';
-//import { getFirestore, collection, getDocs, Firestore} from 'firebase/firestore/lite';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue} from "firebase/database";
-import {FirebaseAgency} from "./objects/FirebaseAgency";
-import {FirebaseDestination} from "./objects/FirebaseDestination";
+import {Destination} from "./objects/Destination";
+import {User} from "./objects/User";
+import {Agency} from "./objects/Agency";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgencyService {
-
-  private agencies: Agency[] = [];
-  private users: User[] = [];
-
-  // TODO: Replace the following with your app's Firebase project configuration
   firebaseConfig = {
     apiKey: "AIzaSyAt_PKPZxWswHK2KEq15oS1IixzjiJLVDE",
 
@@ -38,9 +29,18 @@ export class AgencyService {
   firebase: any;
   realtimeDatabase: any;
 
+  private agencies: Agency[] = [];
+  private users: User[] = [];
+  private destinations: Destination[] = [];
+
   constructor() {
     this.firebase = initializeApp(this.firebaseConfig);
     this.realtimeDatabase = getDatabase(this.firebase);
+    //this.loadHardcodedData();
+    this.loadFirebaseData();
+  }
+
+  private loadHardcodedData() {
     this.agencies.push(
       new Agency(
         {
@@ -118,10 +118,13 @@ export class AgencyService {
       birthday: new Date(),
       address: 'b'
     }));
+  }
 
-    this.getDatabaseAgencies();
-    this.getDatabaseDestinations();
-    this.getDatabaseUsers();
+  // ------- FIREBASE -------
+  private loadFirebaseData() {
+    this.agencies = this.getDatabaseAgencies();
+    this.destinations = this.getDatabaseDestinations();
+    this.users = this.getDatabaseUsers();
   }
 
   private getDatabaseAgencies(): any[] {
@@ -129,7 +132,7 @@ export class AgencyService {
     const agenciesRef = ref(this.realtimeDatabase, 'agencies/');
     onValue(agenciesRef, (snapshot) => {
       snapshot.forEach((child) => {
-        let a: FirebaseAgency = child.val();
+        let a: Agency = child.val();
         if (child.key != null) {
           a.id = child.key;
         }
@@ -142,15 +145,17 @@ export class AgencyService {
   }
 
   private getDatabaseDestinations(): any[] {
-    let destinations: FirebaseDestination[] = [];
+    let destinations: Destination[] = [];
     const destinationsRef = ref(this.realtimeDatabase, 'destinations/');
     onValue(destinationsRef, (snapshot) => {
       snapshot.forEach((destinationGroup) => {
         destinationGroup.forEach((destination) => {
-          let d: FirebaseDestination = destination.val();
+          let d: Destination = destination.val();
           if (destination.key != null) {
             d.id = destination.key;
-            d.destinationGroupId = destinationGroup.key;
+            if (destinationGroup.key != null) {
+              d.destinationGroupId = destinationGroup.key;
+            }
           }
           destinations.push(d);
         })
@@ -166,7 +171,7 @@ export class AgencyService {
     const usersRef = ref(this.realtimeDatabase, 'users/');
     onValue(usersRef, (snapshot) => {
       snapshot.forEach((child) => {
-        let u: FirebaseAgency = child.val();
+        let u: Agency = child.val();
         if (child.key != null) {
           u.id = child.key;
         }
@@ -181,83 +186,28 @@ export class AgencyService {
     return this.agencies;
   }
 
-  getDestinations(agencyId: number): Destination[] {
-    return this.agencies[this.getAgencyIndex(agencyId)].destinations;
-  }
-
-  getAllDestinations(): Destination[] {
-    let destinations: Destination[] = [];
-    this.agencies.forEach((a) => a.destinations.forEach((d) => destinations.push(d)));
-    return destinations;
-  }
-
-  getUsers(): User[] {
-    if (AuthService.isAdmin) {
-      return this.users;
-    }
-    let user = this.getCurrentUser();
-    console.log("CURRENT USER");
-    console.table(user);
-    if (user != null) {
-      return [user];
-    }
-    return [];
-  }
-
-  private getCurrentUser() {
-    console.log("Service id: " + AuthService.userId);
-    let user = null;
-    this.users.forEach(u => {
-      if (u.id == AuthService.userId) {
-        user = u;
-      }
-    })
-    return user;
-
-    //users.find je problem? citaj dokumentaciju. 02:47 je. bolje ostavi
-    //return this.users.find(u => u.id = AuthService.userId);
-  }
-
-  getAgencyName(agencyId: number): string {
+  // ------ AGENCIES -------
+  getAgencyNameByAgencyId(agencyId: string): string {
     return this.agencies[this.getAgencyIndex(agencyId)].name;
   }
 
-  private getDestinationIndex(destination: Destination, agencyId: number): number {
-    return this.getDestinations(agencyId).findIndex(d => d.id == destination.id);
-  }
-
-  updateDestination(destination: Destination, agencyId: number, destinationId: number) {
-    let destinationIndex = this.getDestinationIndex(destination, agencyId);
-    if (destinationIndex == -1) {
-      return;
-    }
-    destination.id = destinationId; // The edit-destination component sends a DestinationForm without an ida
-    this.getDestinations(agencyId)[destinationIndex] = destination;
-  }
-
-  deleteDestination(destination: Destination, agencyId: number) {
-    let destinationIndex = this.getDestinationIndex(destination, agencyId);
-    if (destinationIndex == -1) {
-      return;
-    }
-    this.getDestinations(agencyId).splice(destinationIndex, 1);
-  }
-
-  private getAgencyIndex(agencyId: number) {
+  private getAgencyIndex(agencyId: string) {
     return this.agencies.findIndex(a => a.id == agencyId);
   }
 
-  updateAgency(agency: Agency, agencyId: number, destinations: Destination[]) {
+  // TODO: Update / remove from database
+  updateAgency(agency: Agency, agencyId: string, destinationGroupId: string) {
     let agencyIndex = this.getAgencyIndex(agencyId);
     if (agencyIndex == -1) {
       return;
     }
+    // The edit-destination component sends a DestinationForm without an id
     agency.id = agencyId;
-    agency.destinations = destinations;
+    agency.destinations = destinationGroupId;
     this.agencies[agencyIndex] = agency;
   }
 
-  deleteAgency(agencyId: number) {
+  deleteAgency(agencyId: string) {
     let agencyIndex = this.getAgencyIndex(agencyId);
     if (agencyIndex == -1) {
       return;
@@ -265,19 +215,53 @@ export class AgencyService {
     this.agencies.splice(agencyIndex, 1);
   }
 
-  private getUserIndex(userId: number) {
+  // ------- DESTINATIONS -------
+  getDestinations() {
+    return this.destinations;
+  }
+
+  getDestinationsByGroupId(destinationGroupId: string): Destination[] {
+    let destinations: Destination[] = [];
+    destinations = this.destinations.filter(dest => dest.destinationGroupId == destinationGroupId);
+    return destinations;
+  }
+
+  private getDestinationIndex(destinationId: string): number {
+    return this.destinations.findIndex(d => d.id == destinationId);
+  }
+
+  updateDestination(destination: Destination, destinationId: string, destinationGroupId: string) {
+    let destinationIndex = this.getDestinationIndex(destinationId);
+    if (destinationIndex == -1) {
+      return;
+    }
+    destination.id = destinationId; // The edit-destination component sends a DestinationForm without an id
+    destination.destinationGroupId = destinationGroupId;
+    this.destinations[destinationIndex] = destination;
+  }
+
+  deleteDestination(destinationId: string) {
+    let destinationIndex = this.getDestinationIndex(destinationId);
+    if (destinationIndex == -1) {
+      return;
+    }
+    this.destinations.splice(destinationIndex, 1);
+  }
+
+  // ------ USERS ------
+  private getUserIndex(userId: string) {
     return this.users.findIndex(u => u.id == userId);
   }
-  updateUser(user: User, userId: number) {
+  updateUser(user: User, userId: string) {
     let userIndex = this.getUserIndex(userId);
     if (userIndex == -1) {
       return;
     }
-    user.id = userId;
+    user.id = userId; // The edit-destination component sends a DestinationForm without an id
     this.users[userIndex] = user;
   }
 
-  deleteUser(userId: number) {
+  deleteUser(userId: string) {
     let userIndex = this.getUserIndex(userId);
     if (userIndex == -1) {
       return;
@@ -289,19 +273,34 @@ export class AgencyService {
     this.users.push(user);
   }
 
-  getLoggedInUserId(username: string) {
-    console.table(this.users);
-    console.log("agency username: " + username);
-    let userId = -1;
+  getLoggedInUserId(username: string): string | null {
+    let userId = "";
     this.users.forEach(u => {
-      console.log(u.username == username);
       if (u.username == username) {
-        console.log("yes, " + u.id);
         userId = u.id;
       }
     });
     return userId;
-    //console.log(this.users.find(u => u.username == username));
-    //return this.users.find(u => u.username == username)?.id;
+  }
+
+  private getLoggedInUser() {
+    let user = null;
+    this.users.forEach(u => {
+      if (u.id == AuthService.userId) {
+        user = u;
+      }
+    })
+    return user;
+  }
+
+  getUsers(): User[] {
+    if (AuthService.isAdmin) {
+      return this.users;
+    }
+    let user = this.getLoggedInUser();
+    if (user != null) {
+      return [user];
+    }
+    return [];
   }
 }

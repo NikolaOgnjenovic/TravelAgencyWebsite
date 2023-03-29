@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
-import {Agency} from "../objects/Agency";
 import {AgencyService} from "../agency.service";
 import {FormControl, FormGroup} from "@angular/forms";
+import {Agency} from "../objects/Agency";
 
 @Component({
   selector: 'app-edit-agency',

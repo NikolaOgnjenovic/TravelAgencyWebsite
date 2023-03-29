@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Destination} from "../objects/Destination";
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
+import {Destination} from "../objects/Destination";
+import {Agency} from "../objects/Agency";
 
 @Component({
   selector: 'app-destinations',
@@ -10,7 +11,7 @@ import {AgencyService} from "../agency.service";
 })
 export class DestinationsComponent implements OnInit {
   allDestinations: Destination[] = [];
-  agencyId: number;
+  agency: Agency;
   agencyName: string;
   filteredDestinations: Destination[] = [];
   destinationNameSearchText: string = "";
@@ -18,12 +19,12 @@ export class DestinationsComponent implements OnInit {
   destinationTransportSearchText: string = "";
   constructor(private router: Router, private agencyService: AgencyService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state;
-    this.agencyId = routerExtras?.['agencyId'];
-    this.agencyName = agencyService.getAgencyName(this.agencyId);
+    this.agency = routerExtras?.['agency'];
+    this.agencyName = agencyService.getAgencyNameByAgencyId(this.agency.id);
   }
 
   ngOnInit(): void {
-    this.allDestinations = this.agencyService.getDestinations(this.agencyId);
+    this.allDestinations = this.agencyService.getDestinationsByGroupId(this.agency.destinations);
     this.filteredDestinations = this.allDestinations;
   }
 
@@ -32,7 +33,7 @@ export class DestinationsComponent implements OnInit {
   }
 
   editDestination(destination: Destination) {
-    this.router.navigate(['edit_destination'], {state: {destination: destination, agencyId: this.agencyId}});
+    this.router.navigate(['edit_destination'], {state: {destination: destination}});
   }
 
   searchDestinationsByName(destinationName: string) {

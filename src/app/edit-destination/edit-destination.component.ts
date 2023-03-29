@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {Destination} from "../objects/Destination";
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {FormControl, FormGroup} from "@angular/forms";
+import {Destination} from "../objects/Destination";
 
 @Component({
   selector: 'app-edit-destination',
@@ -31,7 +31,7 @@ export class EditDestinationComponent{
     if (!confirm("Are you sure that you want to delete this destination?")) {
       console.log("Denied");
     } else {
-      this.agencyService.deleteDestination(this.destination, this.agencyId);
+      this.agencyService.deleteDestination(this.destination.id);
       this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
     }
   }
@@ -40,7 +40,7 @@ export class EditDestinationComponent{
     if (!confirm("Are you sure that you want to update this destination?")) {
       console.log("Denied");
     } else {
-      this.agencyService.updateDestination(this.destinationForm.value, this.agencyId, this.destination.id);
+      this.agencyService.updateDestination(this.destinationForm.value, this.destination.id, this.destination.destinationGroupId);
       this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
     }
   }

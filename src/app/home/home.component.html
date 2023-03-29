@@ -9,7 +9,7 @@
     <p>Founded: {{agency.founded_year}}</p>
     <p>Phone number: {{agency.phone_number}}</p>
     <p>Email: {{agency.email}}</p>
-    <button (click)="viewDestinations(agency.destinations, agency.id)">View destinations</button>
-    <button (click)="editAgency(agency)" *ngIf="this.isAdmin">Edit agency</button>
+    <button (click)="viewDestinations(agency)">View destinations</button>
+    <button (click)="editAgency(agency)">Edit agency</button>
   </div>
 </div>

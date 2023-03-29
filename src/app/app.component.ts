@@ -7,14 +7,6 @@ import {AuthService} from "./auth.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterContentChecked{
-  routes = [
-    {linkName: "Home", url: "home"},
-    {linkName: "Users", url: "users"}
-  ];
-
-  constructor(private authService: AuthService) {
-
-  }
   loggedIn: boolean = AuthService.loggedIn;
 
   ngAfterContentChecked() {
@@ -22,6 +14,6 @@ export class AppComponent implements AfterContentChecked{
   }
 
   logout() {
-    this.authService.logout();
+    AuthService.logout();
   }
 }

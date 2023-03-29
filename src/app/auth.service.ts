@@ -11,7 +11,7 @@ export class AuthService {
   // TODO: token?
   static isAdmin: boolean = false;
   static loggedIn: boolean = false;
-  static userId: number;
+  static userId: string;
   login(auth: any): boolean {
     // TODO: find a different way to handle logging in (listing all users without needing to be admin)!!!
     AuthService.isAdmin = true;
@@ -31,9 +31,9 @@ export class AuthService {
     return true;
   }
 
-  logout() {
+  static logout() {
     AuthService.isAdmin = false;
     AuthService.loggedIn = false;
-    AuthService.userId = -1;
+    AuthService.userId = "";
   }
 }
