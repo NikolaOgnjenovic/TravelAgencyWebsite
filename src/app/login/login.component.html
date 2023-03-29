@@ -1,1 +1,14 @@
-<p>login works!</p>
+<h1>Login</h1>
+<form [formGroup]="loginForm">
+  <fieldset>
+    <legend>Login form</legend>
+    <label for="username">Username:
+      <input type="text" id="username" formControlName="username">
+    </label>
+    <br>
+    <label for="password">Password:
+      <input type="text" id="password" formControlName="password">
+    </label>
+    <input name="login" type="submit" (click)="login()" value="Login">
+  </fieldset>
+</form>

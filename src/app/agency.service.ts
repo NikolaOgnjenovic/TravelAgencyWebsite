@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Agency} from "./objects/Agency";
 import {Destination} from "./objects/Destination";
 import {User} from "./objects/User";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -70,14 +71,23 @@ export class AgencyService {
       ));
 
     this.users.push(new User({
-      username: 'Mrmi',
-      password: '1234',
-      name: 'Nikola',
-      surname: 'O',
-      email: 'o@o.com',
+      username: 'admin',
+      password: 'admin',
+      name: 'a',
+      surname: 'a',
+      email: 'a',
       birthday: new Date(),
-      address: 'Novi Sad',
-      phoneNumber: '+38161'
+      address: 'a',
+      phoneNumber: 'a'
+    }));
+    this.users.push(new User({
+      username: 'user',
+      password: '1234',
+      name: 'b',
+      surname: 'b',
+      email: 'b',
+      birthday: new Date(),
+      address: 'b'
     }));
   }
 
@@ -96,8 +106,30 @@ export class AgencyService {
   }
 
   getUsers(): User[] {
-    console.table(this.users);
-    return this.users;
+    if (AuthService.isAdmin) {
+      return this.users;
+    }
+    let user = this.getCurrentUser();
+    console.log("CURRENT USER");
+    console.table(user);
+    if (user != null) {
+      return [user];
+    }
+    return [];
+  }
+
+  private getCurrentUser() {
+    console.log("Service id: " + AuthService.userId);
+    let user = null;
+    this.users.forEach(u => {
+      if (u.id == AuthService.userId) {
+        user = u;
+      }
+    })
+    return user;
+
+    //users.find je problem? citaj dokumentaciju. 02:47 je. bolje ostavi
+    //return this.users.find(u => u.id = AuthService.userId);
   }
 
   getAgencyName(agencyId: number): string {
@@ -165,5 +197,25 @@ export class AgencyService {
       return;
     }
     this.users.splice(userIndex, 1);
+  }
+
+  saveUser(user: User) {
+    this.users.push(user);
+  }
+
+  getLoggedInUserId(username: string) {
+    console.table(this.users);
+    console.log("agency username: " + username);
+    let userId = -1;
+    this.users.forEach(u => {
+      console.log(u.username == username);
+      if (u.username == username) {
+        console.log("yes, " + u.id);
+        userId = u.id;
+      }
+    });
+    return userId;
+    //console.log(this.users.find(u => u.username == username));
+    //return this.users.find(u => u.username == username)?.id;
   }
 }

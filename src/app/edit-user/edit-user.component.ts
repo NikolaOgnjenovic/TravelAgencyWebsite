@@ -13,7 +13,7 @@ export class EditUserComponent {
   user: User;
   userForm: FormGroup;
   constructor(private router: Router, private agencyService: AgencyService) {
-    const routerExtras = this.router.getCurrentNavigation()?.extras.state
+    const routerExtras = this.router.getCurrentNavigation()?.extras.state;
     this.user = routerExtras?.['user'];
     this.userForm = new FormGroup({
       username: new FormControl(this.user.username),

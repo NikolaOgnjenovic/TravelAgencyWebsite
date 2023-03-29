@@ -15,6 +15,7 @@ export class UsersComponent {
   }
 
   editUser(user: User) {
+    console.table(user);
     this.router.navigate(['edit_user'], {state: {user: user}});
   }
 }
