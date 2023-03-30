@@ -6,8 +6,8 @@
   <div class="container">
     <p>Name: {{agency.name}}</p>
     <p>Address: {{agency.address}}</p>
-    <p>Founded: {{agency.founded_year}}</p>
-    <p>Phone number: {{agency.phone_number}}</p>
+    <p>Founded: {{agency.foundingYear}}</p>
+    <p>Phone number: {{agency.phoneNumber}}</p>
     <p>Email: {{agency.email}}</p>
     <button (click)="viewDestinations(agency)">View destinations</button>
     <button *ngIf="isAdmin()" (click)="editAgency(agency)">Edit agency</button>

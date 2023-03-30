@@ -3,9 +3,9 @@ import {Destination} from "./Destination";
 export class Agency {
   name: string;
   address: string;
-  founded_year: string;
-  photos: string[];
-  phone_number: string;
+  foundingYear: string;
+  logo: string;
+  phoneNumber: string;
   email: string;
   destinations: string;
   filteredDestinations: Destination[];
@@ -14,9 +14,9 @@ export class Agency {
   constructor(agency: any) {
     this.name = agency.name;
     this.address = agency.address;
-    this.founded_year = agency.founded_year;
-    this.photos = agency.photos;
-    this.phone_number = agency.phone_number;
+    this.foundingYear = agency.foundingYear;
+    this.logo = agency.logo;
+    this.phoneNumber = agency.phoneNumber;
     this.email = agency.email;
     this.destinations = agency.destinations;
     this.filteredDestinations = [];

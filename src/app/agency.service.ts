@@ -5,6 +5,7 @@ import { getDatabase, ref, onValue} from "firebase/database";
 import {Destination} from "./objects/Destination";
 import {User} from "./objects/User";
 import {Agency} from "./objects/Agency";
+import {FormGroup} from "@angular/forms";
 
 
 @Injectable({
@@ -46,8 +47,8 @@ export class AgencyService {
         {
           name: "Mrmi travel",
           address: "2023",
-          founded_year: 2023,
-          phone_number: "+38166",
+          foundingYear: 2023,
+          phoneNumber: "+38166",
           email: "email@email.com",
           destinations: [
             new Destination({
@@ -74,8 +75,8 @@ export class AgencyService {
         {
           name: "Marina travel",
           address: "adrs",
-          founded_year: 2021,
-          phone_number: "+38165",
+          foundingYear: 2021,
+          phoneNumber: "+38165",
           email: "email@email.com",
           destinations: [
             new Destination({
@@ -196,7 +197,7 @@ export class AgencyService {
   }
 
   // TODO: Update / remove from database
-  updateAgency(agency: Agency, agencyId: string, destinationGroupId: string) {
+  updateAgency(agency: Agency, agencyId: string, destinationGroupId: string, agencyLogo: string) {
     let agencyIndex = this.getAgencyIndex(agencyId);
     if (agencyIndex == -1) {
       return;
@@ -204,6 +205,7 @@ export class AgencyService {
     // The edit-destination component sends a DestinationForm without an id
     agency.id = agencyId;
     agency.destinations = destinationGroupId;
+    agency.logo = agencyLogo;
     this.agencies[agencyIndex] = agency;
   }
 
@@ -213,6 +215,35 @@ export class AgencyService {
       return;
     }
     this.agencies.splice(agencyIndex, 1);
+  }
+
+  validateAgencyForm(value: any): boolean {
+    if (value.name.length < 1) {
+      console.log("Empty name");
+      return false;
+    }
+
+    if (value.address.length < 1) {
+      console.log("Empty address");
+      return false;
+    }
+
+    if (!/([0-9]+$)/g.test(value.foundingYear)) {
+      console.log("year: " + value.foundingYear + " type: " + typeof(value.foundingYear));
+      console.log("Founding year not integer");
+      return false;
+    }
+
+    if (!/([0-9]+)+\/([0-9]+)-([0-9]+)$/g.test(value.phoneNumber)) {
+      console.log("Phone number not valid");
+      return false;
+    }
+
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value.email)) {
+      console.log("Invalid email");
+      return false;
+    }
+    return true;
   }
 
   // ------- DESTINATIONS -------
@@ -230,13 +261,14 @@ export class AgencyService {
     return this.destinations.findIndex(d => d.id == destinationId);
   }
 
-  updateDestination(destination: Destination, destinationId: string, destinationGroupId: string) {
+  updateDestination(destination: Destination, destinationId: string, destinationGroupId: string, destinationImages: string[]) {
     let destinationIndex = this.getDestinationIndex(destinationId);
     if (destinationIndex == -1) {
       return;
     }
     destination.id = destinationId; // The edit-destination component sends a DestinationForm without an id
     destination.destinationGroupId = destinationGroupId;
+    destination.images = destinationImages;
     this.destinations[destinationIndex] = destination;
   }
 
@@ -246,6 +278,39 @@ export class AgencyService {
       return;
     }
     this.destinations.splice(destinationIndex, 1);
+  }
+
+  validateDestinationForm(value: any): boolean {
+    if (value.name.length < 1) {
+      console.log("Empty name");
+      return false;
+    }
+
+    if (value.description.length < 1) {
+      console.log("Empty description");
+      return false;
+    }
+
+    if (value.type.length < 1) {
+      console.log("Empty type");
+      return false;
+    }
+
+    if (value.transport.length < 1) {
+      console.log("Empty transport");
+      return false;
+    }
+
+    if (!/([0-9]+$)/g.test(value.price)) {
+      console.log("Invalid price");
+      return false;
+    }
+
+    if (!/([0-9]+$)/g.test(value.capacity)) {
+      console.log("Invalid capacity");
+      return false;
+    }
+    return true;
   }
 
   // ------ USERS ------
@@ -302,5 +367,44 @@ export class AgencyService {
       return [user];
     }
     return [];
+  }
+
+  validateUserForm(value: any): boolean {
+    if (value.username.length < 1) {
+      console.log("Empty name");
+      return false;
+    }
+
+    if (value.password.length < 1) {
+      console.log("Empty address");
+      return false;
+    }
+
+    if (value.name.length < 1) {
+      console.log("Empty address");
+      return false;
+    }
+
+    if (value.surname.length < 1) {
+      console.log("Empty address");
+      return false;
+    }
+
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value.email)) {
+      console.log("Invalid email");
+      return false;
+    }
+
+    if (value.address.length < 1) {
+      console.log("Empty address");
+      return false;
+    }
+
+    if (!/[0-9]+$/g.test(value.phoneNumber)) {
+      console.log("Empty address");
+      return false;
+    }
+
+    return true;
   }
 }

@@ -1,7 +1,7 @@
 export class Destination {
   name: string;
   description: string;
-  //photos: slika[];
+  images: string[];
   type: string; // Letovanje, zimovanje, gradovi Evrope
   transport: string; // avion, autobus, sopstveni prevoz
   price: number;
@@ -12,6 +12,7 @@ export class Destination {
   constructor(destination: any) {
     this.name = destination.name;
     this.description = destination.description;
+    this.images = destination.images;
     this.type = destination.type;
     this.transport = destination.transport;
     this.price = destination.price;

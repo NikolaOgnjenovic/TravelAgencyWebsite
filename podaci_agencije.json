@@ -3,7 +3,7 @@
         "-MNQgy9N5foEWTmmA_1U": {
             "name": "Aero-turs",
             "address": "Obrenovićeva bb T.C. Gorča,Beograd,11000",
-            "founded_year": "2011",
+            "foundingYear": "2011",
             "logo": "https://i.imgur.com/OV15WM6.jpeg",
             "phoneNumber": "011/7872-78423",
             "email": "aero@mail.com",
@@ -12,7 +12,7 @@
         "-MNQftJa4rskH-dBqE9Z": {
             "name": "Air Serbia",
             "address": " Bulevar umetnosti 16, Beograd, 11000",
-            "founded_year": "2005",
+            "foundingYear": "2005",
             "logo": "https://i.imgur.com/jsFrKCn.jpeg",
             "phoneNumber": "011/3232-784323",
             "email": "airserbia381@mail.com",
@@ -22,7 +22,7 @@
             "name": "Bavka tours",
             "address": "Gornji Bunibrod bb, Lazarevac, 16221 ",
             "logo": "https://i.imgur.com/NhAzBBF.jpeg",
-            "founded_year": "1990",
+            "foundingYear": "1990",
             "phoneNumber": "022/9874-589545",
             "email": "bavka@mail.com",
             "destinations": "-MNVEu6iMr2EFlQO6TW61"
@@ -31,7 +31,7 @@
             "name": "Bečej transport",
             "address": "Danila Kiša 10, Bečej, 21220",
             "logo": "https://i.imgur.com/k4nEZm6.jpeg",
-            "founded_year": "1980",
+            "foundingYear": "1980",
             "phoneNumber": "096/2121-322322",
             "email": "bavka@mail.com",
             "destinations": "-MNVEu6iMr2EFlQO6TW62"
@@ -40,7 +40,7 @@
             "name": "Big Blue",
             "address": "Kolarčeva 3, Beograd, 11000",
             "logo": "https://i.imgur.com/nmAOOHF.jpeg",
-            "founded_year": "1989",
+            "foundingYear": "1989",
             "phoneNumber": "088/6969-8745962",
             "email": "biblue011@mail.com",
             "destinations": "-MNVEu6iMr2EFlQO6TW62"
@@ -49,7 +49,7 @@
             "name": "Planet AIR",
             "address": "Narodnog fronta 27, ovi Sad, 21000",
             "logo": "https://i.imgur.com/GXPCPrq.jpeg",
-            "founded_year": "1992",
+            "foundingYear": "1992",
             "phoneNumber": "088/6969-8745962",
             "email": "bigblue011@mail.com",
             "destinations": "-MNVEu6iMr2EFlQO6TW62"
@@ -58,7 +58,7 @@
             "name": "Rapsody Travel",
             "address": "Vojvode Šupljikca 19, Beogrd ,11000",
             "logo": "https://i.imgur.com/LpxNm2V.jpeg",
-            "founded_year": "1992",
+            "foundingYear": "1992",
             "phoneNumber": "084/1234-145874",
             "email": "rapsody011@mail.com",
             "destinations": "-MNVEu6iMr2EFlQO6TW63"
@@ -67,7 +67,7 @@
             "name": "Viva Travel",
             "address": "Krunska 48, Beograd, 11000",
             "logo": "https://i.imgur.com/koU4UuR.jpeg",
-            "founded_year": "1980",
+            "foundingYear": "1980",
             "phoneNumber": "062/8785-987612",
             "email": "viva123@mail.com",
             "destinations": "-MNVEu6iMr2EFlQO6TW61"
@@ -76,7 +76,7 @@
             "name": "Vip tours",
             "address": "Trg Pavla Stojkovića 12, Nis, 18000",
             "logo": "https://i.imgur.com/zUrrGam.jpeg",
-            "founded_year": "2001",
+            "foundingYear": "2001",
             "phoneNumber": "054/1233-896574",
             "email": "vip.vip@mail.com",
             "destinations": "-MNVEu6iMr2EFlQO6TW60"
@@ -115,7 +115,7 @@
             },
             "-MNQftJa4rskH-dBqF9Z5": {
                 "name": "Platamon",
-                "description": "Platamon je smešten u Olimpskoj Regiji (oblast Pieria) na manje od 4 kilometara od popularnog letovališta Nei Pori i desetak kilometara od Leptokarije. Do skoro ovo mesto bilo je ljubomorno čuvana tajna turista iz kopnenog dela Grčke ali u poslednjih par founded_year ovaj trend je počeo da se menja i sve više stranih posetioca dolazi u ovo mesto, a pogotovo iz Srbije.Platamon se može pohvaliti ne sa jednom već sa dve prelepe plaže i lukom koja se nalazi između i razdvaja ih. Obe plaže su šljunkovite odlično su uređene i na njima se nalaze beach barovi koji nude na raspolaganje ležaljke i suncobrane bez naknade za iznajmljivanje, već uz konzumaciju pića ih dobijate na korišćenje. U blizini se nalazi kamp Kalamaki a ispred ovog kampa se nalazi plaža prekrivena peskom, te ljubitelji ovakvih plaža imaju i ovu soluciju.",
+                "description": "Platamon je smešten u Olimpskoj Regiji (oblast Pieria) na manje od 4 kilometara od popularnog letovališta Nei Pori i desetak kilometara od Leptokarije. Do skoro ovo mesto bilo je ljubomorno čuvana tajna turista iz kopnenog dela Grčke ali u poslednjih par foundingYear ovaj trend je počeo da se menja i sve više stranih posetioca dolazi u ovo mesto, a pogotovo iz Srbije.Platamon se može pohvaliti ne sa jednom već sa dve prelepe plaže i lukom koja se nalazi između i razdvaja ih. Obe plaže su šljunkovite odlično su uređene i na njima se nalaze beach barovi koji nude na raspolaganje ležaljke i suncobrane bez naknade za iznajmljivanje, već uz konzumaciju pića ih dobijate na korišćenje. U blizini se nalazi kamp Kalamaki a ispred ovog kampa se nalazi plaža prekrivena peskom, te ljubitelji ovakvih plaža imaju i ovu soluciju.",
                 "images": [
                     "https://i.imgur.com/zHG54w5.jpeg",
                     "https://i.imgur.com/UhJy3mO.jpeg",

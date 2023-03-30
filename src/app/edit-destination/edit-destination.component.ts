@@ -39,10 +39,14 @@ export class EditDestinationComponent{
 
   updateDestination() {
     if (!confirm("Are you sure that you want to update this destination?")) {
-      console.log("Denied");
+      alert("Denied");
     } else {
-      this.agencyService.updateDestination(this.destinationForm.value, this.destination.id, this.destination.destinationGroupId);
-      this.router.navigate(['destinations'], {state: {agency: this.agency}});
+      if (this.agencyService.validateDestinationForm(this.destinationForm.value)) {
+        this.agencyService.updateDestination(this.destinationForm.value, this.destination.id, this.destination.destinationGroupId, this.destination.images);
+        this.router.navigate(['destinations'], {state: {agency: this.agency}});
+      } else {
+        alert("Bad data");
+      }
     }
   }
 }

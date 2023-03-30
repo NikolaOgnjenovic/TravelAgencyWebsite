@@ -19,8 +19,8 @@ export class EditAgencyComponent {
     this.agencyForm = new FormGroup({
       name: new FormControl(this.agency.name),
       address: new FormControl(this.agency.address),
-      founded_year: new FormControl(this.agency.founded_year),
-      phone_number: new FormControl(this.agency.phone_number),
+      foundingYear: new FormControl(this.agency.foundingYear),
+      phoneNumber: new FormControl(this.agency.phoneNumber),
       email: new FormControl(this.agency.email),
     });
   }
@@ -36,10 +36,14 @@ export class EditAgencyComponent {
 
   updateAgency() {
     if (!confirm("Are you sure that you want to update this agency?")) {
-      console.log("Denied");
+      alert("Denied");
     } else {
-      this.agencyService.updateAgency(this.agencyForm.value, this.agency.id, this.agency.destinations);
-      this.router.navigate(['home']);
+      if (this.agencyService.validateAgencyForm(this.agencyForm.value)) {
+        this.agencyService.updateAgency(this.agencyForm.value, this.agency.id, this.agency.destinations, this.agency.logo);
+        this.router.navigate(['home']);
+      } else {
+        alert("Bad data");
+      }
     }
   }
 }

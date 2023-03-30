@@ -40,8 +40,12 @@ export class EditUserComponent {
     if (!confirm("Are you sure that you want to update this user?")) {
       console.log("Denied");
     } else {
-      this.agencyService.updateUser(this.userForm.value, this.user.id);
-      this.router.navigate(['users']);
+      if (this.agencyService.validateUserForm(this.userForm.value)) {
+        this.agencyService.updateUser(this.userForm.value, this.user.id);
+        this.router.navigate(['users']);
+      } else {
+        alert("Bad data");
+      }
     }
   }
 }
