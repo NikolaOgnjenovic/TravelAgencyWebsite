@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UsersComponent } from './users/users.component';
 import { AgencySearchFilterPipe } from './agency-search-filter.pipe';
 import { DestinationSearchFilterPipe } from './destination-search-filter.pipe';
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -35,12 +36,13 @@ import { DestinationSearchFilterPipe } from './destination-search-filter.pipe';
     AgencySearchFilterPipe,
     DestinationSearchFilterPipe
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgOptimizedImage
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

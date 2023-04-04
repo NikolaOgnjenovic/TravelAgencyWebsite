@@ -2,22 +2,22 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {FormControl, FormGroup} from "@angular/forms";
-import {Destination} from "../objects/Destination";
-import {Agency} from "../objects/Agency";
 
 @Component({
   selector: 'app-edit-destination',
   templateUrl: './edit-destination.component.html',
   styleUrls: ['./edit-destination.component.css']
 })
-export class EditDestinationComponent{
-  destination: Destination;
-  agency: Agency;
+export class EditDestinationComponent {
+  destinationId: string;
+  destination: any;
+  agencyId: string;
   destinationForm: FormGroup;
   constructor(private router: Router, private agencyService: AgencyService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state
-    this.destination = routerExtras?.['destination'];
-    this.agency = routerExtras?.['agency'];
+    this.destinationId = routerExtras?.['destinationId'];
+    this.destination = agencyService.getDestination(this.destinationId);
+    this.agencyId = routerExtras?.['agencyId'];
     this.destinationForm = new FormGroup({
       name: new FormControl(this.destination.name),
       description: new FormControl(this.destination.description),
@@ -32,8 +32,8 @@ export class EditDestinationComponent{
     if (!confirm("Are you sure that you want to delete this destination?")) {
       console.log("Denied");
     } else {
-      this.agencyService.deleteDestination(this.destination.id);
-      this.router.navigate(['destinations'], {state: {agency: this.agency}});
+      this.agencyService.deleteDestination(this.destinationId);
+      this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
     }
   }
 
@@ -42,8 +42,8 @@ export class EditDestinationComponent{
       alert("Denied");
     } else {
       if (this.agencyService.validateDestinationForm(this.destinationForm.value)) {
-        this.agencyService.updateDestination(this.destinationForm.value, this.destination.id, this.destination.destinationGroupId, this.destination.images);
-        this.router.navigate(['destinations'], {state: {agency: this.agency}});
+        this.agencyService.updateDestination(this.destinationForm.value, this.destinationId, this.destination.destinationGroupId, this.destination.images);
+        this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
       } else {
         alert("Bad data");
       }

@@ -5,7 +5,7 @@ import { getDatabase, ref, onValue} from "firebase/database";
 import {Destination} from "./objects/Destination";
 import {User} from "./objects/User";
 import {Agency} from "./objects/Agency";
-import {FormGroup} from "@angular/forms";
+import firebase from "firebase/compat";
 
 
 @Injectable({
@@ -30,10 +30,9 @@ export class AgencyService {
   firebase: any;
   realtimeDatabase: any;
 
-  private agencies: Agency[] = [];
-  private users: User[] = [];
-  private destinations: Destination[] = [];
-
+  private agencies: Map<string, Agency> = new Map<string, Agency>;
+  private destinations: Map<string, Destination> = new Map<string, Destination>;
+  private users: Map<string, User> = new Map<string, User>;
   constructor() {
     this.firebase = initializeApp(this.firebaseConfig);
     this.realtimeDatabase = getDatabase(this.firebase);
@@ -41,85 +40,85 @@ export class AgencyService {
     this.loadFirebaseData();
   }
 
-  private loadHardcodedData() {
-    this.agencies.push(
-      new Agency(
-        {
-          name: "Mrmi travel",
-          address: "2023",
-          foundingYear: 2023,
-          phoneNumber: "+38166",
-          email: "email@email.com",
-          destinations: [
-            new Destination({
-              name: "Prag",
-              description: "Putovanje u Prag",
-              //photos: slika[];
-              type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
-              transport: "Avionom", // avion, autobus, sopstveni prevoz
-              price: 100,
-              capacity: 40, // max broj osoba
-            }),
-            new Destination({
-              name: "Ljubljana",
-              description: "Putovanje u Ljubljanu",
-              //photos: slika[];
-              type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
-              transport: "Autobusom", // avion, autobus, sopstveni prevoz
-              price: 200,
-              capacity: 50, // max broj osoba
-            })
-          ]}
-      ),
-      new Agency(
-        {
-          name: "Marina travel",
-          address: "adrs",
-          foundingYear: 2021,
-          phoneNumber: "+38165",
-          email: "email@email.com",
-          destinations: [
-            new Destination({
-              name: "Prag",
-              description: "Putovanje u Prag",
-              //photos: slika[];
-              type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
-              transport: "Avionom", // avion, autobus, sopstveni prevoz
-              price: 100,
-              capacity: 40, // max broj osoba
-            }),
-            new Destination({
-              name: "Ljubljana",
-              description: "Putovanje u Ljubljanu",
-              //photos: slika[];
-              type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
-              transport: "Autobusom", // avion, autobus, sopstveni prevoz
-              price: 200,
-              capacity: 50, // max broj osoba
-            })
-          ]}
-      ));
-
-    this.users.push(new User({
-      username: 'admin',
-      password: 'admin',
-      name: 'a',
-      surname: 'a',
-      email: 'a',
-      birthday: new Date(),
-      address: 'a',
-      phoneNumber: 'a'
-    }));
-    this.users.push(new User({
-      username: 'user',
-      password: '1234',
-      name: 'b',
-      surname: 'b',
-      email: 'b',
-      birthday: new Date(),
-      address: 'b'
-    }));
-  }
+  // private loadHardcodedData() {
+  //   this.agencies.push(
+  //     new Agency(
+  //       {
+  //         name: "Mrmi travel",
+  //         address: "2023",
+  //         foundingYear: 2023,
+  //         phoneNumber: "+38166",
+  //         email: "email@email.com",
+  //         destinations: [
+  //           new Destination({
+  //             name: "Prag",
+  //             description: "Putovanje u Prag",
+  //             //photos: slika[];
+  //             type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
+  //             transport: "Avionom", // avion, autobus, sopstveni prevoz
+  //             price: 100,
+  //             capacity: 40, // max broj osoba
+  //           }),
+  //           new Destination({
+  //             name: "Ljubljana",
+  //             description: "Putovanje u Ljubljanu",
+  //             //photos: slika[];
+  //             type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
+  //             transport: "Autobusom", // avion, autobus, sopstveni prevoz
+  //             price: 200,
+  //             capacity: 50, // max broj osoba
+  //           })
+  //         ]}
+  //     ),
+  //     new Agency(
+  //       {
+  //         name: "Marina travel",
+  //         address: "adrs",
+  //         foundingYear: 2021,
+  //         phoneNumber: "+38165",
+  //         email: "email@email.com",
+  //         destinations: [
+  //           new Destination({
+  //             name: "Prag",
+  //             description: "Putovanje u Prag",
+  //             images: [],
+  //             type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
+  //             transport: "Avionom", // avion, autobus, sopstveni prevoz
+  //             price: 100,
+  //             capacity: 40, // max broj osoba
+  //           }),
+  //           new Destination({
+  //             name: "Ljubljana",
+  //             description: "Putovanje u Ljubljanu",
+  //             images: [],
+  //             type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
+  //             transport: "Autobusom", // avion, autobus, sopstveni prevoz
+  //             price: 200,
+  //             capacity: 50, // max broj osoba
+  //           })
+  //         ]}
+  //     ));
+  //
+  //   this.users.push(new User({
+  //     username: 'admin',
+  //     password: 'admin',
+  //     name: 'a',
+  //     surname: 'a',
+  //     email: 'a',
+  //     birthday: new Date(),
+  //     address: 'a',
+  //     phoneNumber: 'a'
+  //   }));
+  //   this.users.push(new User({
+  //     username: 'user',
+  //     password: '1234',
+  //     name: 'b',
+  //     surname: 'b',
+  //     email: 'b',
+  //     birthday: new Date(),
+  //     address: 'b'
+  //   }));
+  // }
 
   // ------- FIREBASE -------
   private loadFirebaseData() {
@@ -128,16 +127,14 @@ export class AgencyService {
     this.users = this.getDatabaseUsers();
   }
 
-  private getDatabaseAgencies(): any[] {
-    let agencies: any[] = [];
+  private getDatabaseAgencies(): Map<string, Agency> {
+    let agencies: Map<string, Agency> = new Map<string, Agency>;
     const agenciesRef = ref(this.realtimeDatabase, 'agencies/');
     onValue(agenciesRef, (snapshot) => {
       snapshot.forEach((child) => {
-        let a: Agency = child.val();
         if (child.key != null) {
-          a.id = child.key;
+          agencies.set(child.key, child.val());
         }
-        agencies.push(a);
       });
     });
     console.log("\nAGENCIES:");
@@ -145,20 +142,19 @@ export class AgencyService {
     return agencies;
   }
 
-  private getDatabaseDestinations(): any[] {
-    let destinations: Destination[] = [];
+  private getDatabaseDestinations(): Map<string, Destination> {
+    let destinations: Map<string, Destination> = new Map<string, Destination>;
     const destinationsRef = ref(this.realtimeDatabase, 'destinations/');
     onValue(destinationsRef, (snapshot) => {
       snapshot.forEach((destinationGroup) => {
         destinationGroup.forEach((destination) => {
           let d: Destination = destination.val();
-          if (destination.key != null) {
-            d.id = destination.key;
-            if (destinationGroup.key != null) {
-              d.destinationGroupId = destinationGroup.key;
-            }
+          if (destinationGroup.key != null) {
+            d.destinationGroupId = destinationGroup.key;
           }
-          destinations.push(d);
+          if (destination.key != null) {
+            destinations.set(destination.key, d);
+          }
         })
       })
     });
@@ -167,54 +163,41 @@ export class AgencyService {
     return destinations;
   }
 
-  private getDatabaseUsers(): any[] {
-    let users: any[] = [];
+  private getDatabaseUsers(): Map<string, User> {
+    let users: Map<string, User> = new Map<string, User>;
     const usersRef = ref(this.realtimeDatabase, 'users/');
     onValue(usersRef, (snapshot) => {
       snapshot.forEach((child) => {
-        let u: Agency = child.val();
         if (child.key != null) {
-          u.id = child.key;
+          users.set(child.key, child.val());
         }
-        users.push(u);
       });
     });
     console.log("\nUSERS:");
     console.table(users);
     return users;
   }
-  getAgencies(): Agency[] {
+
+  // ------ AGENCIES -------
+  getAgencies(): Map<string, Agency> {
     return this.agencies;
   }
 
-  // ------ AGENCIES -------
-  getAgencyNameByAgencyId(agencyId: string): string {
-    return this.agencies[this.getAgencyIndex(agencyId)].name;
+  getAgency(agencyId: string) {
+    return this.agencies.get(agencyId);
   }
 
-  private getAgencyIndex(agencyId: string) {
-    return this.agencies.findIndex(a => a.id == agencyId);
-  }
 
   // TODO: Update / remove from database
   updateAgency(agency: Agency, agencyId: string, destinationGroupId: string, agencyLogo: string) {
-    let agencyIndex = this.getAgencyIndex(agencyId);
-    if (agencyIndex == -1) {
-      return;
-    }
     // The edit-destination component sends a DestinationForm without an id
-    agency.id = agencyId;
     agency.destinations = destinationGroupId;
     agency.logo = agencyLogo;
-    this.agencies[agencyIndex] = agency;
+    this.agencies.set(agencyId, agency);
   }
 
   deleteAgency(agencyId: string) {
-    let agencyIndex = this.getAgencyIndex(agencyId);
-    if (agencyIndex == -1) {
-      return;
-    }
-    this.agencies.splice(agencyIndex, 1);
+    this.agencies.delete(agencyId);
   }
 
   validateAgencyForm(value: any): boolean {
@@ -247,37 +230,31 @@ export class AgencyService {
   }
 
   // ------- DESTINATIONS -------
-  getDestinations() {
+  getDestinations(): Map<string, Destination> {
     return this.destinations;
   }
 
-  getDestinationsByGroupId(destinationGroupId: string): Destination[] {
-    let destinations: Destination[];
-    destinations = this.destinations.filter(dest => dest.destinationGroupId == destinationGroupId);
-    return destinations;
-  }
-
-  private getDestinationIndex(destinationId: string): number {
-    return this.destinations.findIndex(d => d.id == destinationId);
+  getDestination(destinationId: string): Destination | undefined {
+    return this.destinations.get(destinationId);
+}
+  getDestinationsByGroupId(destinationGroupId: string): Map<string, Destination> {
+    let groupedDestinations: Map<string, Destination> = new Map<string, Destination>;
+    for (let [key, value] of this.destinations) {
+      if (value.destinationGroupId == destinationGroupId) {
+        groupedDestinations.set(key, value);
+      }
+    }
+    return groupedDestinations;
   }
 
   updateDestination(destination: Destination, destinationId: string, destinationGroupId: string, destinationImages: string[]) {
-    let destinationIndex = this.getDestinationIndex(destinationId);
-    if (destinationIndex == -1) {
-      return;
-    }
-    destination.id = destinationId; // The edit-destination component sends a DestinationForm without an id
     destination.destinationGroupId = destinationGroupId;
     destination.images = destinationImages;
-    this.destinations[destinationIndex] = destination;
+    this.destinations.set(destinationId, destination);
   }
 
   deleteDestination(destinationId: string) {
-    let destinationIndex = this.getDestinationIndex(destinationId);
-    if (destinationIndex == -1) {
-      return;
-    }
-    this.destinations.splice(destinationIndex, 1);
+    this.destinations.delete(destinationId);
   }
 
   validateDestinationForm(value: any): boolean {
@@ -314,59 +291,47 @@ export class AgencyService {
   }
 
   // ------ USERS ------
-  private getUserIndex(userId: string) {
-    return this.users.findIndex(u => u.id == userId);
-  }
-  updateUser(user: User, userId: string) {
-    let userIndex = this.getUserIndex(userId);
-    if (userIndex == -1) {
-      return;
-    }
-    user.id = userId; // The edit-destination component sends a DestinationForm without an id
-    this.users[userIndex] = user;
+  updateUser(userId: string, user: User) {
+    this.users.set(userId, user);
   }
 
   deleteUser(userId: string) {
-    let userIndex = this.getUserIndex(userId);
-    if (userIndex == -1) {
-      return;
-    }
-    this.users.splice(userIndex, 1);
+    this.users.delete(userId);
   }
 
-  saveUser(user: User) {
-    this.users.push(user);
+  addUser(user: User) {
+    this.users.set(new Date().getDate().toString(), user);
   }
 
   getLoggedInUserId(username: string): string | null {
     let userId = "";
-    this.users.forEach(u => {
-      if (u.username == username) {
-        userId = u.id;
+    this.users.forEach((value, key) => {
+      if (value.username == username) {
+        userId = key;
       }
     });
     return userId;
   }
 
-  private getLoggedInUser() {
-    let user = null;
-    this.users.forEach(u => {
-      if (u.id == AuthService.userId) {
-        user = u;
-      }
-    })
-    return user;
+  private getLoggedInUser(): User | undefined {
+    return this.users.get(AuthService.userId);
   }
 
-  getUsers(): User[] {
+  getUsers(): Map<string, User> {
     if (AuthService.isAdmin) {
       return this.users;
     }
     let user = this.getLoggedInUser();
     if (user != null) {
-      return [user];
+      let userMap = new Map<string, User>
+      userMap.set(AuthService.userId, user);
+      return userMap
     }
-    return [];
+
+    if (user == undefined) {
+      return new Map<string, User>;
+    }
+    return user;
   }
 
   validateUserForm(value: any): boolean {

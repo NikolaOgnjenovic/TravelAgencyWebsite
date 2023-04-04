@@ -8,8 +8,7 @@ export class Agency {
   phoneNumber: string;
   email: string;
   destinations: string;
-  filteredDestinations: Destination[];
-  id: string;
+  filteredDestinations: Map<string, Destination>;
 
   constructor(agency: any) {
     this.name = agency.name;
@@ -19,7 +18,6 @@ export class Agency {
     this.phoneNumber = agency.phoneNumber;
     this.email = agency.email;
     this.destinations = agency.destinations;
-    this.filteredDestinations = [];
-    this.id = agency.id;
+    this.filteredDestinations = new Map<string, Destination>;
   }
 }

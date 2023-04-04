@@ -1,10 +1,10 @@
 <header>
-  <h1>Mrmitravel nav</h1>
+  <h1>MRMI TRAVEL</h1>
   <nav>
-    <a routerLink="home">Home</a>
-    <a *ngIf="loggedIn" routerLink="users">User page</a>
-    <a *ngIf="!loggedIn" routerLink="register">Register</a>
-    <a *ngIf="!loggedIn" routerLink="login">Login</a>
+    <a routerLink="home" routerLinkActive="activeNavLink">Home</a>
+    <a *ngIf="loggedIn" routerLink="users" routerLinkActive="activeNavLink">User page</a>
+    <a *ngIf="!loggedIn" routerLink="register" routerLinkActive="activeNavLink">Register</a>
+    <a *ngIf="!loggedIn" routerLink="login" routerLinkActive="activeNavLink">Login</a>
     <input style="color:black" *ngIf="loggedIn" name="logout" type="button" (click)="logout()" value="Logout">
   </nav>
 </header>

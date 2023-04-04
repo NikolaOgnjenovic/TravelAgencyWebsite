@@ -1,5 +1,6 @@
-import {AfterContentChecked, AfterContentInit, Component, DoCheck, OnChanges, OnInit} from '@angular/core';
+import {AfterContentChecked, Component} from '@angular/core';
 import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,15 @@ import {AuthService} from "./auth.service";
 export class AppComponent implements AfterContentChecked{
   loggedIn: boolean = AuthService.loggedIn;
 
+  constructor(private router: Router) {
+
+  }
   ngAfterContentChecked() {
     this.loggedIn = AuthService.loggedIn;
   }
 
   logout() {
     AuthService.logout();
+    this.router.navigate(['home']);
   }
 }

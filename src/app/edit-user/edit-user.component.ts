@@ -10,10 +10,12 @@ import {User} from "../objects/User";
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent {
+  userId: string;
   user: User;
   userForm: FormGroup;
   constructor(private router: Router, private agencyService: AgencyService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state;
+    this.userId = routerExtras?.['userId'];
     this.user = routerExtras?.['user'];
     this.userForm = new FormGroup({
       username: new FormControl(this.user.username),
@@ -31,7 +33,7 @@ export class EditUserComponent {
     if (!confirm("Are you sure that you want to delete this user?")) {
       console.log("Denied");
     } else {
-      this.agencyService.deleteUser(this.user.id);
+      this.agencyService.deleteUser(this.userId);
       this.router.navigate(['users']);
     }
   }
@@ -41,7 +43,7 @@ export class EditUserComponent {
       console.log("Denied");
     } else {
       if (this.agencyService.validateUserForm(this.userForm.value)) {
-        this.agencyService.updateUser(this.userForm.value, this.user.id);
+        this.agencyService.updateUser(this.userId, this.userForm.value);
         this.router.navigate(['users']);
       } else {
         alert("Bad data");

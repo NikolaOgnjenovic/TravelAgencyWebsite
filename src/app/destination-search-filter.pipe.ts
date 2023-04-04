@@ -6,19 +6,19 @@ import {Destination} from "./objects/Destination";
 })
 export class DestinationSearchFilterPipe implements PipeTransform {
 
-  transform(destinations: Destination[], destinationName: string, destinationType: string, destinationTransport: string): Destination[] {
+  transform(destinations: Map<string, Destination>, destinationName: string, destinationType: string, destinationTransport: string): Map<string, Destination> {
     let returnValue = destinations;
     if (destinationName.length > 0) {
       destinationName = destinationName.toLowerCase();
-      returnValue = returnValue.filter(d => d.name.toLowerCase().includes(destinationName));
+      returnValue = new Map(Array.from(returnValue).filter(([key, val]) => val.name.toLowerCase().includes(destinationName)));
     }
     if (destinationType.length > 0) {
       destinationType = destinationType.toLowerCase();
-      returnValue = returnValue.filter(d => d.type.toLowerCase().includes(destinationType));
+      returnValue = new Map(Array.from(returnValue).filter(([key, val]) => val.type.toLowerCase().includes(destinationType)));
     }
     if (destinationTransport.length > 0) {
       destinationTransport = destinationTransport.toLowerCase();
-      returnValue = returnValue.filter(d => d.transport.toLowerCase().includes(destinationTransport));
+      returnValue = new Map(Array.from(returnValue).filter(([key, val]) => val.transport.toLowerCase().includes(destinationTransport)));
     }
     return returnValue;
   }

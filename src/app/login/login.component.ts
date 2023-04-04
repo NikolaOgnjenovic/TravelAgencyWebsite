@@ -17,10 +17,14 @@ export class LoginComponent {
     });
   }
   login() {
-    if (!this.authService.login(this.loginForm.value)) {
-      confirm("BAD LOGIN");
-    } else {
-      this.router.navigate(['home']);
+    if (this.loginForm.value.username.length < 1 || this.loginForm.value.password.length < 1) {
+      alert("bad form");
+      return;
     }
-  }
+    if (!this.authService.login(this.loginForm.value)) {
+      alert("BAD LOGIN");
+      return;
+    }
+    this.router.navigate(['home']);
+    }
 }

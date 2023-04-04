@@ -5,10 +5,12 @@
        (input)="searchDestinationsByType(destinationTypeSearchText)">
 <input type="text" name="destinationTransportSearch" placeholder="Search by transport type" [(ngModel)]="destinationTransportSearchText"
        (input)="searchDestinationsByTransport(destinationTransportSearchText)">
-<div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText">
+
+<div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText | keyvalue">
+
   <div class="container">
-    <p>{{destination.name}}</p>
-    <button (click)="viewDestination(destination)">View destination</button>
-    <button *ngIf="isAdmin()" (click)="editDestination(destination)">Edit destination</button>
+    <p>{{destination.value.name}}</p>
+    <button (click)="viewDestination(destination.value)">View destination</button>
+    <button *ngIf="isAdmin()" (click)="editDestination(destination.key)">Edit destination</button>
   </div>
 </div>

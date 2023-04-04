@@ -6,7 +6,6 @@ export class Destination {
   transport: string; // avion, autobus, sopstveni prevoz
   price: number;
   capacity: number; // max broj osoba
-  id: string;
   destinationGroupId: string;
 
   constructor(destination: any) {
@@ -17,7 +16,6 @@ export class Destination {
     this.transport = destination.transport;
     this.price = destination.price;
     this.capacity = destination.capacity;
-    this.id = destination.id;
     this.destinationGroupId = destination.destinationGroupId;
   }
 }

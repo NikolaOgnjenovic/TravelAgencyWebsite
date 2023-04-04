@@ -4,31 +4,57 @@
 # 5CDB95
 #8EE4AF
 #EDF5E1
+
+
+https://colorhunt.co/palette/0000001500503f0071610094
+#000000 crna
+#150050 dark purple
+#3F0071 med purple
+#610094 light purple
  */
 * {
-  padding: 0;
   margin: 0;
-  font-family: "Roboto Light", serif;
   color: white;
+  text-align: center;
+  padding: 0.2%;
 }
 
 header {
   text-align: center;
-  background: #05386B;
+  background: #3F0071;
 }
 
-nav > a {
-  margin: 1%;
-  color: red;
+/*nav > a {*/
+/*  margin: 1%;*/
+/*  color: red;*/
+/*}*/
+
+/* Add a black background color to the top navigation */
+nav {
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+nav a {
+  border: solid white 2px;
+  margin-right: 0.5%;
+  float: left;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+nav a:hover {
+  background-color: white;
+  color: #3F0071;
 }
 
 body {
-  background-color: #379683;
-  height: 300px;
-  text-align: center;
+  background-color: #610094;
 }
 
 footer {
-  text-align: center;
-  background: #05386B;
+  background: #3F0071;
 }

@@ -1,6 +1,6 @@
-<div class="card" *ngFor="let user of users">
+<div class="card" *ngFor="let user of users | keyvalue">
   <div class="container">
-    <p>{{user.name}}</p>
-    <button (click)="editUser(user)">Edit destination</button>
+    <p>{{user.value.name}}</p>
+    <button (click)="editUser(user.key, user.value)">Edit destination</button>
   </div>
 </div>

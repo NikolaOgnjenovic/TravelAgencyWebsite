@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {User} from "../objects/User";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-users',
@@ -9,13 +10,15 @@ import {User} from "../objects/User";
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent {
-  users: User[] = [];
-  constructor(private router: Router, private agencyService: AgencyService) {
-    this.users = this.agencyService.getUsers();
+  users: Map<string, User> = new Map<string, User>;
+  constructor(private router: Router, agencyService: AgencyService) {
+    this.users = agencyService.getUsers();
   }
 
-  editUser(user: User) {
+  editUser(userId: string, user: User) {
     console.table(user);
-    this.router.navigate(['edit_user'], {state: {user: user}});
+    this.router.navigate(['edit_user'], {state: {userId: userId, user: user}});
   }
+
+  protected readonly of = of;
 }

@@ -8,16 +8,21 @@ export class AuthService {
 
   constructor(private agencyService: AgencyService) {}
 
-  // TODO: token?
   static isAdmin: boolean = false;
   static loggedIn: boolean = false;
   static userId: string;
   login(auth: any): boolean {
     // TODO: find a different way to handle logging in (listing all users without needing to be admin)!!!
     AuthService.isAdmin = true;
-    let login_successful = this.agencyService.getUsers().some(u => u.username == auth.username && u.password == auth.password);
+    let loginSuccessful = false;
+    this.agencyService.getUsers()?.forEach(u => {
+      if(u.username == auth.username && u.password == auth.password) {
+        loginSuccessful = true;
+      }
+    })
+
     AuthService.isAdmin = false;
-    if (!login_successful) {
+    if (!loginSuccessful) {
       return false;
     }
     AuthService.isAdmin = auth.username == "admin";
@@ -27,6 +32,7 @@ export class AuthService {
     if (id == undefined) {
       return false;
     }
+    console.log("ID");
     AuthService.userId = id;
     return true;
   }

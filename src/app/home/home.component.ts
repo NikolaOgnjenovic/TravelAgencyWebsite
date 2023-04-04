@@ -12,37 +12,37 @@ import {Agency} from "../objects/Agency";
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent {
-  allAgencies: Agency[] = [];
-  filtered_agencies: Agency[] = [];
-  allDestinations: Destination[] = [];
-  filteredDestinations: Destination[] = [];
+  allAgencies: Map<string, Agency>  = new Map<string, Agency>;
+  filteredAgencies: Map<string, Agency> = new Map<string, Agency>;
+  allDestinations: Map<string, Destination> = new Map<string, Destination>;
+  filteredDestinations: Map<string, Destination> = new Map<string, Destination>;
   agencyNameSearchText: string = "";
   destinationNameSearchText: string = "";
 
   constructor(private router: Router, private agencyService: AgencyService) {
     this.allAgencies = agencyService.getAgencies();
-    this.filtered_agencies = this.allAgencies;
+    this.filteredAgencies = this.allAgencies;
     this.allDestinations = agencyService.getDestinations();
     this.filteredDestinations = this.allDestinations;
   }
-  viewDestinations(agency: Agency) {
-    this.router.navigate(['destinations'], {state: {agency: agency}});
+  viewDestinations(agencyId: string): void {
+    this.router.navigate(['destinations'], {state: {agencyId: agencyId}});
   }
 
-  isAdmin() {
+  isAdmin(): boolean {
     return AuthService.isAdmin;
   }
-  editAgency(agency: Agency) {
-    this.router.navigate(['edit_agency'], {state: {agency: agency}});
+  editAgency(agencyId: string): void {
+    this.router.navigate(['edit_agency'], {state: {agencyId: agencyId}});
   }
 
-  searchAgencies(agencyName: string){
-    this.filtered_agencies = this.allAgencies.filter(
-      (agency) => agency.name.toLowerCase().includes(agencyName.toLowerCase()));
+  searchAgencies(agencyName: string): void {
+    this.filteredAgencies = new Map(Array.from(this.allAgencies).filter(
+      ([key, val]) => val.name.toLowerCase().includes(agencyName.toLowerCase())));
   }
 
-  searchDestinations(destinationName: string) {
-    this.filteredDestinations = this.allDestinations.filter(
-      (destination) => destination.name.toLowerCase().includes(destinationName.toLowerCase()));
+  searchDestinations(destinationName: string): void {
+    this.filteredDestinations = new Map(Array.from(this.allDestinations).filter(
+      ([key, val]) => val.name.toLowerCase().includes(destinationName.toLowerCase())));
   }
 }
