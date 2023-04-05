@@ -7,7 +7,7 @@ import {AuthService} from "../auth.service";
 @Component({
   selector: 'app-destinations',
   templateUrl: './destinations.component.html',
-  styleUrls: ['./destinations.component.css'],
+  styleUrls: ['./destinations.component.css', '../app.component.css']
 })
 export class DestinationsComponent implements OnInit {
   allDestinations: Map<string, Destination> = new Map<string, Destination>;

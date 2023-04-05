@@ -5,7 +5,7 @@ import {Destination} from "../objects/Destination";
 @Component({
   selector: 'app-destination',
   templateUrl: './destination.component.html',
-  styleUrls: ['./destination.component.css']
+  styleUrls: ['./destination.component.css', '../app.component.css']
 })
 export class DestinationComponent {
   destination: Destination;

@@ -15,25 +15,27 @@ export class AuthService {
     // TODO: find a different way to handle logging in (listing all users without needing to be admin)!!!
     AuthService.isAdmin = true;
     let loginSuccessful = false;
-    this.agencyService.getUsers()?.forEach(u => {
-      if(u.username == auth.username && u.password == auth.password) {
+
+    this.agencyService.getUsers().forEach((v) => {
+      if (v.username == auth.loginUsername && v.password == auth.loginPassword) {
         loginSuccessful = true;
       }
-    })
-
+    });
     AuthService.isAdmin = false;
+
     if (!loginSuccessful) {
       return false;
     }
-    AuthService.isAdmin = auth.username == "admin";
+
+    AuthService.isAdmin = auth.loginUsername == "admin";
     AuthService.loggedIn = true;
-    let id = this.agencyService.getLoggedInUserId(auth.username);
-    console.log("USERNAME: " + auth.username);
-    if (id == undefined) {
+
+    let id = this.agencyService.getLoggedInUserId(auth.loginUsername);
+    if (id == null) {
       return false;
     }
-    console.log("ID");
     AuthService.userId = id;
+
     return true;
   }
 

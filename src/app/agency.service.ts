@@ -5,7 +5,6 @@ import { getDatabase, ref, onValue} from "firebase/database";
 import {Destination} from "./objects/Destination";
 import {User} from "./objects/User";
 import {Agency} from "./objects/Agency";
-import firebase from "firebase/compat";
 
 
 @Injectable({

@@ -1,12 +1,64 @@
 <header>
-  <h1>MRMI TRAVEL</h1>
-  <nav>
+  <h1>Mrmi travel agencies</h1>
+  <nav class="flex-container">
     <a routerLink="home" routerLinkActive="activeNavLink">Home</a>
     <a *ngIf="loggedIn" routerLink="users" routerLinkActive="activeNavLink">User page</a>
-    <a *ngIf="!loggedIn" routerLink="register" routerLinkActive="activeNavLink">Register</a>
-    <a *ngIf="!loggedIn" routerLink="login" routerLinkActive="activeNavLink">Login</a>
-    <input style="color:black" *ngIf="loggedIn" name="logout" type="button" (click)="logout()" value="Logout">
+    <button type="button"  *ngIf="!loggedIn" (click)="showRegister()">Register</button>
+    <button type="button" (click)="showLogin()" *ngIf="!loggedIn">Login</button>
+    <button *ngIf="loggedIn" name="logout" (click)="logout()">Logout</button>
   </nav>
+  <div class="form-popup" id="loginPopup">
+    <form class="form-container" [formGroup]="loginForm">
+      <label for="loginUsername">Username:
+        <input type="text" id="loginUsername" formControlName="loginUsername">
+      </label>
+      <br>
+      <label for="loginPassword">Password:
+        <input type="text" id="loginPassword" formControlName="loginPassword">
+      </label>
+      <input class="login" name="login" type="submit" (click)="login()" value="Login">
+      <button type="button" (click)="hideLogin()">Close</button>
+    </form>
+  </div>
+
+  <div class="form-popup" id="registrationPopup">
+    <form class="form-container" [formGroup]="registrationForm">
+      <label for="username">Username:
+        <input type="text" id="username" formControlName="username">
+      </label>
+      <br>
+      <label for="password">Password:
+        <input type="text" id="password" formControlName="password">
+      </label>
+      <br>
+      <label for="name">Name:
+        <input type="text" id="name" formControlName="name">
+      </label>
+      <br>
+      <label for="surname">Surname:
+        <input type="text" id="surname" formControlName="surname">
+      </label>
+      <br>
+      <label for="email">Email:
+        <input type="email" id="email" formControlName="email">
+      </label>
+      <br>
+      <label for="birthday">Birthday:
+        <input type="date" id="birthday" formControlName="birthday">
+      </label>
+      <br>
+      <label for="address">Address:
+        <input type="text" id="address" formControlName="address">
+      </label>
+      <br>
+      <label for="phoneNumber">Phone number;
+        <input type="text" id="phoneNumber" formControlName="phoneNumber">
+      </label>
+      <br>
+      <input name="register" type="submit" (click)="registerUser()" value="Register">
+      <button type="button" (click)="hideRegister()">Close</button>
+    </form>
+  </div>
 </header>
 
 <body>

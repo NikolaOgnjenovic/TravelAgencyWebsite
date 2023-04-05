@@ -6,9 +6,8 @@
 <input type="text" name="destinationTransportSearch" placeholder="Search by transport type" [(ngModel)]="destinationTransportSearchText"
        (input)="searchDestinationsByTransport(destinationTransportSearchText)">
 
-<div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText | keyvalue">
-
-  <div class="container">
+<div class="flex-container">
+  <div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText | keyvalue">
     <p>{{destination.value.name}}</p>
     <button (click)="viewDestination(destination.value)">View destination</button>
     <button *ngIf="isAdmin()" (click)="editDestination(destination.key)">Edit destination</button>

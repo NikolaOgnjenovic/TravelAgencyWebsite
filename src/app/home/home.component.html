@@ -1,14 +1,22 @@
-<input type="text" name="agencyNameSearch" placeholder="Search by agency name" [(ngModel)]="agencyNameSearchText"
-(input)="searchAgencies(agencyNameSearchText)">
-<input type="text" name="destinationNameSearch" placeholder="Search by destination name" [(ngModel)]="destinationNameSearchText"
-       (input)="searchDestinations(destinationNameSearchText)">
-<div class="card" *ngFor="let agency of filteredAgencies | agencySearchFilter: agencyNameSearchText : destinationNameSearchText | keyvalue">
-  <div class="container">
-    <p>Name: {{agency.value.name}}</p>
-    <p>Address: {{agency.value.address}}</p>
-    <p>Founded: {{agency.value.foundingYear}}</p>
-    <p>Phone number: {{agency.value.phoneNumber}}</p>
-    <p>Email: {{agency.value.email}}</p>
+<div class="flex-container">
+  <div class="card">
+    <label for="agencyNameSearch">Agency:</label>
+    <input id ="agencyNameSearch" type="text" name="agencyNameSearch" placeholder="Search by agency name" [(ngModel)]="agencyNameSearchText"
+           (input)="searchAgencies(agencyNameSearchText)">
+  </div>
+  <div class="card">
+    <label for="destinationNameSearch">Destination:</label>
+    <input id="destinationNameSearch" type="text" name="destinationNameSearch" placeholder="Search by destination name" [(ngModel)]="destinationNameSearchText"
+           (input)="searchDestinations(destinationNameSearchText)">
+  </div>
+</div>
+<div class="flex-container">
+  <div class="card" *ngFor="let agency of filteredAgencies | agencySearchFilter: agencyNameSearchText : destinationNameSearchText | keyvalue">
+    <p class="card_title"> {{agency.value.name}}</p>
+    <p>{{agency.value.address}}</p>
+    <p>Contact: {{agency.value.phoneNumber}} </p>
+    <p>{{agency.value.email}}</p>
+    <p>Founded in {{agency.value.foundingYear}}</p>
     <button (click)="viewDestinations(agency.key)">View destinations</button>
     <button *ngIf="isAdmin()" (click)="editAgency(agency.key)">Edit agency</button>
   </div>

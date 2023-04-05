@@ -1,5 +1,5 @@
-<div class="card" *ngFor="let user of users | keyvalue">
-  <div class="container">
+<div class="flex-container">
+  <div class="card" *ngFor="let user of users | keyvalue">
     <p>{{user.value.name}}</p>
     <button (click)="editUser(user.key, user.value)">Edit destination</button>
   </div>

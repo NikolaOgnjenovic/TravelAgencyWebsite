@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { EditDestinationComponent } from './edit-destination/edit-destination.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AgencyNotFoundComponent } from './agency-not-found/agency-not-found.component';
 import { DestinationComponent } from './destination/destination.component';
@@ -25,8 +23,6 @@ import {NgOptimizedImage} from "@angular/common";
     HomeComponent,
     DestinationComponent,
     EditUserComponent,
-    LoginComponent,
-    RegisterComponent,
     PageNotFoundComponent,
     AgencyNotFoundComponent,
     EditDestinationComponent,

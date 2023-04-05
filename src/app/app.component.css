@@ -1,40 +1,38 @@
 /*
-#05386B
-#379683
-# 5CDB95
-#8EE4AF
-#EDF5E1
-
-
 https://colorhunt.co/palette/0000001500503f0071610094
 #000000 crna
 #150050 dark purple
-#3F0071 med purple
-#610094 light purple
+#1C82ADC med purple
+#B0DAFF light purple
  */
+
+
 * {
   margin: 0;
+  padding: 0;
   color: white;
   text-align: center;
-  padding: 0.2%;
+  --primary: #1C82AD;
+  --secondary: #B0DAFF;
 }
 
 header {
   text-align: center;
-  background: #3F0071;
+  background: var(--secondary);
 }
 
-/*nav > a {*/
-/*  margin: 1%;*/
-/*  color: red;*/
-/*}*/
+header h1 {
+  color: var(--primary);
+  font-size: 30px;
+  padding: 10px;
+  text-transform: uppercase;
+}
 
-/* Add a black background color to the top navigation */
 nav {
+  padding: 10px;
   overflow: hidden;
 }
 
-/* Style the links inside the navigation bar */
 nav a {
   border: solid white 2px;
   margin-right: 0.5%;
@@ -45,16 +43,140 @@ nav a {
   font-size: 17px;
 }
 
-/* Change the color of links on hover */
 nav a:hover {
   background-color: white;
-  color: #3F0071;
+  color: var(--secondary);
 }
 
 body {
-  background-color: #610094;
+  background-color: var(--primary);
+  min-height: 100vh;
 }
 
 footer {
-  background: #3F0071;
+  background: var(--secondary);
+  padding: 20px;
+  font-size: 20px;
 }
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card {
+  background: whitesmoke;
+  padding: 1vmin;
+  margin: 1vmin;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  transition: 0.3s;
+  text-align: left;
+  font-weight: 500;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card_title {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.card > p {
+  text-align: left;
+  color: var(--primary);
+  margin: 10px;
+}
+
+button {
+  background-color: var(--secondary);
+  border-radius: 5px;
+  border-color: var(--secondary);
+  color: whitesmoke;
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.image_title {
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.image_title > h1 {
+  color: white;
+  font-size: 60px;
+  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+}
+
+.description {
+  font-weight: 300;
+}
+
+input {
+  color: var(--primary);
+  font-size: 20px;
+  margin: 5px;
+}
+
+label {
+  color: var(--primary);
+  font-size: 20px;
+  margin: 5px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Add a red background color to the cancel button */
+
+.login {
+  background-color: var(--primary);
+  color: white;
+  padding: 15px;
+  border: none;
+  width: fit-content;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add some hover effects to buttons */
