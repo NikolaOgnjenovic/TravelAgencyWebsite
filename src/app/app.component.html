@@ -1,70 +1,80 @@
-<header>
-  <h1>Mrmi travel agencies</h1>
-  <nav class="flex-container">
-    <a routerLink="home" routerLinkActive="activeNavLink">Home</a>
-    <a *ngIf="loggedIn" routerLink="users" routerLinkActive="activeNavLink">User page</a>
-    <button type="button"  *ngIf="!loggedIn" (click)="showRegister()">Register</button>
-    <button type="button" (click)="showLogin()" *ngIf="!loggedIn">Login</button>
-    <button *ngIf="loggedIn" name="logout" (click)="logout()">Logout</button>
-  </nav>
-  <div class="form-popup" id="loginPopup">
-    <form class="form-container" [formGroup]="loginForm">
-      <label for="loginUsername">Username:
-        <input type="text" id="loginUsername" formControlName="loginUsername">
-      </label>
-      <br>
-      <label for="loginPassword">Password:
-        <input type="text" id="loginPassword" formControlName="loginPassword">
-      </label>
-      <input class="login" name="login" type="submit" (click)="login()" value="Login">
-      <button type="button" (click)="hideLogin()">Close</button>
-    </form>
-  </div>
+<div id="app">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;500&display=swap" rel="stylesheet">
+  <header>
+    <h1>Mrmi travel agencies</h1>
+    <nav class="flex-container">
+      <a routerLink="home" routerLinkActive="activeNavLink">Home</a>
+      <a *ngIf="loggedIn" routerLink="users" routerLinkActive="activeNavLink">User page</a>
+      <a *ngIf="!loggedIn" (click)="showRegister()">Register</a>
+      <a (click)="showLogin()" *ngIf="!loggedIn">Login</a>
+      <a *ngIf="loggedIn" (click)="logout()">Logout</a>
+    </nav>
+  </header>
 
-  <div class="form-popup" id="registrationPopup">
-    <form class="form-container" [formGroup]="registrationForm">
-      <label for="username">Username:
-        <input type="text" id="username" formControlName="username">
-      </label>
-      <br>
-      <label for="password">Password:
-        <input type="text" id="password" formControlName="password">
-      </label>
-      <br>
-      <label for="name">Name:
-        <input type="text" id="name" formControlName="name">
-      </label>
-      <br>
-      <label for="surname">Surname:
-        <input type="text" id="surname" formControlName="surname">
-      </label>
-      <br>
-      <label for="email">Email:
-        <input type="email" id="email" formControlName="email">
-      </label>
-      <br>
-      <label for="birthday">Birthday:
-        <input type="date" id="birthday" formControlName="birthday">
-      </label>
-      <br>
-      <label for="address">Address:
-        <input type="text" id="address" formControlName="address">
-      </label>
-      <br>
-      <label for="phoneNumber">Phone number;
-        <input type="text" id="phoneNumber" formControlName="phoneNumber">
-      </label>
-      <br>
-      <input name="register" type="submit" (click)="registerUser()" value="Register">
-      <button type="button" (click)="hideRegister()">Close</button>
-    </form>
-  </div>
-</header>
-
-<body>
+  <body>
   <router-outlet></router-outlet>
-</body>
+  </body>
 
-<footer>
-  <p>@Copyright - Mrmi 2023</p>
-</footer>
+  <footer>
+    <p>By <a target="_blank" href="https://github.com/NikolaOgnjenovic">Mrmi</a></p>
+  </footer>
+</div>
+
+<div class="form-container" id="loginPopup">
+  <form [formGroup]="loginForm">
+    <p class="card_title">Login</p>
+    <div class="card">
+      <label for="loginUsername">Username:</label>
+      <input type="text" id="loginUsername" formControlName="loginUsername">
+    </div>
+    <div class="card">
+      <label for="loginPassword">Password:</label>
+      <input type="text" id="loginPassword" formControlName="loginPassword">
+    </div>
+    <button type="button" class="login" (click)="login()">Login</button>
+    <button type="button" (click)="hideLogin()">Close</button>
+  </form>
+</div>
+
+<div class="form-container" id="registrationPopup">
+  <form [formGroup]="registrationForm">
+    <p class="card_title">Register</p>
+    <div class="card">
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username">
+    </div>
+
+    <div class="card">
+      <label for="password">Password</label>
+      <input type="text" id="password" formControlName="password">
+    </div>
+    <div class="card">
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name">
+    </div>
+    <div class="card">
+      <label for="surname">Surname</label>
+      <input type="text" id="surname" formControlName="surname">
+    </div>
+    <div class="card">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email">
+    </div>
+    <div class="card">
+      <label for="birthday">Birthday</label>
+      <input type="date" id="birthday" formControlName="birthday">
+    </div>
+    <div class="card">
+    <label for="address">Address</label>
+      <input type="text" id="address" formControlName="address">
+    </div>
+    <div class="card">
+      <label for="phoneNumber">Phone number</label>
+      <input type="text" id="phoneNumber" formControlName="phoneNumber">
+    </div>
+    <button type="button" (click)="registerUser()">Register</button>
+    <button type="button" (click)="hideRegister()">Close</button>
+  </form>
+</div>

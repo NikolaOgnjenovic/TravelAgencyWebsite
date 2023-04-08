@@ -7,7 +7,7 @@ import {User} from "../objects/User";
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  styleUrls: ['./edit-user.component.css', '../card.css', '../margins.css']
 })
 export class EditUserComponent {
   userId: string;

@@ -6,7 +6,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-edit-agency',
   templateUrl: './edit-agency.component.html',
-  styleUrls: ['./edit-agency.component.css']
+  styleUrls: ['./edit-agency.component.css', '../card.css', '../margins.css']
 })
 export class EditAgencyComponent {
   agencyId: string;

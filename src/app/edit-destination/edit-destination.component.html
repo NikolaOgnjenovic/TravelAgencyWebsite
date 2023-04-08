@@ -1,32 +1,29 @@
-<h1>Edit destination</h1>
-<form [formGroup]="destinationForm">
-  <fieldset>
-    <legend>{{destination.name}}</legend>
-    <label for="name">Name:
-      <input type="text" id="name" formControlName="name">
-    </label>
-    <br>
-    <label for="description">Description:
-      <input type="text" id="description" formControlName="description">
-    </label>
-    <br>
-    <label for="type">Type:
-      <input type="text" id="type" formControlName="type">
-    </label>
-    <br>
-    <label for="transport">Transport:
-      <input type="text" id="transport" formControlName="transport">
-    </label>
-    <br>
-    <label for="price">Price:
-      <input type="number" id="price" formControlName="price">
-    </label>
-    <br>
-    <label for="capacity">Capacity:
-      <input type="number" id="capacity" formControlName="capacity">
-    </label>
-    <br>
-    <input name="update" type="submit" (click)="updateDestination()" value="Update">
-    <input name="delete" type="submit" (click)="deleteDestination()" value="Delete">
-  </fieldset>
+<form class="margins flex-container" style="display: block !important; justify-content: center; align-items: center" [formGroup]="destinationForm">
+  <p class="card_title">{{destination.name}}</p>
+  <div class="card">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name">
+  </div>
+  <div class="card">
+    <label for="description">Description:</label>
+    <input type="text" id="description" formControlName="description">
+  </div>
+  <div class="card">
+    <label for="type">Type:</label>
+    <input type="text" id="type" formControlName="type">
+  </div>
+  <div class="card">
+    <label for="transport">Transport:</label>
+    <input type="text" id="transport" formControlName="transport">
+  </div>
+  <div class="card">
+    <label for="price">Price:</label>
+    <input type="number" id="price" formControlName="price">
+  </div>
+  <div class="card">
+    <label for="capacity">Capacity:</label>
+    <input type="number" id="capacity" formControlName="capacity">
+  </div>
 </form>
+<input name="update" type="submit" (click)="updateDestination()" value="Update">
+<input name="delete" type="submit" (click)="deleteDestination()" value="Delete">

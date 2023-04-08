@@ -1,28 +1,32 @@
-<h1>Edit agency</h1>
-<form [formGroup]="agencyForm">
-  <fieldset>
-    <legend>{{agency.name}}</legend>
+<form class="margins flex-container"
+      style="display: block !important; justify-content: center; align-items: center" [formGroup]="agencyForm">
+  <p class="card_title">Edit agency</p>
+  <div class="card">
     <label for="name">Agency name:
-      <input type="text" id="name" formControlName="name">
     </label>
-    <br>
+    <input type="text" id="name" formControlName="name">
+  </div>
+  <div class="card">
     <label for="address">Address:
-      <input type="text" id="address" formControlName="address">
     </label>
-    <br>
+    <input type="text" id="address" formControlName="address">
+  </div>
+  <div class="card">
     <label for="foundingYear">Founded year:
-      <input type="number" id="foundingYear" formControlName="foundingYear">
     </label>
-    <br>
+    <input type="number" id="foundingYear" formControlName="foundingYear">
+  </div>
+  <div class="card">
     <label for="phoneNumber">Phone number:
-      <input type="text" id="phoneNumber" formControlName="phoneNumber">
     </label>
-    <br>
+    <input type="text" id="phoneNumber" formControlName="phoneNumber">
+  </div>
+  <div class="card">
     <label for="email">Email:
-      <input type="text" id="email" formControlName="email">
     </label>
-    <br>
-    <input name="update" type="submit" (click)="updateAgency()" value="Update">
-    <input name="delete" type="submit" (click)="deleteAgency()" value="Delete">
-  </fieldset>
+    <input type="text" id="email" formControlName="email">
+  </div>
 </form>
+
+<input name="update" type="submit" (click)="updateAgency()" value="Update">
+<input name="delete" type="submit" (click)="deleteAgency()" value="Delete">

@@ -39,85 +39,35 @@ export class AgencyService {
     this.loadFirebaseData();
   }
 
-  // private loadHardcodedData() {
-  //   this.agencies.push(
-  //     new Agency(
-  //       {
-  //         name: "Mrmi travel",
-  //         address: "2023",
-  //         foundingYear: 2023,
-  //         phoneNumber: "+38166",
-  //         email: "email@email.com",
-  //         destinations: [
-  //           new Destination({
-  //             name: "Prag",
-  //             description: "Putovanje u Prag",
-  //             //photos: slika[];
-  //             type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
-  //             transport: "Avionom", // avion, autobus, sopstveni prevoz
-  //             price: 100,
-  //             capacity: 40, // max broj osoba
-  //           }),
-  //           new Destination({
-  //             name: "Ljubljana",
-  //             description: "Putovanje u Ljubljanu",
-  //             //photos: slika[];
-  //             type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
-  //             transport: "Autobusom", // avion, autobus, sopstveni prevoz
-  //             price: 200,
-  //             capacity: 50, // max broj osoba
-  //           })
-  //         ]}
-  //     ),
-  //     new Agency(
-  //       {
-  //         name: "Marina travel",
-  //         address: "adrs",
-  //         foundingYear: 2021,
-  //         phoneNumber: "+38165",
-  //         email: "email@email.com",
-  //         destinations: [
-  //           new Destination({
-  //             name: "Prag",
-  //             description: "Putovanje u Prag",
-  //             images: [],
-  //             type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
-  //             transport: "Avionom", // avion, autobus, sopstveni prevoz
-  //             price: 100,
-  //             capacity: 40, // max broj osoba
-  //           }),
-  //           new Destination({
-  //             name: "Ljubljana",
-  //             description: "Putovanje u Ljubljanu",
-  //             images: [],
-  //             type: "Letovanje", // Letovanje, zimovanje, gradovi Evrope
-  //             transport: "Autobusom", // avion, autobus, sopstveni prevoz
-  //             price: 200,
-  //             capacity: 50, // max broj osoba
-  //           })
-  //         ]}
-  //     ));
-  //
-  //   this.users.push(new User({
-  //     username: 'admin',
-  //     password: 'admin',
-  //     name: 'a',
-  //     surname: 'a',
-  //     email: 'a',
-  //     birthday: new Date(),
-  //     address: 'a',
-  //     phoneNumber: 'a'
-  //   }));
-  //   this.users.push(new User({
-  //     username: 'user',
-  //     password: '1234',
-  //     name: 'b',
-  //     surname: 'b',
-  //     email: 'b',
-  //     birthday: new Date(),
-  //     address: 'b'
-  //   }));
-  // }
+  private loadHardcodedData() {
+    this.agencies.set("-MNQgy9N5foEWTmmA_1U", new Agency({
+      name: "Aero-turs",
+      address: "Obrenovićeva bb T.C. Gorča,Beograd,11000",
+      foundingYear: "2011",
+      logo: "https://i.imgur.com/OV15WM6.jpeg",
+      phoneNumber: "011/7872-78423",
+      email: "aero@mail.com",
+      destinations: "-MNVEu6iMr2EFlQO6TW63"
+    }));
+    this.agencies.set("-MNQftJa4rskH-dBqE9Z", new Agency({
+      name: "Air Serbia",
+      address: " Bulevar umetnosti 16, Beograd, 11000",
+      foundingYear: "2005",
+      logo: "https://i.imgur.com/jsFrKCn.jpeg",
+      phoneNumber: "011/3232-784323",
+      email: "airserbia381@mail.com",
+      destinations: "-MNVEu6iMr2EFlQO6TW60"
+    }));
+    this.agencies.set("-MNQg8Nd8YPRs-5Kbgqu", new Agency({
+      name: "Bavka tours",
+      address: "Gornji Bunibrod bb, Lazarevac, 16221 ",
+      logo: "https://i.imgur.com/NhAzBBF.jpeg",
+      foundingYear: "1990",
+      phoneNumber: "022/9874-589545",
+      email: "bavka@mail.com",
+      destinations: "-MNVEu6iMr2EFlQO6TW61"
+    }));
+  }
 
   // ------- FIREBASE -------
   private loadFirebaseData() {

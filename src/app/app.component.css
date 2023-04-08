@@ -1,19 +1,11 @@
-/*
-https://colorhunt.co/palette/0000001500503f0071610094
-#000000 crna
-#150050 dark purple
-#1C82ADC med purple
-#B0DAFF light purple
- */
-
-
 * {
-  margin: 0;
+  font-family: Inter, sans-serif;
+  font-weight: 200;
   padding: 0;
-  color: white;
   text-align: center;
-  --primary: #1C82AD;
-  --secondary: #B0DAFF;
+  --primary: #ffffff;
+  --secondary: rgba(0, 0, 0, 0.82);
+  color: var(--secondary);
 }
 
 header {
@@ -21,36 +13,34 @@ header {
   background: var(--secondary);
 }
 
-header h1 {
+header > h1 {
+  font-family: Argentum B, sans-serif;
+  font-weight: 500;
   color: var(--primary);
-  font-size: 30px;
-  padding: 10px;
+  font-size: 3rem;
   text-transform: uppercase;
 }
 
-nav {
-  padding: 10px;
-  overflow: hidden;
-}
-
 nav a {
-  border: solid white 2px;
-  margin-right: 0.5%;
-  float: left;
-  text-align: center;
-  padding: 14px 16px;
+  color: var(--primary);
+  border: solid 2px var(--primary);
+  border-radius: 10%;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 1.2rem;
+  padding: 10px;
+  margin: 15px;
 }
 
 nav a:hover {
-  background-color: white;
+  background-color: var(--primary);
   color: var(--secondary);
 }
 
 body {
+  padding: 2vmin;
   background-color: var(--primary);
   min-height: 100vh;
+  color: var(--secondary);
 }
 
 footer {
@@ -59,119 +49,45 @@ footer {
   font-size: 20px;
 }
 
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.card {
-  background: whitesmoke;
-  padding: 1vmin;
-  margin: 1vmin;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 5px;
-  transition: 0.3s;
-  text-align: left;
-  font-weight: 500;
-}
-
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.card_title {
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.card > p {
-  text-align: left;
+footer > p, footer a {
   color: var(--primary);
-  margin: 10px;
 }
 
-button {
-  background-color: var(--secondary);
-  border-radius: 5px;
-  border-color: var(--secondary);
-  color: whitesmoke;
-  margin: 10px;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.image_title {
-  width: 100%;
-  position: relative;
-  text-align: center;
-}
-
-.image_title > h1 {
-  color: white;
-  font-size: 60px;
-  font-weight: 600;
+.form-container {
+  height: fit-content;
+  max-height: 80%;
+  overflow: scroll;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-transform: uppercase;
-}
-
-.description {
-  font-weight: 300;
-}
-
-input {
-  color: var(--primary);
-  font-size: 20px;
-  margin: 5px;
-}
-
-label {
-  color: var(--primary);
-  font-size: 20px;
-  margin: 5px;
-}
-
-/* The popup form - hidden by default */
-.form-popup {
   display: none;
-  position: absolute;
+  background: var(--primary);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 3px solid #f1f1f1;
+  border: 3px solid var(--secondary);
   z-index: 9;
 }
 
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
+.form-container > form {
   padding: 10px;
-  background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  justify-items: center;
+  gap: 2vmin;
 }
 
-/* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
+.form-container button {
   width: 100%;
-  border: none;
-  background: #f1f1f1;
+  color: var(--primary);
+  font-size: 1.2rem;
+  padding: 10px;
+  background: var(--secondary);
 }
-
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Add a red background color to the cancel button */
 
 .login {
   background-color: var(--primary);
-  color: white;
   padding: 15px;
   border: none;
   width: fit-content;
@@ -179,4 +95,7 @@ label {
   opacity: 0.8;
 }
 
-/* Add some hover effects to buttons */
+.blur {
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+}

@@ -6,7 +6,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-edit-destination',
   templateUrl: './edit-destination.component.html',
-  styleUrls: ['./edit-destination.component.css']
+  styleUrls: ['./edit-destination.component.css', '../card.css', '../margins.css']
 })
 export class EditDestinationComponent {
   destinationId: string;

@@ -1,15 +1,29 @@
 <h1>{{agencyName}}'s destinations:</h1>
-<input type="text" name="destinationNameSearch" placeholder="Search by destination name" [(ngModel)]="destinationNameSearchText"
-       (input)="searchDestinationsByName(destinationNameSearchText)">
-<input type="text" name="destinationTypeSearch" placeholder="Search by destination type" [(ngModel)]="destinationTypeSearchText"
-       (input)="searchDestinationsByType(destinationTypeSearchText)">
-<input type="text" name="destinationTransportSearch" placeholder="Search by transport type" [(ngModel)]="destinationTransportSearchText"
-       (input)="searchDestinationsByTransport(destinationTransportSearchText)">
+<div class="flex-container">
+  <div class="card">
+    <label for="destinationNameSearch">Name:</label>
+    <input type="text" id="destinationNameSearch" name="destinationNameSearch" placeholder="Search by destination name" [(ngModel)]="destinationNameSearchText"
+           (input)="searchDestinationsByName(destinationNameSearchText)">
+  </div>
 
+  <div class="card">
+    <label for="destinationTypeSearch">Type:</label>
+    <input type="text" id="destinationTypeSearch" name="destinationTypeSearch" placeholder="Search by destination type" [(ngModel)]="destinationTypeSearchText"
+           (input)="searchDestinationsByType(destinationTypeSearchText)">
+  </div>
+
+  <div class="card">
+    <label for="destinationTransportSearch">Transport:</label>
+    <input type="text" id="destinationTransportSearch" name="destinationTransportSearch" placeholder="Search by transport type" [(ngModel)]="destinationTransportSearchText"
+           (input)="searchDestinationsByTransport(destinationTransportSearchText)">
+  </div>
+</div>
 <div class="flex-container">
   <div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText | keyvalue">
-    <p>{{destination.value.name}}</p>
-    <button (click)="viewDestination(destination.value)">View destination</button>
+    <div (click)="viewDestination(destination.value)">
+      <img ngSrc="{{destination.value.images[0]}}" width="200" height="200" alt="Destination image">
+      <p class="card_title" >{{destination.value.name}}</p>
+    </div>
     <button *ngIf="isAdmin()" (click)="editDestination(destination.key)">Edit destination</button>
   </div>
 </div>

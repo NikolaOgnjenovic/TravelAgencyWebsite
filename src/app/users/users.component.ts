@@ -7,7 +7,7 @@ import {of} from "rxjs";
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css', '../app.component.css']
+  styleUrls: ['./users.component.css', '../card.css']
 })
 export class UsersComponent {
   users: Map<string, User> = new Map<string, User>;
