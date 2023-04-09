@@ -13,7 +13,7 @@
 <div class="flex-container">
   <div class="card" *ngFor="let agency of filteredAgencies | agencySearchFilter: agencyNameSearchText : destinationNameSearchText | keyvalue">
     <div (click)="viewDestinations(agency.key)">
-      <p class="card_title">{{agency.value.name}}</p>
+      <p class="card-title">{{agency.value.name}}</p>
       <img ngSrc="{{agency.value.logo}}" width="200" height="200" alt="Agency image">
       <p>{{agency.value.address}}</p>
       <p>Contact: {{agency.value.phoneNumber}} </p>

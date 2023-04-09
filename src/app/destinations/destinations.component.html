@@ -22,7 +22,7 @@
   <div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText | keyvalue">
     <div (click)="viewDestination(destination.value)">
       <img ngSrc="{{destination.value.images[0]}}" width="200" height="200" alt="Destination image">
-      <p class="card_title" >{{destination.value.name}}</p>
+      <p class="card-title" >{{destination.value.name}}</p>
     </div>
     <button *ngIf="isAdmin()" (click)="editDestination(destination.key)">Edit destination</button>
   </div>

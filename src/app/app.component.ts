@@ -3,7 +3,6 @@ import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
 import {AgencyService} from "./agency.service";
-import {style} from "@angular/animations";
 
 @Component({
   selector: 'app-root',
