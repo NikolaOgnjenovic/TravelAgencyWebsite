@@ -6,7 +6,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-edit-agency',
   templateUrl: './edit-agency.component.html',
-  styleUrls: ['./edit-agency.component.css', '../card.css', '../margins.css']
+  styleUrls: ['./edit-agency.component.css', '../margins.css']
 })
 export class EditAgencyComponent {
   agencyId: string;
@@ -24,7 +24,7 @@ export class EditAgencyComponent {
         address: new FormControl(this.agency.address),
         foundingYear: new FormControl(this.agency.foundingYear),
         phoneNumber: new FormControl(this.agency.phoneNumber),
-        email: new FormControl(this.agency.email),
+        email: new FormControl(this.agency.email)
       });
     }
   }
@@ -49,5 +49,47 @@ export class EditAgencyComponent {
         alert("Bad data");
       }
     }
+  }
+
+  private validateData() {
+    const email = (<HTMLInputElement> document.getElementById("email"));
+    if (email != null) {
+      console.log("not null");
+      email.addEventListener("input", () => {
+        if (email.textContent != null) {
+          if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email.textContent)) {
+            //if (email.validity.typeMismatch) {
+            email.setCustomValidity("Invalid email address");
+            console.log("mismatch");
+          } else {
+            email.setCustomValidity("");
+          }
+        }
+      });
+    }
+  }
+  private validData(): boolean {
+    if (this.agencyForm.value.name.length < 0) {
+      this.agencyForm.name.style.backgroundColor = 'red';
+      return false;
+    }
+    if (this.agencyForm.value.address.length < 0) {
+      this.agencyForm.value.address.backgroundColor = 'red';
+      return false;
+    }
+    if (this.agencyForm.value.foundingYear.length < 0) {
+      this.agencyForm.value.foundingYear.style.backgroundColor = 'red';
+      return false;
+    }
+    if (this.agencyForm.value.phoneNumber.length < 0) {
+      this.agencyForm.value.phoneNumber.style.backgroundColor = 'red';
+      return false;
+    }
+    if (this.agencyForm.value.email.length < 0) {
+      this.agencyForm.value.email.style.backgroundColor = 'red';
+      return false;
+    }
+
+    return true;
   }
 }

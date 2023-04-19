@@ -8,7 +8,7 @@ export class AuthService {
 
   constructor(private agencyService: AgencyService) {}
 
-  static isAdmin: boolean = false;
+  static isAdmin: boolean = true; // TODO: false;
   static loggedIn: boolean = false;
   static userId: string;
   login(auth: any): boolean {
@@ -27,7 +27,8 @@ export class AuthService {
       return false;
     }
 
-    AuthService.isAdmin = auth.loginUsername == "admin";
+    AuthService.isAdmin = true;
+    // TODO: AuthService.isAdmin = auth.loginUsername == "admin";
     AuthService.loggedIn = true;
 
     let id = this.agencyService.getLoggedInUserId(auth.loginUsername);

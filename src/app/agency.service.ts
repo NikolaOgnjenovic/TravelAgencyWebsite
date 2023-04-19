@@ -151,28 +151,22 @@ export class AgencyService {
 
   validateAgencyForm(value: any): boolean {
     if (value.name.length < 1) {
-      console.log("Empty name");
       return false;
     }
 
     if (value.address.length < 1) {
-      console.log("Empty address");
       return false;
     }
 
     if (!/([0-9]+$)/g.test(value.foundingYear)) {
-      console.log("year: " + value.foundingYear + " type: " + typeof(value.foundingYear));
-      console.log("Founding year not integer");
       return false;
     }
 
     if (!/([0-9]+)+\/([0-9]+)-([0-9]+)$/g.test(value.phoneNumber)) {
-      console.log("Phone number not valid");
       return false;
     }
 
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value.email)) {
-      console.log("Invalid email");
       return false;
     }
     return true;

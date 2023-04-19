@@ -16,8 +16,6 @@ export class DestinationsComponent implements OnInit {
   agency: any;
   agencyName: string;
   destinationNameSearchText: string = "";
-  destinationTypeSearchText: string = "";
-  destinationTransportSearchText: string = "";
   constructor(private router: Router, private agencyService: AgencyService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state;
     this.agencyId = routerExtras?.['agencyId'];
@@ -49,6 +47,7 @@ export class DestinationsComponent implements OnInit {
   }
 
   searchDestinationsByTransport(destinationTransport: string) {
+    console.log("transport: " + destinationTransport);
     this.filteredDestinations = new Map(Array.from(this.allDestinations).filter(
       ([key, val]) => val.transport.toLowerCase().includes(destinationTransport.toLowerCase())));
   }

@@ -1,16 +1,16 @@
 <div class="margins">
   <h1>{{destination.name}}</h1>
-  <p>Price from {{destination.price}} / person</p>
+  <p class="svg-before" id="price">Price from {{destination.price}} RSD / person</p>
   <p class="description">{{destination.description}}</p>
-  <p>{{destination.type}}</p>
-  <p>Transport type: {{destination.transport}}</p>
-  <p>Capacity: {{destination.capacity}} people</p>
+  <p class="svg-before" id="type">Destination type: {{destination.type}}</p>
+  <p class="svg-before" id="transport">Transport type: {{destination.transport}}</p>
+  <p class="svg-before" id="capacity">Capacity: {{destination.capacity}} people</p>
 
   <div class="carousel_container">
     <img *ngFor="let image of destination.images; let i = index" [src]="image" alt="Destination image" [ngClass]="{'image_active': selectedIndex === i}" class="fade">
     <div class="carousel_dot_container">
-  <span *ngFor="let dot of destination.images; let i = index" class="dot" [ngClass]="{'active': selectedIndex == i}" (click)="selectImage(i)">
-  </span>
+      <span *ngFor="let dot of destination.images; let i = index" class="dot" [ngClass]="{'active': selectedIndex == i}" (click)="selectImage(i)">
+      </span>
     </div>
   </div>
 </div>

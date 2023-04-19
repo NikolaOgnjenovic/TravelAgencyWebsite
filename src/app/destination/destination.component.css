@@ -28,7 +28,7 @@
   margin: auto;
   text-align: center;
   height: fit-content;
-  width: 100%;
+  width: 50%;
   border-radius: 15px;
   box-shadow: 0 6px 12px #dce1c1;
 }
@@ -84,4 +84,25 @@
   to {
     opacity: 1;
   }
+}
+
+.svg-before {
+  --url: url(/assets/images/airplane.svg);
+}
+
+.svg-before::before {
+  content: var(--url);
+  display: inline-block;
+  width: 2.4rem;
+  height: 2.4rem;
+  vertical-align: middle;
+  margin-right: 1rem;
+}
+
+#price::before {
+  content: url(/assets/images/currency.svg);
+}
+
+#capacity::before {
+  content: url(/assets/images/capacity.svg);
 }

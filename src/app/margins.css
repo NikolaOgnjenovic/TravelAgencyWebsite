@@ -1,6 +1,7 @@
 .margins {
   margin-left: 10vw;
   margin-right: 10vw;
+  /*width: fit-content;*/
   padding: 10px;
   font-size: 1.4rem;
   height: auto;
@@ -9,7 +10,7 @@
   transition: 0.3s;
 }
 
-.margins p {
+.margins p, label, input {
   margin: 10px;
 }
 

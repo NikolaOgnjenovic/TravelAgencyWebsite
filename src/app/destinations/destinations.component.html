@@ -7,19 +7,33 @@
   </div>
 
   <div class="card">
-    <label for="destinationTypeSearch">Type:</label>
-    <input type="text" id="destinationTypeSearch" name="destinationTypeSearch" placeholder="Search by destination type" [(ngModel)]="destinationTypeSearchText"
-           (input)="searchDestinationsByType(destinationTypeSearchText)">
+    <label for="type">Type:</label>
+    <select (change)="searchDestinationsByType(type.value)" #type id="type" name="type" formControlName="type">
+      <option selected value="">All</option>
+      <option value="summer">Summer</option>
+      <option value="winter">Winter</option>
+      <option value="europeanCities">European cities</option>
+    </select>
+<!--    <input type="text" id="destinationTypeSearch" name="destinationTypeSearch" placeholder="Search by destination type" [(ngModel)]="destinationTypeSearchText"-->
+<!--           (input)="searchDestinationsByType(destinationTypeSearchText)">-->
   </div>
 
   <div class="card">
-    <label for="destinationTransportSearch">Transport:</label>
-    <input type="text" id="destinationTransportSearch" name="destinationTransportSearch" placeholder="Search by transport type" [(ngModel)]="destinationTransportSearchText"
-           (input)="searchDestinationsByTransport(destinationTransportSearchText)">
+    <label for="transport">Transport:</label>
+    <select (change)="searchDestinationsByTransport(transport.value)" #transport id="transport" name="transport" formControlName="transport">
+      <option selected value="">All</option>
+      <option value="airplane">Airplane</option>
+      <option value="bus">Bus</option>
+      <option value="personal">Your personal transport</option>
+    </select>
+<!--    <input type="text" id="destinationTransportSearch" name="destinationTransportSearch" placeholder="Search by transport type" [(ngModel)]="destinationTransportSearchText"-->
+<!--           (input)="searchDestinationsByTransport(destinationTransportSearchText)">-->
   </div>
 </div>
 <div class="flex-container">
-  <div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText | keyvalue">
+<!--  <div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText | keyvalue">-->
+  <div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : type.value : transport.value | keyvalue">
+<!--  <div class="card" *ngFor="let destination of filteredDestinations | keyvalue">  -->
     <div (click)="viewDestination(destination.value)">
       <img ngSrc="{{destination.value.images[0]}}" width="200" height="200" alt="Destination image">
       <p class="card-title" >{{destination.value.name}}</p>

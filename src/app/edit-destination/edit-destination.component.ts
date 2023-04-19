@@ -41,6 +41,7 @@ export class EditDestinationComponent {
     if (!confirm("Are you sure that you want to update this destination?")) {
       alert("Denied");
     } else {
+      console.table(this.destinationForm.value);
       if (this.agencyService.validateDestinationForm(this.destinationForm.value)) {
         this.agencyService.updateDestination(this.destinationForm.value, this.destinationId, this.destination.destinationGroupId, this.destination.images);
         this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});

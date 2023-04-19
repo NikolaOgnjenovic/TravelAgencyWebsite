@@ -1,29 +1,35 @@
-<form class="margins flex-container" style="display: block !important; justify-content: center; align-items: center" [formGroup]="destinationForm">
+<form class="margins flex-container" style="flex-direction: column !important" [formGroup]="destinationForm">
   <p class="card-title">{{destination.name}}</p>
-  <div class="card">
-    <label for="name">Name:</label>
-    <input type="text" id="name" formControlName="name">
-  </div>
-  <div class="card">
-    <label for="description">Description:</label>
-    <input type="text" id="description" formControlName="description">
-  </div>
-  <div class="card">
-    <label for="type">Type:</label>
-    <input type="text" id="type" formControlName="type">
-  </div>
-  <div class="card">
-    <label for="transport">Transport:</label>
-    <input type="text" id="transport" formControlName="transport">
-  </div>
-  <div class="card">
-    <label for="price">Price:</label>
-    <input type="number" id="price" formControlName="price">
-  </div>
-  <div class="card">
-    <label for="capacity">Capacity:</label>
-    <input type="number" id="capacity" formControlName="capacity">
-  </div>
+  <label for="name">Name:</label>
+  <input type="text" id="name" formControlName="name">
+
+  <label for="description">Description:</label>
+  <textarea id="description" formControlName="description"></textarea>
+
+  <label for="type">Type:</label>
+  <select id="type" name="type" formControlName="type">
+    <option selected disabled>Select the destination type</option>
+    <option value="summer">Summer</option>
+    <option value="winter">Winter</option>
+    <option value="europeanCities">European cities</option>
+  </select>
+<!--  <input type="text" id="type" formControlName="type">-->
+
+  <label for="transport">Transport:</label>
+  <!--  <input type="text" id="transport" formControlName="transport">-->
+  <select id="transport" name="transport" formControlName="transport">
+    <option selected disabled>Select a transportation type</option>
+    <option value="airplane">Airplane</option>
+    <option value="bus">Bus</option>
+    <option value="personal">Your personal transport</option>
+  </select>
+
+  <label for="price">Price:</label>
+  <input type="number" id="price" formControlName="price">
+
+  <label for="capacity">Capacity:</label>
+  <input type="number" id="capacity" formControlName="capacity">
+
+  <input name="update" type="submit" (click)="updateDestination()" value="Update">
+  <input name="delete" type="submit" (click)="deleteDestination()" value="Delete">
 </form>
-<input name="update" type="submit" (click)="updateDestination()" value="Update">
-<input name="delete" type="submit" (click)="deleteDestination()" value="Delete">
