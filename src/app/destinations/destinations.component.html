@@ -1,14 +1,15 @@
+<button *ngIf="isAdmin()" (click)="addDestination()">Add destination</button>
 <h1>{{agencyName}}'s destinations:</h1>
 <div class="flex-container">
   <div class="card">
-    <label for="destinationNameSearch">Name:</label>
+    <label for="destinationNameSearch">Name</label>
     <input type="text" id="destinationNameSearch" name="destinationNameSearch" placeholder="Search by destination name" [(ngModel)]="destinationNameSearchText"
            (input)="searchDestinationsByName(destinationNameSearchText)">
   </div>
 
   <div class="card">
-    <label for="type">Type:</label>
-    <select (change)="searchDestinationsByType(type.value)" #type id="type" name="type" formControlName="type">
+    <label for="type">Type</label>
+    <select (change)="searchDestinationsByType(type.value)" #type id="type" name="type">
       <option selected value="">All</option>
       <option value="summer">Summer</option>
       <option value="winter">Winter</option>
@@ -19,8 +20,8 @@
   </div>
 
   <div class="card">
-    <label for="transport">Transport:</label>
-    <select (change)="searchDestinationsByTransport(transport.value)" #transport id="transport" name="transport" formControlName="transport">
+    <label for="transport">Transport</label>
+    <select (change)="searchDestinationsByTransport(transport.value)" #transport id="transport" name="transport">
       <option selected value="">All</option>
       <option value="airplane">Airplane</option>
       <option value="bus">Bus</option>

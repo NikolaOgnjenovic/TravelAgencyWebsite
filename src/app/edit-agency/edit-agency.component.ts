@@ -6,7 +6,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-edit-agency',
   templateUrl: './edit-agency.component.html',
-  styleUrls: ['./edit-agency.component.css', '../margins.css']
+  styleUrls: ['./edit-agency.component.css', '../card.css', '../margins.css']
 })
 export class EditAgencyComponent {
   agencyId: string;
@@ -18,49 +18,49 @@ export class EditAgencyComponent {
     let agency = agencyService.getAgency(this.agencyId);
     if (agency != undefined) {
       this.agency = agency;
-      console.table(this.agency);
+      (this.agency);
       this.agencyForm = new FormGroup({
         name: new FormControl(this.agency.name),
         address: new FormControl(this.agency.address),
         foundingYear: new FormControl(this.agency.foundingYear),
         phoneNumber: new FormControl(this.agency.phoneNumber),
-        email: new FormControl(this.agency.email)
+        email: new FormControl(this.agency.email),
+        logo: new FormControl(this.agency.logo)
       });
     }
   }
 
   deleteAgency() {
     if (!confirm("Are you sure that you want to delete this agency?")) {
-      console.log("Denied");
-    } else {
-      this.agencyService.deleteAgency(this.agencyId);
-      this.router.navigate(['home']);
+      return;
     }
+
+    this.agencyService.deleteAgency(this.agencyId);
+    this.router.navigate(['home']);
   }
 
   updateAgency() {
     if (!confirm("Are you sure that you want to update this agency?")) {
-      alert("Denied");
+      return;
+    }
+    if (this.agencyService.validateAgencyForm(this.agencyForm.value)) {
+      this.agencyService.updateAgency(this.agencyForm.value, this.agencyId, this.agency.destinations);
+      this.router.navigate(['home']);
     } else {
-      if (this.agencyService.validateAgencyForm(this.agencyForm.value)) {
-        this.agencyService.updateAgency(this.agencyForm.value, this.agencyId, this.agency.destinations, this.agency.logo);
-        this.router.navigate(['home']);
-      } else {
-        alert("Bad data");
-      }
+      // TODO: style invalid fields
     }
   }
 
   private validateData() {
     const email = (<HTMLInputElement> document.getElementById("email"));
     if (email != null) {
-      console.log("not null");
+      ("not null");
       email.addEventListener("input", () => {
         if (email.textContent != null) {
           if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email.textContent)) {
             //if (email.validity.typeMismatch) {
             email.setCustomValidity("Invalid email address");
-            console.log("mismatch");
+            ("mismatch");
           } else {
             email.setCustomValidity("");
           }

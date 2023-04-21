@@ -31,6 +31,10 @@ export class HomeComponent {
   isAdmin(): boolean {
     return AuthService.isAdmin;
   }
+
+  addAgency(): void {
+    this.router.navigate(['add_agency']);
+  }
   editAgency(agencyId: string): void {
     this.router.navigate(['edit_agency'], {state: {agencyId: agencyId}});
   }

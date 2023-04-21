@@ -6,7 +6,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-add-agency',
   templateUrl: './add-agency.component.html',
-  styleUrls: ['./add-agency.component.css', '../margins.css']
+  styleUrls: ['./add-agency.component.css', '../card.css', '../margins.css']
 })
 export class AddAgencyComponent {
   agencyForm: any;
@@ -24,11 +24,15 @@ export class AddAgencyComponent {
   }
 
   addAgency() {
+    if (!confirm("Are you sure that you want to add this agency?")) {
+      return;
+    }
+
     if (this.agencyService.validateAgencyForm(this.agencyForm.value)) {
-      //this.agencyService.addAgency(this.agencyForm.value);
+      this.agencyService.addAgency(this.agencyForm.value);
       this.router.navigate(['home']);
     } else {
-      alert("Bad data");
+      // TODO: style invalid fields
     }
   }
 }

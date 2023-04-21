@@ -16,7 +16,7 @@ export class UsersComponent {
   }
 
   editUser(userId: string, user: User) {
-    console.table(user);
+    (user);
     this.router.navigate(['edit_user'], {state: {userId: userId, user: user}});
   }
 

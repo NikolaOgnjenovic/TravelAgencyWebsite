@@ -31,23 +31,22 @@ export class EditUserComponent {
 
   deleteUser() {
     if (!confirm("Are you sure that you want to delete this user?")) {
-      console.log("Denied");
-    } else {
-      this.agencyService.deleteUser(this.userId);
-      this.router.navigate(['users']);
+      return;
     }
+    this.agencyService.deleteUser(this.userId);
+    this.router.navigate(['users']);
   }
 
   updateUser() {
     if (!confirm("Are you sure that you want to update this user?")) {
-      console.log("Denied");
+      return;
+    }
+
+    if (this.agencyService.validateUserForm(this.userForm.value)) {
+      this.agencyService.updateUser(this.userId, this.userForm.value);
+      this.router.navigate(['users']);
     } else {
-      if (this.agencyService.validateUserForm(this.userForm.value)) {
-        this.agencyService.updateUser(this.userId, this.userForm.value);
-        this.router.navigate(['users']);
-      } else {
-        alert("Bad data");
-      }
+      // TODO: Style invalid inputs
     }
   }
 }

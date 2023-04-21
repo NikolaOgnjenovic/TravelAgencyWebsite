@@ -28,6 +28,10 @@ export class DestinationsComponent implements OnInit {
     this.filteredDestinations = this.allDestinations;
   }
 
+  addDestination() {
+    this.router.navigate(['add_destination']);
+  }
+
   viewDestination(destination: Destination) {
     this.router.navigate(['destination'], {state: {destination: destination}});
   }
@@ -47,7 +51,7 @@ export class DestinationsComponent implements OnInit {
   }
 
   searchDestinationsByTransport(destinationTransport: string) {
-    console.log("transport: " + destinationTransport);
+    ("transport: " + destinationTransport);
     this.filteredDestinations = new Map(Array.from(this.allDestinations).filter(
       ([key, val]) => val.transport.toLowerCase().includes(destinationTransport.toLowerCase())));
   }

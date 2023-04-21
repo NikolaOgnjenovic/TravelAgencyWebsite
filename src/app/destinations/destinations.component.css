@@ -4,3 +4,10 @@ button {
   padding: 10px;
   background: var(--secondary);
 }
+
+select {
+  color: var(--secondary);
+  background: var(--primary);
+  padding: 10px;
+  border: 1px solid var(--secondary);
+}

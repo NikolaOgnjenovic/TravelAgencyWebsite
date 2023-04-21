@@ -86,8 +86,8 @@ export class AgencyService {
         }
       });
     });
-    console.log("\nAGENCIES:");
-    console.table(agencies);
+    ("\nAGENCIES:");
+    (agencies);
     return agencies;
   }
 
@@ -107,8 +107,8 @@ export class AgencyService {
         })
       })
     });
-    console.log("\nDESTINATIONS:");
-    console.table(destinations);
+    ("\nDESTINATIONS:");
+    (destinations);
     return destinations;
   }
 
@@ -122,8 +122,8 @@ export class AgencyService {
         }
       });
     });
-    console.log("\nUSERS:");
-    console.table(users);
+    ("\nUSERS:");
+    (users);
     return users;
   }
 
@@ -132,21 +132,31 @@ export class AgencyService {
     return this.agencies;
   }
 
+  addAgency(agency: Agency) {
+    this.agencies.set(new Date().toString(), agency);
+    // TODO: firebase
+    // let agenciesRef = this.firebase.database().ref("agencies/");
+    // agenciesRef.push(agency);
+    // this.agencies = this.getDatabaseAgencies();
+  }
+
   getAgency(agencyId: string) {
     return this.agencies.get(agencyId);
   }
 
-
-  // TODO: Update / remove from database
-  updateAgency(agency: Agency, agencyId: string, destinationGroupId: string, agencyLogo: string) {
-    // The edit-destination component sends a DestinationForm without an id
-    agency.destinations = destinationGroupId;
-    agency.logo = agencyLogo;
+  updateAgency(agency: Agency, agencyId: string, destinationGroupId: string) {
+    agency.destinations = destinationGroupId; // The edit-destination component sends a DestinationForm without an id
     this.agencies.set(agencyId, agency);
+    // TODO: firebase
+    // let agenciesRef = this.firebase.database.ref("agencies/");
+    // agenciesRef.child(agencyId).update(agency);
   }
 
   deleteAgency(agencyId: string) {
     this.agencies.delete(agencyId);
+    // TODO: firebase
+    // let agenciesRef = this.firebase.database.ref("agencies/");
+    // agenciesRef.child(agencyId).remove();
   }
 
   validateAgencyForm(value: any): boolean {
@@ -179,7 +189,12 @@ export class AgencyService {
 
   getDestination(destinationId: string): Destination | undefined {
     return this.destinations.get(destinationId);
-}
+  }
+
+  addDestination(destination: Destination) {
+    // TODO: firebase
+    this.destinations.set(new Date().toString(), destination);
+  }
   getDestinationsByGroupId(destinationGroupId: string): Map<string, Destination> {
     let groupedDestinations: Map<string, Destination> = new Map<string, Destination>;
     for (let [key, value] of this.destinations) {
@@ -202,32 +217,32 @@ export class AgencyService {
 
   validateDestinationForm(value: any): boolean {
     if (value.name.length < 1) {
-      console.log("Empty name");
+      ("Empty name");
       return false;
     }
 
     if (value.description.length < 1) {
-      console.log("Empty description");
+      ("Empty description");
       return false;
     }
 
     if (value.type.length < 1) {
-      console.log("Empty type");
+      ("Empty type");
       return false;
     }
 
     if (value.transport.length < 1) {
-      console.log("Empty transport");
+      ("Empty transport");
       return false;
     }
 
     if (!/([0-9]+$)/g.test(value.price)) {
-      console.log("Invalid price");
+      ("Invalid price");
       return false;
     }
 
     if (!/([0-9]+$)/g.test(value.capacity)) {
-      console.log("Invalid capacity");
+      ("Invalid capacity");
       return false;
     }
     return true;
@@ -279,37 +294,37 @@ export class AgencyService {
 
   validateUserForm(value: any): boolean {
     if (value.username.length < 1) {
-      console.log("Empty name");
+      ("Empty name");
       return false;
     }
 
     if (value.password.length < 1) {
-      console.log("Empty address");
+      ("Empty address");
       return false;
     }
 
     if (value.name.length < 1) {
-      console.log("Empty address");
+      ("Empty address");
       return false;
     }
 
     if (value.surname.length < 1) {
-      console.log("Empty address");
+      ("Empty address");
       return false;
     }
 
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value.email)) {
-      console.log("Invalid email");
+      ("Invalid email");
       return false;
     }
 
     if (value.address.length < 1) {
-      console.log("Empty address");
+      ("Empty address");
       return false;
     }
 
     if (!/[0-9]+$/g.test(value.phoneNumber)) {
-      console.log("Empty address");
+      ("Empty address");
       return false;
     }
 

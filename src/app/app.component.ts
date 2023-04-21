@@ -42,9 +42,9 @@ export class AppComponent implements AfterContentChecked{
   showLogin() {
     if (this.loginPopup != null) {
       this.loginPopup.style.display = "block";
-      console.log("SHOW LOGIN");
+      ("SHOW LOGIN");
       if (this.body != null) {
-        console.log("BODY NOT NULL");
+        ("BODY NOT NULL");
         this.body.classList.add("blur");
         this.body.style.pointerEvents = "none";
       }
@@ -63,11 +63,9 @@ export class AppComponent implements AfterContentChecked{
 
   login() {
     if (this.loginForm.value.loginUsername.length < 1 || this.loginForm.value.loginPassword.length < 1) {
-      alert("bad form");
       return;
     }
     if (!this.authService.login(this.loginForm.value)) {
-      alert("BAD LOGIN");
       return;
     }
     this.hideLogin();
@@ -103,7 +101,6 @@ export class AppComponent implements AfterContentChecked{
       return;
     }
     if (!this.agencyService.validateUserForm(this.registrationForm.value)) {
-      alert("bad register");
       return;
     }
     this.agencyService.addUser(user);

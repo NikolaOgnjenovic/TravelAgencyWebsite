@@ -14,7 +14,7 @@ export class EditDestinationComponent {
   agencyId: string;
   destinationForm: FormGroup;
   constructor(private router: Router, private agencyService: AgencyService) {
-    const routerExtras = this.router.getCurrentNavigation()?.extras.state
+    const routerExtras = this.router.getCurrentNavigation()?.extras.state;
     this.destinationId = routerExtras?.['destinationId'];
     this.destination = agencyService.getDestination(this.destinationId);
     this.agencyId = routerExtras?.['agencyId'];
@@ -24,30 +24,27 @@ export class EditDestinationComponent {
       type: new FormControl(this.destination.type),
       transport: new FormControl(this.destination.transport),
       price: new FormControl(this.destination.price),
-      capacity: new FormControl(this.destination.capacity),
+      capacity: new FormControl(this.destination.capacity)
     });
   }
 
   deleteDestination() {
     if (!confirm("Are you sure that you want to delete this destination?")) {
-      console.log("Denied");
-    } else {
-      this.agencyService.deleteDestination(this.destinationId);
-      this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
+      return;
     }
+    this.agencyService.deleteDestination(this.destinationId);
+    this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
   }
 
   updateDestination() {
     if (!confirm("Are you sure that you want to update this destination?")) {
-      alert("Denied");
+      return;
+    }
+    if (this.agencyService.validateDestinationForm(this.destinationForm.value)) {
+      this.agencyService.updateDestination(this.destinationForm.value, this.destinationId, this.destination.destinationGroupId, this.destination.images);
+      this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
     } else {
-      console.table(this.destinationForm.value);
-      if (this.agencyService.validateDestinationForm(this.destinationForm.value)) {
-        this.agencyService.updateDestination(this.destinationForm.value, this.destinationId, this.destination.destinationGroupId, this.destination.images);
-        this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
-      } else {
-        alert("Bad data");
-      }
+      // TODO: style invalid inputs
     }
   }
 }

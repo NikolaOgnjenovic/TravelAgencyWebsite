@@ -1,21 +1,21 @@
 <form class="margins flex-container" style="flex-direction: column !important" [formGroup]="agencyForm">
-  <p class="card-title">Edit agency</p>
-  <label for="name">Agency name:</label>
+  <p class="card-title">Add agency</p>
+  <label for="name">Name</label>
   <input type="text" id="name" formControlName="name">
 
-  <label for="address">Address:</label>
+  <label for="address">Address</label>
   <input type="text" id="address" formControlName="address">
 
-  <label for="foundingYear">Founded year:</label>
+  <label for="foundingYear">Founded year</label>
   <input type="number" id="foundingYear" formControlName="foundingYear">
 
-  <label for="phoneNumber">Phone number:</label>
+  <label for="phoneNumber">Phone number</label>
   <input type="text" id="phoneNumber" formControlName="phoneNumber">
 
-  <label for="email">Email:</label>
+  <label for="email">Email</label>
   <input type="email" id="email" formControlName="email">
 
-  <label for="logo">Logo:</label>
+  <label for="logo">Logo link</label>
   <input type="text" id="logo" formControlName="logo">
 
   <input name="update" type="submit" (click)="addAgency()" value="Add">

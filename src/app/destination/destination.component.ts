@@ -32,7 +32,7 @@ export class DestinationComponent implements OnInit{
           transportIconPath = "/assets/images/airplane.svg";
           break;
         case "bus":
-          console.log("BUS!!");
+          ("BUS!!");
           transportIconPath = "/assets/images/bus.svg";
           break;
         case "personal":
@@ -49,7 +49,7 @@ export class DestinationComponent implements OnInit{
           typeIconPath = "/assets/images/summer.svg";
           break;
         case "winter":
-          console.log("BUS!!");
+          ("BUS!!");
           typeIconPath = "/assets/images/winter.svg";
           break;
         case "europeanCities":

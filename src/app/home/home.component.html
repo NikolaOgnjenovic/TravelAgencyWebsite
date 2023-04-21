@@ -1,11 +1,12 @@
+<button *ngIf="isAdmin()" (click)="addAgency()">Add agency</button>
 <div class="flex-container">
   <div class="card">
-    <label for="agencyNameSearch">Agency:</label>
+    <label for="agencyNameSearch">Agency</label>
     <input id ="agencyNameSearch" type="text" name="agencyNameSearch" placeholder="Search by agency name" [(ngModel)]="agencyNameSearchText"
            (input)="searchAgencies(agencyNameSearchText)">
   </div>
   <div class="card">
-    <label for="destinationNameSearch">Destination:</label>
+    <label for="destinationNameSearch">Destination</label>
     <input id="destinationNameSearch" type="text" name="destinationNameSearch" placeholder="Search by destination name" [(ngModel)]="destinationNameSearchText"
            (input)="searchDestinations(destinationNameSearchText)">
   </div>
@@ -23,3 +24,5 @@
     <button *ngIf="isAdmin()" (click)="editAgency(agency.key)">Edit agency</button>
   </div>
 </div>
+
+

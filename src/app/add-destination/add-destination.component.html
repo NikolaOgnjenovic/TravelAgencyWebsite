@@ -1,5 +1,5 @@
 <form class="margins flex-container" style="flex-direction: column !important" [formGroup]="destinationForm">
-  <p class="card-title">{{destination.name}}</p>
+  <p class="card-title">Add destination</p>
   <label for="name">Name</label>
   <input type="text" id="name" formControlName="name">
 
@@ -28,6 +28,5 @@
   <label for="capacity">Capacity</label>
   <input type="number" id="capacity" formControlName="capacity">
 
-  <input name="update" type="submit" (click)="updateDestination()" value="Update">
-  <input name="delete" type="submit" (click)="deleteDestination()" value="Delete">
+  <input name="update" type="submit" (click)="addDestination()" value="Update">
 </form>
