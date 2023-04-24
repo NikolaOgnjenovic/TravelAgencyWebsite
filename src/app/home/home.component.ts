@@ -41,11 +41,11 @@ export class HomeComponent {
 
   searchAgencies(agencyName: string): void {
     this.filteredAgencies = new Map(Array.from(this.allAgencies).filter(
-      ([key, val]) => val.name.toLowerCase().includes(agencyName.toLowerCase())));
+      ([, val]) => val.name.toLowerCase().includes(agencyName.toLowerCase())));
   }
 
   searchDestinations(destinationName: string): void {
     this.filteredDestinations = new Map(Array.from(this.allDestinations).filter(
-      ([key, val]) => val.name.toLowerCase().includes(destinationName.toLowerCase())));
+      ([, val]) => val.name.toLowerCase().includes(destinationName.toLowerCase())));
   }
 }

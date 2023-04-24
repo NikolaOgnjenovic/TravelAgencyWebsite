@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Destination} from "../objects/Destination";
+import {IconSetterService} from "../icon-setter.service";
 
 @Component({
   selector: 'app-destination',
@@ -14,7 +15,7 @@ export class DestinationComponent implements OnInit{
   slideInterval: number = 6000;
   type: HTMLElement | null = null;
   transport: HTMLElement | null = null;
-  constructor(private router: Router) {
+  constructor(private router: Router, private iconSetterService: IconSetterService) {
     this.destination = this.router.getCurrentNavigation()?.extras.state?.['destination'];
     this.agencyId = this.router.getCurrentNavigation()?.extras.state?.['agencyId'];
     this.slideImages();
@@ -28,36 +29,11 @@ export class DestinationComponent implements OnInit{
 
   setIcons() {
     if (this.transport != null) {
-      let transportIconPath = "";
-      switch (this.destination.transport) {
-        case "airplane":
-          transportIconPath = "/assets/images/airplane.svg";
-          break;
-        case "bus":
-          transportIconPath = "/assets/images/bus.svg";
-          break;
-        case "personal":
-          transportIconPath = "/assets/images/car.svg";
-          break;
-      }
-      this.transport.style.setProperty("--url", "url(" + transportIconPath + ")");
+      this.iconSetterService.setTransportationIconPath(this.destination.transport, this.transport);
     }
 
     if (this.type != null) {
-      let typeIconPath = "";
-      switch (this.destination.type) {
-        case "summer":
-          typeIconPath = "/assets/images/summer.svg";
-          break;
-        case "winter":
-          typeIconPath = "/assets/images/winter.svg";
-          break;
-        case "europeanCities":
-          this.type.textContent = "European cities";
-          typeIconPath = "/assets/images/eu.svg";
-          break;
-      }
-      this.type.style.setProperty("--url", "url(" + typeIconPath + ")");
+      this.iconSetterService.setVacationTypeIconPath(this.destination.type, this.type);
     }
   }
   selectImage(i: number) {

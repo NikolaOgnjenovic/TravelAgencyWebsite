@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {Destination} from "../objects/Destination";
 import {AuthService} from "../auth.service";
-import {Agency} from "../objects/Agency";
 
 @Component({
   selector: 'app-destinations',
@@ -43,17 +42,17 @@ export class DestinationsComponent implements OnInit {
 
   searchDestinationsByName(destinationName: string) {
     this.filteredDestinations = new Map(Array.from(this.allDestinations).filter(
-      ([key, val]) => val.name.toLowerCase().includes(destinationName.toLowerCase())));
+      ([, val]) => val.name.toLowerCase().includes(destinationName.toLowerCase())));
   }
 
   searchDestinationsByType(destinationType: string) {
     this.filteredDestinations = new Map(Array.from(this.allDestinations).filter(
-      ([key, val]) => val.type.toLowerCase().includes(destinationType.toLowerCase())));
+      ([, val]) => val.type.toLowerCase().includes(destinationType.toLowerCase())));
   }
 
   searchDestinationsByTransport(destinationTransport: string) {
     this.filteredDestinations = new Map(Array.from(this.allDestinations).filter(
-      ([key, val]) => val.transport.toLowerCase().includes(destinationTransport.toLowerCase())));
+      ([, val]) => val.transport.toLowerCase().includes(destinationTransport.toLowerCase())));
   }
 
   isAdmin() {

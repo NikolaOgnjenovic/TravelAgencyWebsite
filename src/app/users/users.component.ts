@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {User} from "../objects/User";
-import {of} from "rxjs";
 import {AuthService} from "../auth.service";
 
 @Component({

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
+import {IconSetterService} from "../icon-setter.service";
 
 @Component({
   selector: 'app-add-destination',
@@ -14,7 +15,7 @@ export class AddDestinationComponent {
   destinationGroupId: string;
   typeLabel: HTMLElement | null = null;
   transportLabel: HTMLElement | null = null;
-  constructor(private router: Router, private agencyService: AgencyService) {
+  constructor(private router: Router, private agencyService: AgencyService, private iconSetterService: IconSetterService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state;
     this.agencyId = routerExtras?.['agencyId'];
     this.destinationGroupId = routerExtras?.['destinationGroupId'];
@@ -36,36 +37,10 @@ export class AddDestinationComponent {
 
   setIcons() {
     if (this.transportLabel != null) {
-      let transportIconPath = "";
-      switch (this.destinationForm.get('transport')?.value) {
-        case "airplane":
-          transportIconPath = "/assets/images/airplane.svg";
-          break;
-        case "bus":
-          transportIconPath = "/assets/images/bus.svg";
-          break;
-        case "personal":
-          transportIconPath = "/assets/images/car.svg";
-          break;
-      }
-      this.transportLabel.style.setProperty("--url", "url(" + transportIconPath + ")");
+      this.iconSetterService.setTransportationIconPath(this.destinationForm.get('transport')?.value, this.transportLabel);
     }
-
     if (this.typeLabel != null) {
-      let typeIconPath = "";
-      switch (this.destinationForm.get('type')?.value) {
-        case "summer":
-          typeIconPath = "/assets/images/summer.svg";
-          break;
-        case "winter":
-          typeIconPath = "/assets/images/winter.svg";
-          break;
-        case "europeanCities":
-          this.typeLabel.textContent = "European cities";
-          typeIconPath = "/assets/images/eu.svg";
-          break;
-      }
-      this.typeLabel.style.setProperty("--url", "url(" + typeIconPath + ")");
+      this.iconSetterService.setVacationTypeIconPath(this.destinationForm.get('type')?.value, this.typeLabel);
     }
   }
 

@@ -10,15 +10,15 @@ export class DestinationSearchFilterPipe implements PipeTransform {
     let returnValue = destinations;
     if (destinationName.length > 0) {
       destinationName = destinationName.toLowerCase();
-      returnValue = new Map(Array.from(returnValue).filter(([key, val]) => val.name.toLowerCase().includes(destinationName)));
+      returnValue = new Map(Array.from(returnValue).filter(([, val]) => val.name.toLowerCase().includes(destinationName)));
     }
     if (destinationType.length > 0) {
       destinationType = destinationType.toLowerCase();
-      returnValue = new Map(Array.from(returnValue).filter(([key, val]) => val.type.toLowerCase().includes(destinationType)));
+      returnValue = new Map(Array.from(returnValue).filter(([, val]) => val.type.toLowerCase().includes(destinationType)));
     }
     if (destinationTransport.length > 0) {
       destinationTransport = destinationTransport.toLowerCase();
-      returnValue = new Map(Array.from(returnValue).filter(([key, val]) => val.transport.toLowerCase().includes(destinationTransport)));
+      returnValue = new Map(Array.from(returnValue).filter(([, val]) => val.transport.toLowerCase().includes(destinationTransport)));
     }
     return returnValue;
   }

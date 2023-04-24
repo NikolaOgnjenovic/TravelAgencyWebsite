@@ -15,15 +15,14 @@ export class AgencySearchFilterPipe implements PipeTransform {
     let returnValue: Map<string, Agency> = agencies;
     if (destinationName.length > 0) {
       destinationName = destinationName.toLowerCase();
-      (destinationName);
       returnValue.forEach(a => {
-        a.filteredDestinations = new Map(Array.from(this.allDestinations).filter(([key, val]) => val.name.toLowerCase().includes(destinationName) && val.destinationGroupId == a.destinations));
+        a.filteredDestinations = new Map(Array.from(this.allDestinations).filter(([, val]) => val.name.toLowerCase().includes(destinationName) && val.destinationGroupId == a.destinations));
       });
-      returnValue = new Map(Array.from(returnValue).filter(([key, val]) => val.filteredDestinations.size > 0));
+      returnValue = new Map(Array.from(returnValue).filter(([, val]) => val.filteredDestinations.size > 0));
     }
     if (agencyName.length > 0) {
       agencyName = agencyName.toLowerCase();
-      returnValue = new Map(Array.from(returnValue).filter(([key, val]) => val.name.toLowerCase().includes(agencyName)));
+      returnValue = new Map(Array.from(returnValue).filter(([, val]) => val.name.toLowerCase().includes(agencyName)));
     }
     return returnValue;
   }
