@@ -1,5 +1,5 @@
-<button *ngIf="isAdmin()" (click)="addDestination()">Add destination</button>
-<h1>{{agencyName}}'s destinations:</h1>
+<button *ngIf="isAdmin()" (click)="addDestination()" style="margin: 1vmin">Add destination</button>
+<h1 class="card-title">{{agencyName}}'s destinations:</h1>
 <div class="flex-container">
   <div class="card">
     <label for="destinationNameSearch">Name</label>
@@ -8,35 +8,29 @@
   </div>
 
   <div class="card">
-    <label for="type">Type</label>
+    <label for="type">Vacation type</label>
     <select (change)="searchDestinationsByType(type.value)" #type id="type" name="type">
       <option selected value="">All</option>
       <option value="summer">Summer</option>
       <option value="winter">Winter</option>
       <option value="europeanCities">European cities</option>
     </select>
-<!--    <input type="text" id="destinationTypeSearch" name="destinationTypeSearch" placeholder="Search by destination type" [(ngModel)]="destinationTypeSearchText"-->
-<!--           (input)="searchDestinationsByType(destinationTypeSearchText)">-->
   </div>
 
   <div class="card">
-    <label for="transport">Transport</label>
+    <label for="transport">Transportation type</label>
     <select (change)="searchDestinationsByTransport(transport.value)" #transport id="transport" name="transport">
       <option selected value="">All</option>
       <option value="airplane">Airplane</option>
       <option value="bus">Bus</option>
       <option value="personal">Your personal transport</option>
     </select>
-<!--    <input type="text" id="destinationTransportSearch" name="destinationTransportSearch" placeholder="Search by transport type" [(ngModel)]="destinationTransportSearchText"-->
-<!--           (input)="searchDestinationsByTransport(destinationTransportSearchText)">-->
   </div>
 </div>
 <div class="flex-container">
-<!--  <div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : destinationTypeSearchText : destinationTransportSearchText | keyvalue">-->
   <div class="card" *ngFor="let destination of filteredDestinations | destinationSearchFilter: destinationNameSearchText : type.value : transport.value | keyvalue">
-<!--  <div class="card" *ngFor="let destination of filteredDestinations | keyvalue">  -->
     <div (click)="viewDestination(destination.value)">
-      <img ngSrc="{{destination.value.images[0]}}" width="200" height="200" alt="Destination image">
+      <img src="{{destination.value.images[0]}}" alt="Destination image" onerror="this.src='/assets/images/destination-placeholder.svg'">
       <p class="card-title" >{{destination.value.name}}</p>
     </div>
     <button *ngIf="isAdmin()" (click)="editDestination(destination.key)">Edit destination</button>

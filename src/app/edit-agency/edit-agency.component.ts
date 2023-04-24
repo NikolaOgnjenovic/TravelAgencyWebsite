@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-agency',
   templateUrl: './edit-agency.component.html',
-  styleUrls: ['./edit-agency.component.css', '../card.css', '../margins.css']
+  styleUrls: ['./edit-agency.component.css', '../card.css', '../validation.css']
 })
 export class EditAgencyComponent {
   agencyId: string;
@@ -18,14 +18,13 @@ export class EditAgencyComponent {
     let agency = agencyService.getAgency(this.agencyId);
     if (agency != undefined) {
       this.agency = agency;
-      (this.agency);
       this.agencyForm = new FormGroup({
-        name: new FormControl(this.agency.name),
-        address: new FormControl(this.agency.address),
-        foundingYear: new FormControl(this.agency.foundingYear),
-        phoneNumber: new FormControl(this.agency.phoneNumber),
-        email: new FormControl(this.agency.email),
-        logo: new FormControl(this.agency.logo)
+        name: new FormControl(this.agency.name, [Validators.required]),
+        address: new FormControl(this.agency.address, [Validators.required]),
+        logo: new FormControl(this.agency.logo, [Validators.required]),
+        foundingYear: new FormControl(this.agency.foundingYear,[Validators.required, Validators.pattern(/([0-9]+$)/g)]),
+        phoneNumber: new FormControl(this.agency.phoneNumber,[Validators.required, Validators.pattern(/([0-9]+)+\/([0-9]+)-([0-9]+)$/g)]),
+        email: new FormControl(this.agency.email,[Validators.required, Validators.email]),
       });
     }
   }
@@ -43,53 +42,9 @@ export class EditAgencyComponent {
     if (!confirm("Are you sure that you want to update this agency?")) {
       return;
     }
-    if (this.agencyService.validateAgencyForm(this.agencyForm.value)) {
+    if (this.agencyForm.valid) {
       this.agencyService.updateAgency(this.agencyForm.value, this.agencyId, this.agency.destinations);
       this.router.navigate(['home']);
-    } else {
-      // TODO: style invalid fields
     }
-  }
-
-  private validateData() {
-    const email = (<HTMLInputElement> document.getElementById("email"));
-    if (email != null) {
-      ("not null");
-      email.addEventListener("input", () => {
-        if (email.textContent != null) {
-          if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email.textContent)) {
-            //if (email.validity.typeMismatch) {
-            email.setCustomValidity("Invalid email address");
-            ("mismatch");
-          } else {
-            email.setCustomValidity("");
-          }
-        }
-      });
-    }
-  }
-  private validData(): boolean {
-    if (this.agencyForm.value.name.length < 0) {
-      this.agencyForm.name.style.backgroundColor = 'red';
-      return false;
-    }
-    if (this.agencyForm.value.address.length < 0) {
-      this.agencyForm.value.address.backgroundColor = 'red';
-      return false;
-    }
-    if (this.agencyForm.value.foundingYear.length < 0) {
-      this.agencyForm.value.foundingYear.style.backgroundColor = 'red';
-      return false;
-    }
-    if (this.agencyForm.value.phoneNumber.length < 0) {
-      this.agencyForm.value.phoneNumber.style.backgroundColor = 'red';
-      return false;
-    }
-    if (this.agencyForm.value.email.length < 0) {
-      this.agencyForm.value.email.style.backgroundColor = 'red';
-      return false;
-    }
-
-    return true;
   }
 }

@@ -8,11 +8,10 @@ export class AuthService {
 
   constructor(private agencyService: AgencyService) {}
 
-  static isAdmin: boolean = true; // TODO: false;
+  static isAdmin: boolean = true; // false;
   static loggedIn: boolean = false;
   static userId: string;
   login(auth: any): boolean {
-    // TODO: find a different way to handle logging in (listing all users without needing to be admin)!!!
     AuthService.isAdmin = true;
     let loginSuccessful = false;
 
@@ -28,7 +27,7 @@ export class AuthService {
     }
 
     AuthService.isAdmin = true;
-    // TODO: AuthService.isAdmin = auth.loginUsername == "admin";
+    // AuthService.isAdmin = auth.loginUsername == "admin";
     AuthService.loggedIn = true;
 
     let id = this.agencyService.getLoggedInUserId(auth.loginUsername);

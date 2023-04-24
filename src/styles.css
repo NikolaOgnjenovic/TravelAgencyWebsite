@@ -1,5 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
 * {
   margin: 0;
-  font-family: "Roboto Light", serif;
+  font-family: Inter, sans-serif;
+  font-weight: 200;
+  text-align: center;
+  --primary: #ffffff;
+  --secondary: rgba(0, 0, 0, 0.82);
+  color: var(--secondary);
 }
+
+button {
+  font-weight: 300;
+  color: var(--primary);
+  font-size: 1.2rem;
+  padding: 0.8rem;
+  background: var(--secondary);
+}
+
+select {
+  font-weight: 300;
+  color: var(--secondary);
+  background: var(--primary);
+  padding: 0.8rem;
+  border: 1px solid var(--secondary);
+}
+
+input[type=submit] {
+  font-weight: 300;
+  color: var(--primary);
+  font-size: 1.2rem;
+  padding: 0.8rem;
+  background: var(--secondary);
+}
+
+label {
+  font-weight: 300;
+}
+

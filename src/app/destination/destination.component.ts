@@ -5,16 +5,18 @@ import {Destination} from "../objects/Destination";
 @Component({
   selector: 'app-destination',
   templateUrl: './destination.component.html',
-  styleUrls: ['./destination.component.css', '../margins.css']
+  styleUrls: ['./destination.component.css', '../svg-before.css']
 })
 export class DestinationComponent implements OnInit{
   destination: Destination;
+  agencyId: string; // Used for going back
   selectedIndex: number = 0;
   slideInterval: number = 6000;
   type: HTMLElement | null = null;
   transport: HTMLElement | null = null;
   constructor(private router: Router) {
     this.destination = this.router.getCurrentNavigation()?.extras.state?.['destination'];
+    this.agencyId = this.router.getCurrentNavigation()?.extras.state?.['agencyId'];
     this.slideImages();
   }
 
@@ -32,11 +34,10 @@ export class DestinationComponent implements OnInit{
           transportIconPath = "/assets/images/airplane.svg";
           break;
         case "bus":
-          ("BUS!!");
           transportIconPath = "/assets/images/bus.svg";
           break;
         case "personal":
-          transportIconPath = "/assets/images/personal.svg";
+          transportIconPath = "/assets/images/car.svg";
           break;
       }
       this.transport.style.setProperty("--url", "url(" + transportIconPath + ")");
@@ -49,10 +50,10 @@ export class DestinationComponent implements OnInit{
           typeIconPath = "/assets/images/summer.svg";
           break;
         case "winter":
-          ("BUS!!");
           typeIconPath = "/assets/images/winter.svg";
           break;
         case "europeanCities":
+          this.type.textContent = "European cities";
           typeIconPath = "/assets/images/eu.svg";
           break;
       }
@@ -71,5 +72,9 @@ export class DestinationComponent implements OnInit{
         this.selectedIndex++;
       }
     }, this.slideInterval);
+  }
+
+  back() {
+    this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
   }
 }

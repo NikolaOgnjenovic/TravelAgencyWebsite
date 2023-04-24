@@ -1,13 +1,13 @@
 import {AfterContentChecked, Component} from '@angular/core';
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AgencyService} from "./agency.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css', './card.css', './margins.css']
+  styleUrls: ['./app.component.css', './card.css', './validation.css']
 })
 export class AppComponent implements AfterContentChecked{
   loggedIn: boolean = AuthService.loggedIn;
@@ -22,14 +22,14 @@ export class AppComponent implements AfterContentChecked{
       loginPassword: new FormControl(),
     });
     this.registrationForm = new FormGroup({
-      username: new FormControl(),
-      password: new FormControl(),
-      name: new FormControl(),
-      surname: new FormControl(),
-      email: new FormControl(),
-      birthday: new FormControl(),
-      address: new FormControl(),
-      phoneNumber: new FormControl()
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+      surname: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      birthday: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      phoneNumber: new FormControl('', Validators.required)
     });
   }
   ngAfterContentChecked() {
@@ -42,9 +42,7 @@ export class AppComponent implements AfterContentChecked{
   showLogin() {
     if (this.loginPopup != null) {
       this.loginPopup.style.display = "block";
-      ("SHOW LOGIN");
       if (this.body != null) {
-        ("BODY NOT NULL");
         this.body.classList.add("blur");
         this.body.style.pointerEvents = "none";
       }
@@ -96,16 +94,13 @@ export class AppComponent implements AfterContentChecked{
     }
   }
   registerUser() {
+    if (!this.registrationForm.valid) {
+      return;
+    }
+
     let user = this.registrationForm.value;
-    if (user.name.length < 1) {
-      return;
-    }
-    if (!this.agencyService.validateUserForm(this.registrationForm.value)) {
-      return;
-    }
     this.agencyService.addUser(user);
-    this.authService.login(user);
-    this.router.navigate(['home']);
+    this.authService.login({loginUsername: user.username, loginPassword: user.password});
     this.hideRegister();
   }
 }

@@ -1,19 +1,10 @@
-* {
-  font-family: Inter, sans-serif;
-  font-weight: 200;
-  padding: 0;
-  text-align: center;
-  --primary: #ffffff;
-  --secondary: rgba(0, 0, 0, 0.82);
-  color: var(--secondary);
-}
-
 header {
   text-align: center;
   background: var(--secondary);
 }
 
 header > h1 {
+  padding: 0.5rem;
   font-family: Argentum B, sans-serif;
   font-weight: 500;
   color: var(--primary);
@@ -27,8 +18,8 @@ nav a {
   border-radius: 10%;
   text-decoration: none;
   font-size: 1.2rem;
-  padding: 10px;
-  margin: 15px;
+  padding: 1rem;
+  margin: 1.2rem;
 }
 
 nav a:hover {
@@ -45,8 +36,8 @@ body {
 
 footer {
   background: var(--secondary);
-  padding: 20px;
-  font-size: 20px;
+  padding: 1rem;
+  font-size: 1.2rem;
 }
 
 footer > p, footer a {
@@ -56,6 +47,7 @@ footer > p, footer a {
 .form-container {
   height: fit-content;
   max-height: 80%;
+  padding: 2%;
   overflow: scroll;
   position: absolute;
   display: none;
@@ -68,7 +60,7 @@ footer > p, footer a {
 }
 
 .form-container > form {
-  padding: 10px;
+  padding: 0.8rem;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -82,7 +74,7 @@ footer > p, footer a {
   width: 100%;
   color: var(--primary);
   font-size: 1.2rem;
-  padding: 10px;
+  padding: 0.8rem;
   background: var(--secondary);
 }
 
@@ -91,7 +83,7 @@ footer > p, footer a {
   padding: 15px;
   border: none;
   width: fit-content;
-  margin-bottom:10px;
+  margin-bottom:0.8rem;
   opacity: 0.8;
 }
 

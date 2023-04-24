@@ -86,8 +86,6 @@ export class AgencyService {
         }
       });
     });
-    ("\nAGENCIES:");
-    (agencies);
     return agencies;
   }
 
@@ -107,8 +105,6 @@ export class AgencyService {
         })
       })
     });
-    ("\nDESTINATIONS:");
-    (destinations);
     return destinations;
   }
 
@@ -122,8 +118,6 @@ export class AgencyService {
         }
       });
     });
-    ("\nUSERS:");
-    (users);
     return users;
   }
 
@@ -159,29 +153,6 @@ export class AgencyService {
     // agenciesRef.child(agencyId).remove();
   }
 
-  validateAgencyForm(value: any): boolean {
-    if (value.name.length < 1) {
-      return false;
-    }
-
-    if (value.address.length < 1) {
-      return false;
-    }
-
-    if (!/([0-9]+$)/g.test(value.foundingYear)) {
-      return false;
-    }
-
-    if (!/([0-9]+)+\/([0-9]+)-([0-9]+)$/g.test(value.phoneNumber)) {
-      return false;
-    }
-
-    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value.email)) {
-      return false;
-    }
-    return true;
-  }
-
   // ------- DESTINATIONS -------
   getDestinations(): Map<string, Destination> {
     return this.destinations;
@@ -191,8 +162,9 @@ export class AgencyService {
     return this.destinations.get(destinationId);
   }
 
-  addDestination(destination: Destination) {
+  addDestination(destination: Destination, destinationGroupId: string) {
     // TODO: firebase
+    destination.destinationGroupId = destinationGroupId;
     this.destinations.set(new Date().toString(), destination);
   }
   getDestinationsByGroupId(destinationGroupId: string): Map<string, Destination> {
@@ -213,39 +185,6 @@ export class AgencyService {
 
   deleteDestination(destinationId: string) {
     this.destinations.delete(destinationId);
-  }
-
-  validateDestinationForm(value: any): boolean {
-    if (value.name.length < 1) {
-      ("Empty name");
-      return false;
-    }
-
-    if (value.description.length < 1) {
-      ("Empty description");
-      return false;
-    }
-
-    if (value.type.length < 1) {
-      ("Empty type");
-      return false;
-    }
-
-    if (value.transport.length < 1) {
-      ("Empty transport");
-      return false;
-    }
-
-    if (!/([0-9]+$)/g.test(value.price)) {
-      ("Invalid price");
-      return false;
-    }
-
-    if (!/([0-9]+$)/g.test(value.capacity)) {
-      ("Invalid capacity");
-      return false;
-    }
-    return true;
   }
 
   // ------ USERS ------
@@ -279,55 +218,18 @@ export class AgencyService {
     if (AuthService.isAdmin) {
       return this.users;
     }
-    let user = this.getLoggedInUser();
-    if (user != null) {
-      let userMap = new Map<string, User>
-      userMap.set(AuthService.userId, user);
-      return userMap
-    }
-
-    if (user == undefined) {
-      return new Map<string, User>;
-    }
-    return user;
+    return new Map<string, User>;
   }
 
-  validateUserForm(value: any): boolean {
-    if (value.username.length < 1) {
-      ("Empty name");
-      return false;
+  getCurrentUser(): Map<string, User> {
+    let user = this.getLoggedInUser();
+
+    let userMap = new Map<string, User>;
+    if (user == undefined) {
+      return userMap;
     }
 
-    if (value.password.length < 1) {
-      ("Empty address");
-      return false;
-    }
-
-    if (value.name.length < 1) {
-      ("Empty address");
-      return false;
-    }
-
-    if (value.surname.length < 1) {
-      ("Empty address");
-      return false;
-    }
-
-    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value.email)) {
-      ("Invalid email");
-      return false;
-    }
-
-    if (value.address.length < 1) {
-      ("Empty address");
-      return false;
-    }
-
-    if (!/[0-9]+$/g.test(value.phoneNumber)) {
-      ("Empty address");
-      return false;
-    }
-
-    return true;
+    userMap.set(AuthService.userId, user);
+    return userMap;
   }
 }

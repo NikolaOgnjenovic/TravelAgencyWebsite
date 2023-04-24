@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {Destination} from "../objects/Destination";
 import {AuthService} from "../auth.service";
+import {Agency} from "../objects/Agency";
 
 @Component({
   selector: 'app-destinations',
@@ -29,15 +30,15 @@ export class DestinationsComponent implements OnInit {
   }
 
   addDestination() {
-    this.router.navigate(['add_destination']);
+    this.router.navigate(['add_destination'], {state: {agencyId: this.agencyId, destinationGroupId: this.agency.destinations}});
   }
 
   viewDestination(destination: Destination) {
-    this.router.navigate(['destination'], {state: {destination: destination}});
+    this.router.navigate(['destination'], {state: {destination: destination, agencyId: this.agencyId}});
   }
 
   editDestination(destinationId: string) {
-    this.router.navigate(['edit_destination'], {state: {destinationId: destinationId , agencyId: this.agencyId}});
+    this.router.navigate(['edit_destination'], {state: {destinationId: destinationId, agencyId: this.agencyId}});
   }
 
   searchDestinationsByName(destinationName: string) {
@@ -51,7 +52,6 @@ export class DestinationsComponent implements OnInit {
   }
 
   searchDestinationsByTransport(destinationTransport: string) {
-    ("transport: " + destinationTransport);
     this.filteredDestinations = new Map(Array.from(this.allDestinations).filter(
       ([key, val]) => val.transport.toLowerCase().includes(destinationTransport.toLowerCase())));
   }
