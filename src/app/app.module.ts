@@ -16,8 +16,6 @@ import { UsersComponent } from './users/users.component';
 import { AgencySearchFilterPipe } from './agency-search-filter.pipe';
 import { DestinationSearchFilterPipe } from './destination-search-filter.pipe';
 import {NgOptimizedImage} from "@angular/common";
-import { AddAgencyComponent } from './add-agency/add-agency.component';
-import { AddDestinationComponent } from './add-destination/add-destination.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +31,6 @@ import { AddDestinationComponent } from './add-destination/add-destination.compo
     UsersComponent,
     AgencySearchFilterPipe,
     DestinationSearchFilterPipe,
-    AddAgencyComponent,
-    AddDestinationComponent
   ],
   imports: [
     BrowserModule,

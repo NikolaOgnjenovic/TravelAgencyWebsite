@@ -1,4 +1,4 @@
-<p class="card-title">{{destination.name}}</p>
+<p class="card-title" id="title">Edit destination</p>
 
 <form class="flex-container" [formGroup]="destinationForm">
   <div class="card">
@@ -53,6 +53,7 @@
 
   <div class="break"></div>
 
-  <input type="submit" (click)="updateDestination()" value="Update">
-  <input type="submit" (click)="deleteDestination()" value="Delete">
+  <input *ngIf="destination == undefined" name="add" type="submit" (click)="addDestination()" value="Add">
+  <input *ngIf="destination != undefined" name="update" type="submit" (click)="updateDestination()" value="Update">
+  <input *ngIf="destination != undefined" name="delete" type="submit" (click)="deleteDestination()" value="Delete">
 </form>

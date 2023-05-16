@@ -11,29 +11,59 @@ import {IconSetterService} from "../icon-setter.service";
 })
 export class EditDestinationComponent implements OnInit{
   destinationId: string;
-  destination: any;
+  destinationGroupId: string;
+  destination: any = undefined;
   agencyId: string;
   destinationForm: FormGroup;
   typeLabel: HTMLElement | null = null;
   transportLabel: HTMLElement | null = null;
+  titleText: string = "";
+
   constructor(private router: Router, private agencyService: AgencyService, private iconSetterService: IconSetterService) {
     const routerExtras = this.router.getCurrentNavigation()?.extras.state;
-    this.destinationId = routerExtras?.['destinationId'];
-    this.destination = agencyService.getDestination(this.destinationId);
     this.agencyId = routerExtras?.['agencyId'];
-    this.destinationForm = new FormGroup({
-      name: new FormControl(this.destination.name, Validators.required),
-      description: new FormControl(this.destination.description, Validators.required),
-      type: new FormControl(this.destination.type, Validators.required),
-      transport: new FormControl(this.destination.transport, Validators.required),
-      price: new FormControl(this.destination.price, [Validators.required, Validators.pattern(/([0-9]+$)/g)]),
-      capacity: new FormControl(this.destination.capacity, [Validators.required, Validators.pattern(/([0-9]+$)/g)])
-    });
+    this.destinationId = routerExtras?.['destinationId'];
+    this.destinationGroupId = routerExtras?.['destinationGroupId'];
+
+    let destination = agencyService.getDestination(this.destinationId);
+    console.log(this.destination);
+    // Editing
+    if (destination != undefined) {
+      this.destination = destination;
+
+      this.destinationForm = new FormGroup({
+        name: new FormControl(this.destination.name, Validators.required),
+        description: new FormControl(this.destination.description, Validators.required),
+        type: new FormControl(this.destination.type, Validators.required),
+        transport: new FormControl(this.destination.transport, Validators.required),
+        price: new FormControl(this.destination.price, [Validators.required, Validators.pattern(/([0-9]+$)/g)]),
+        capacity: new FormControl(this.destination.capacity, [Validators.required, Validators.pattern(/([0-9]+$)/g)])
+      });
+
+      this.titleText = "Edit destination";
+    }
+    // Adding
+    else {
+      this.destinationForm = new FormGroup({
+        name: new FormControl('', Validators.required),
+        description: new FormControl('', Validators.required),
+        type: new FormControl('', Validators.required),
+        transport: new FormControl('', Validators.required),
+        price: new FormControl('', [Validators.required, Validators.pattern(/([0-9]+$)/g), Validators.min(0)]),
+        capacity: new FormControl('', [Validators.required, Validators.pattern(/([0-9]+$)/g), Validators.min(0)])
+      });
+
+      this.titleText = "Add destination";
+    }
   }
 
   ngOnInit() {
     this.typeLabel = document.getElementById("type");
     this.transportLabel = document.getElementById("transport");
+    let title = document.getElementById("title");
+    if (title != null) {
+      title.innerText = this.titleText;
+    }
     this.setIcons();
   }
 
@@ -45,12 +75,15 @@ export class EditDestinationComponent implements OnInit{
       this.iconSetterService.setVacationTypeIconPath(this.destinationForm.get('type')?.value, this.typeLabel);
     }
   }
-  deleteDestination() {
-    if (!confirm("Are you sure that you want to delete this destination?")) {
+
+  addDestination() {
+    if (!confirm("Are you sure that you want to add this destination?")) {
       return;
     }
-    this.agencyService.deleteDestination(this.destinationId);
-    this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
+    if (this.destinationForm.valid) {
+      this.agencyService.addDestination(this.destinationForm.value, this.destinationGroupId);
+      this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
+    }
   }
 
   updateDestination() {
@@ -61,5 +94,13 @@ export class EditDestinationComponent implements OnInit{
       this.agencyService.updateDestination(this.destinationForm.value, this.destinationId, this.destination.destinationGroupId, this.destination.images);
       this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
     }
+  }
+
+  deleteDestination() {
+    if (!confirm("Are you sure that you want to delete this destination?")) {
+      return;
+    }
+    this.agencyService.deleteDestination(this.destinationId);
+    this.router.navigate(['destinations'], {state: {agencyId: this.agencyId}});
   }
 }

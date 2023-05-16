@@ -1,4 +1,4 @@
-<p class="card-title">Edit agency</p>
+<p class="card-title" id="title">Edit agency</p>
 <form [formGroup]="agencyForm">
   <div class="flex-container">
     <div class="card">
@@ -39,6 +39,7 @@
     </div>
   </div>
 
-  <input name="update" type="submit" (click)="updateAgency()" value="Update">
-  <input name="delete" type="submit" (click)="deleteAgency()" value="Delete">
+  <input *ngIf="agency == undefined" name="add" type="submit" (click)="addAgency()" value="Add">
+  <input *ngIf="agency != undefined" name="update" type="submit" (click)="updateAgency()" value="Update">
+  <input *ngIf="agency != undefined" name="delete" type="submit" (click)="deleteAgency()" value="Delete">
 </form>

@@ -29,7 +29,7 @@ export class DestinationsComponent implements OnInit {
   }
 
   addDestination() {
-    this.router.navigate(['add_destination'], {state: {agencyId: this.agencyId, destinationGroupId: this.agency.destinations}});
+    this.router.navigate(['edit_destination'], {state: {agencyId: this.agencyId, destinationGroupId: this.agency.destinations}});
   }
 
   viewDestination(destination: Destination) {
