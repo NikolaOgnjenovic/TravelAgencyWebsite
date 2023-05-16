@@ -1,5 +1,5 @@
 <button *ngIf="isAdmin()" (click)="addAgency()" style="margin: 1vmin">Add agency</button>
-<div class="flex-container">
+<div class="flex-container" style="justify-content: center">
   <div class="card">
     <label for="agencyNameSearch">Agency name</label>
     <input id ="agencyNameSearch" type="text" name="agencyNameSearch" placeholder="Search by agency name" [(ngModel)]="agencyNameSearchText"
@@ -16,7 +16,7 @@
   <div class="card" *ngFor="let agency of filteredAgencies | agencySearchFilter: agencyNameSearchText : destinationNameSearchText | keyvalue">
     <div (click)="viewDestinations(agency.key)">
       <p class="card-title">{{agency.value.name}}</p>
-      <img src="{{agency.value.logo}}" alt="Agency image"  onerror="this.src='/assets/images/agency-placeholder.svg'">
+      <img src="{{agency.value.logo}}" alt="Agency image" style="background: url('/assets/images/agency-placeholder.svg')">
       <p>{{agency.value.address}}</p>
       <p>Contact: {{agency.value.phoneNumber}} </p>
       <p>{{agency.value.email}}</p>

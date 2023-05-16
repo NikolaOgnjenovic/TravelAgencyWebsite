@@ -127,6 +127,7 @@ export class AgencyService {
   }
 
   addAgency(agency: Agency) {
+    agency.logo = "/assets/images/agency-placeholder.svg"
     this.agencies.set(new Date().toString(), agency);
     // TODO: firebase
     // let agenciesRef = this.firebase.database().ref("agencies/");
@@ -165,6 +166,7 @@ export class AgencyService {
   addDestination(destination: Destination, destinationGroupId: string) {
     // TODO: firebase
     destination.destinationGroupId = destinationGroupId;
+    destination.images = ["/assets/images/destination-placeholder.jpg", "/assets/images/people.png"]
     this.destinations.set(new Date().toString(), destination);
   }
   getDestinationsByGroupId(destinationGroupId: string): Map<string, Destination> {

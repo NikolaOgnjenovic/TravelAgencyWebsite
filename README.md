@@ -12,7 +12,7 @@ To view all functionality of the website, login as an admin with `admin` as the 
 
 To use the website as a regular user, login with `marko` as the username and `marko123` as the password.
 
-Because the project specification says so, an admin & regular user have the access to every function of the website.
+Because the project specification says so, an admin & regular user have access to every function of the website.
 This is subject to change.
 
 

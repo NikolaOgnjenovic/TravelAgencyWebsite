@@ -1,16 +1,10 @@
-<form class="flex-container" style="flex-direction: column !important" [formGroup]="destinationForm">
-  <p class="card-title">{{destination.name}}</p>
+<p class="card-title">{{destination.name}}</p>
 
+<form class="flex-container" [formGroup]="destinationForm">
   <div class="card">
     <label for="name">Name</label>
     <input type="text" id="name" formControlName="name">
     <p class="validation-warning" *ngIf="destinationForm.get('name')?.invalid">The name is required</p>
-  </div>
-
-  <div class="card">
-    <label for="description">Description</label>
-    <textarea id="description" formControlName="description"></textarea>
-    <p class="validation-warning" *ngIf="destinationForm.get('description')?.invalid">The description is required</p>
   </div>
 
   <div class="card">
@@ -35,9 +29,11 @@
     <p class="validation-warning" *ngIf="destinationForm.get('transport')?.invalid">The transport type is required</p>
   </div>
 
+  <div class="break"></div>
+
   <div class="card">
     <label for="price-val" class="svg-before" id="price">Price</label>
-    <input type="number" id="price-val" formControlName="price">
+    <input type="number" id ="price-val" formControlName="price">
     <p class="validation-warning" *ngIf="destinationForm.get('price')?.invalid">Invalid price</p>
   </div>
 
@@ -46,6 +42,16 @@
     <input type="number" id="capacity-val" formControlName="capacity">
     <p class="validation-warning" *ngIf="destinationForm.get('capacity')?.invalid">Invalid capacity</p>
   </div>
+
+  <div class="break"></div>
+
+  <div class="card">
+    <label for="description">Description</label>
+    <textarea id="description" formControlName="description" cols="40" rows="10"></textarea>
+    <p class="validation-warning" *ngIf="destinationForm.get('description')?.invalid">The description is required</p>
+  </div>
+
+  <div class="break"></div>
 
   <input type="submit" (click)="updateDestination()" value="Update">
   <input type="submit" (click)="deleteDestination()" value="Delete">

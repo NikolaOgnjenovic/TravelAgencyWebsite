@@ -4,9 +4,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;500&display=swap" rel="stylesheet">
   <header>
     <h1>Travel agencies</h1>
-    <nav class="flex-container">
+    <nav class="flex-container" style="justify-content: center">
       <a routerLink="home" routerLinkActive="activeNavLink">Home</a>
-      <a *ngIf="loggedIn" routerLink="users" routerLinkActive="activeNavLink">User page</a>
+      <a routerLink="users" routerLinkActive="activeNavLink">Users</a>
       <a *ngIf="!loggedIn" (click)="showRegister()">Register</a>
       <a (click)="showLogin()" *ngIf="!loggedIn">Login</a>
       <a *ngIf="loggedIn" (click)="logout()">Logout</a>
@@ -23,24 +23,27 @@
 </div>
 
 <div class="form-container" id="loginPopup">
+  <p class="card-title">Login</p>
   <form [formGroup]="loginForm">
-    <p class="card-title">Login</p>
     <div class="card">
       <label for="loginUsername">Username</label>
       <input type="text" id="loginUsername" formControlName="loginUsername">
     </div>
     <div class="card">
       <label for="loginPassword">Password</label>
-      <input type="text" id="loginPassword" formControlName="loginPassword">
+      <input type="password" id="loginPassword" formControlName="loginPassword">
     </div>
-    <button type="button" class="login" (click)="login()">Login</button>
-    <button type="button" (click)="hideLogin()">Close</button>
+
+    <div class="break"></div>
+
+    <button type="button" (click)="login()">Login</button>
+    <button type="button" class="lower_opacity" (click)="hideLogin()">Close</button>
   </form>
 </div>
 
 <div class="form-container" id="registrationPopup">
+  <p class="card-title">Register</p>
   <form [formGroup]="registrationForm">
-    <p class="card-title">Register</p>
     <div class="card">
       <label for="username">Username</label>
       <input type="text" id="username" formControlName="username">
@@ -49,7 +52,7 @@
 
     <div class="card">
       <label for="password">Password</label>
-      <input type="text" id="password" formControlName="password">
+      <input type="password" id="password" formControlName="password">
       <p class="validation-warning" *ngIf="registrationForm.get('password')?.invalid">Please input a password</p>
     </div>
 
@@ -89,7 +92,9 @@
       <p class="validation-warning" *ngIf="registrationForm.get('phoneNumber')?.invalid">Please enter a phone number</p>
     </div>
 
+    <div class="break"></div>
+
     <button type="button" (click)="registerUser()">Register</button>
-    <button type="button" (click)="hideRegister()">Close</button>
+    <button type="button" class="lower_opacity" (click)="hideRegister()">Close</button>
   </form>
 </div>

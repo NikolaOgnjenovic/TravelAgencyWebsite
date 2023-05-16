@@ -1,40 +1,42 @@
-<form class="flex-container" style="flex-direction: column !important;" [formGroup]="agencyForm">
-  <p class="card-title">Add agency</p>
+<p class="card-title">Add agency</p>
+<form [formGroup]="agencyForm">
+  <div class="flex-container">
+    <div class="card">
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name">
+      <p class="validation-warning" *ngIf="agencyForm.get('name')?.invalid">The name is required</p>
+    </div>
 
-  <div class="card">
-    <label for="name">Name</label>
-    <input type="text" id="name" formControlName="name">
-    <p class="validation-warning" *ngIf="agencyForm.get('name')?.invalid">The name is required</p>
-  </div>
+    <div class="card">
+      <label for="logo">Logo link</label>
+      <input type="text" id="logo" formControlName="logo">
+      <p class="validation-warning" *ngIf="agencyForm.get('logo')?.invalid">The logo is required</p>
+    </div>
 
-  <div class="card">
-    <label for="logo">Logo link</label>
-    <input type="text" id="logo" formControlName="logo">
-    <p class="validation-warning" *ngIf="agencyForm.get('logo')?.invalid">The logo is required</p>
-  </div>
+    <div class="card">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email">
+      <p class="validation-warning" *ngIf="agencyForm.get('email')?.invalid">Invalid email</p>
+    </div>
+    <div class="break"></div>
 
-  <div class="card">
-    <label for="email">Email</label>
-    <input type="email" id="email" formControlName="email">
-    <p class="validation-warning" *ngIf="agencyForm.get('email')?.invalid">Invalid email</p>
-  </div>
+    <div class="card">
+      <label for="phoneNumber">Phone number (123/456-789)</label>
+      <input type="text" id="phoneNumber" formControlName="phoneNumber">
+      <p class="validation-warning" *ngIf="agencyForm.get('phoneNumber')?.invalid">Invalid phone number</p>
+    </div>
 
-  <div class="card">
-    <label for="phoneNumber">Phone number (123/456-789)</label>
-    <input type="text" id="phoneNumber" formControlName="phoneNumber">
-    <p class="validation-warning" *ngIf="agencyForm.get('phoneNumber')?.invalid">Invalid phone number</p>
-  </div>
+    <div class="card">
+      <label for="address">Address</label>
+      <input type="text" id="address" formControlName="address">
+      <p class="validation-warning" *ngIf="agencyForm.get('address')?.invalid">The address is required</p>
+    </div>
 
-  <div class="card">
-    <label for="address">Address</label>
-    <input type="text" id="address" formControlName="address">
-    <p class="validation-warning" *ngIf="agencyForm.get('address')?.invalid">The address is required</p>
-  </div>
-
-  <div class="card">
-    <label for="foundingYear">Founding year</label>
-    <input type="number" id="foundingYear" formControlName="foundingYear">
-    <p class="validation-warning" *ngIf="agencyForm.get('foundingYear')?.invalid">Invalid year</p>
+    <div class="card">
+      <label for="foundingYear">Founding year</label>
+      <input type="number" id="foundingYear" formControlName="foundingYear">
+      <p class="validation-warning" *ngIf="agencyForm.get('foundingYear')?.invalid">Invalid year</p>
+    </div>
   </div>
 
   <input name="update" type="submit" (click)="addAgency()" value="Add">

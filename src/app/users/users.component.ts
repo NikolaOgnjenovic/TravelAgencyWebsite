@@ -12,11 +12,12 @@ import {AuthService} from "../auth.service";
 export class UsersComponent {
   users: Map<string, User> = new Map<string, User>;
   constructor(private router: Router, agencyService: AgencyService) {
-    if (AuthService.isAdmin) {
-      this.users = agencyService.getUsers();
-    } else {
-      this.users = agencyService.getCurrentUser();
-    }
+    this.users = agencyService.getUsers();
+    // if (AuthService.isAdmin) {
+    //   this.users = agencyService.getUsers();
+    // } else {
+    //   this.users = agencyService.getCurrentUser();
+    // }
   }
 
   editUser(userId: string, user: User) {

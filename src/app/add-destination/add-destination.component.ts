@@ -24,8 +24,8 @@ export class AddDestinationComponent {
       description: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
       transport: new FormControl('', Validators.required),
-      price: new FormControl('', [Validators.required, Validators.pattern(/([0-9]+$)/g)]),
-      capacity: new FormControl('', [Validators.required, Validators.pattern(/([0-9]+$)/g)])
+      price: new FormControl('', [Validators.required, Validators.pattern(/([0-9]+$)/g), Validators.min(0)]),
+      capacity: new FormControl('', [Validators.required, Validators.pattern(/([0-9]+$)/g), Validators.min(0)])
     });
   }
 
