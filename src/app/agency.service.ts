@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AuthService} from "./auth.service";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue} from "firebase/database";
+import { getDatabase, ref, onValue, set, remove} from "firebase/database";
 import {Destination} from "./objects/Destination";
 import {User} from "./objects/User";
 import {Agency} from "./objects/Agency";
@@ -89,6 +89,39 @@ export class AgencyService {
     return agencies;
   }
 
+  private setDatabaseAgency(agencyId: string, agency: Agency): void {
+    set(ref(this.realtimeDatabase, 'agencies/' + agencyId), {
+      address: agency.address,
+      destinations: agency.destinations,
+      email: agency.email,
+      foundingYear: agency.foundingYear,
+      logo: agency.logo,
+      name: agency.name,
+      phoneNumber: agency.phoneNumber
+    });
+  }
+
+  private updateDatabaseAgencies(): void {
+    this.agencies.forEach((agency, agencyId) => {
+      set(ref(this.realtimeDatabase, 'agencies/' + agencyId), {
+        address: agency.address,
+        destinations: agency.destinations,
+        email: agency.email,
+        foundingYear: agency.foundingYear,
+        logo: agency.logo,
+        name: agency.name,
+        phoneNumber: agency.phoneNumber
+      })
+    })
+  }
+
+  // TODO: danasnja top destinacija!!!!
+  // TODO: index.html dobrodosli na listu nasih partnera blablabla
+
+  private deleteDatabaseAgency(agencyId: string): void {
+    remove(ref(this.realtimeDatabase, 'agencies/' + agencyId));
+  }
+
   private getDatabaseDestinations(): Map<string, Destination> {
     let destinations: Map<string, Destination> = new Map<string, Destination>;
     const destinationsRef = ref(this.realtimeDatabase, 'destinations/');
@@ -121,6 +154,23 @@ export class AgencyService {
     return users;
   }
 
+  private setDatabaseUser(userId: string, user: User): void {
+    set(ref(this.realtimeDatabase, 'users/' + userId), {
+      address: user.address,
+      birthday: user.birthday,
+      email: user.email,
+      name: user.name,
+      password: user.password,
+      phoneNumber: user.phoneNumber,
+      surname: user.surname,
+      username: user.username
+    });
+  }
+
+  private deleteDatabaseUser(userId: string): void {
+    remove(ref(this.realtimeDatabase, 'users/' + userId));
+  }
+
   // ------ AGENCIES -------
   getAgencies(): Map<string, Agency> {
     return this.agencies;
@@ -128,11 +178,9 @@ export class AgencyService {
 
   addAgency(agency: Agency) {
     agency.logo = "/assets/images/agency-placeholder.svg"
-    this.agencies.set(new Date().toString(), agency);
-    // TODO: firebase
-    // let agenciesRef = this.firebase.database().ref("agencies/");
-    // agenciesRef.push(agency);
-    // this.agencies = this.getDatabaseAgencies();
+    let id = new Date().toString();
+    this.agencies.set(id, agency);
+    this.setDatabaseAgency(id, agency);
   }
 
   getAgency(agencyId: string) {
@@ -142,16 +190,12 @@ export class AgencyService {
   updateAgency(agency: Agency, agencyId: string, destinationGroupId: string) {
     agency.destinations = destinationGroupId; // The edit-destination component sends a DestinationForm without an id
     this.agencies.set(agencyId, agency);
-    // TODO: firebase
-    // let agenciesRef = this.firebase.database.ref("agencies/");
-    // agenciesRef.child(agencyId).update(agency);
+    this.setDatabaseAgency(agencyId, agency);
   }
 
   deleteAgency(agencyId: string) {
     this.agencies.delete(agencyId);
-    // TODO: firebase
-    // let agenciesRef = this.firebase.database.ref("agencies/");
-    // agenciesRef.child(agencyId).remove();
+    this.deleteDatabaseAgency(agencyId);
   }
 
   // ------- DESTINATIONS -------
@@ -192,14 +236,18 @@ export class AgencyService {
   // ------ USERS ------
   updateUser(userId: string, user: User) {
     this.users.set(userId, user);
+    this.setDatabaseUser(userId, user);
   }
 
   deleteUser(userId: string) {
     this.users.delete(userId);
+    this.deleteDatabaseUser(userId);
   }
 
   addUser(user: User) {
-    this.users.set(new Date().getDate().toString(), user);
+    let userId = new Date().toString();
+    this.users.set(userId, user);
+    this.setDatabaseUser(userId, user);
   }
 
   getLoggedInUserId(username: string): string | null {
@@ -221,17 +269,5 @@ export class AgencyService {
       return this.users;
     }
     return new Map<string, User>;
-  }
-
-  getCurrentUser(): Map<string, User> {
-    let user = this.getLoggedInUser();
-
-    let userMap = new Map<string, User>;
-    if (user == undefined) {
-      return userMap;
-    }
-
-    userMap.set(AuthService.userId, user);
-    return userMap;
   }
 }

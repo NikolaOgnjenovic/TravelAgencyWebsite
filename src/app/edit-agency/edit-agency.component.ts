@@ -18,7 +18,6 @@ export class EditAgencyComponent implements OnInit {
     this.agencyId = routerExtras?.['agencyId'];
 
     let agency = agencyService.getAgency(this.agencyId);
-    let title = document.getElementById("title");
     // Editing
     if (agency != undefined) {
       this.agency = agency;
