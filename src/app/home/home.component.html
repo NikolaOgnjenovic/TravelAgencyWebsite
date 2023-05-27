@@ -17,7 +17,7 @@
 
 <div *ngIf="highlightedAgency" class="flex-container" style="flex-direction: column">
   <p class="page-description">Today's pick:</p>
-  <div class="card">
+  <div class="card" (click)="viewDestinations(highlightedAgency.key)">
     <p class="card-title">{{highlightedAgency.name}}</p>
     <img src="{{highlightedAgency.logo}}" alt="Agency image" style="background: url('/assets/images/agency-placeholder.svg')">
     <p>{{highlightedAgency.address}}</p>

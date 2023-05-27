@@ -32,18 +32,22 @@ export class HomeComponent {
       phoneNumber: "123/456-789",
       email: "email@email.com",
       destinations: "",
-      filteredDestinations: new Map<string, Destination>
+      filteredDestinations: new Map<string, Destination>,
     };
-    this.highlightedAgency = this.getRandomAgency();
+    this.highlightedAgency.key = this.getRandomAgencyKey();
+    console.log("Highlighted key: " + this.highlightedAgency.key);
+    this.highlightedAgency = this.allAgencies.get(this.highlightedAgency.key);
   }
 
-  getRandomAgency(): Agency | undefined {
+  getRandomAgencyKey(): string {
     let keys = [...this.allAgencies.keys()];
-    let randomKey = keys[Math.floor(Math.random() * keys.length)];
-    return this.allAgencies.get(randomKey);
+    return keys[Math.floor(Math.random() * keys.length)];
   }
 
-  viewDestinations(agencyId: string): void {
+  viewDestinations(agencyId: string | undefined | null): void {
+    if (agencyId == null) {
+      return;
+    }
     this.router.navigate(['destinations'], {state: {agencyId: agencyId}});
   }
 

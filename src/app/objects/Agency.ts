@@ -9,6 +9,7 @@ export class Agency {
   email: string;
   destinations: string;
   filteredDestinations: Map<string, Destination>;
+  key?: string | null;
 
   constructor(agency: any) {
     this.name = agency.name;
@@ -19,5 +20,6 @@ export class Agency {
     this.email = agency.email;
     this.destinations = agency.destinations;
     this.filteredDestinations = new Map<string, Destination>;
+    this.key = null;
   }
 }
