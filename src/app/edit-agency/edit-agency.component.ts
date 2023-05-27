@@ -25,7 +25,7 @@ export class EditAgencyComponent implements OnInit {
         name: new FormControl(this.agency.name, [Validators.required]),
         address: new FormControl(this.agency.address, [Validators.required]),
         logo: new FormControl(this.agency.logo, [Validators.required]),
-        foundingYear: new FormControl(this.agency.foundingYear,[Validators.required, Validators.pattern(/([0-9]+$)/g)]),
+        foundingYear: new FormControl(this.agency.foundingYear,[Validators.required, Validators.min(1)]),
         phoneNumber: new FormControl(this.agency.phoneNumber,[Validators.required, Validators.pattern(/([0-9]+)+\/([0-9]+)-([0-9]+)$/g)]),
         email: new FormControl(this.agency.email,[Validators.required, Validators.email]),
       });
@@ -37,7 +37,7 @@ export class EditAgencyComponent implements OnInit {
       this.agencyForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
         address: new FormControl('', [Validators.required]),
-        foundingYear: new FormControl('',[Validators.required, Validators.pattern(/([0-9]+$)/g)]),
+        foundingYear: new FormControl('',[Validators.required, Validators.min(1)]),
         logo: new FormControl('',[Validators.required]),
         phoneNumber: new FormControl('',[Validators.required, Validators.pattern(/([0-9]+)+\/([0-9]+)-([0-9]+)$/g)]),
         email: new FormControl('',[Validators.required, Validators.email]),

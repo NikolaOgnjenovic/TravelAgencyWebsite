@@ -1,4 +1,19 @@
+<div class="flex-container" style="margin: 100px">
+  <p class="page-description">Today's pick:</p>
+  <div class="card">
+    <p class="card-title">{{highlightedAgency?.name}}</p>
+    <img src="{{highlightedAgency?.logo}}" alt="Agency image" style="background: url('/assets/images/agency-placeholder.svg')">
+    <p>{{highlightedAgency?.address}}</p>
+    <p>Contact: {{highlightedAgency?.phoneNumber}} </p>
+    <p>{{highlightedAgency?.email}}</p>
+    <p>Founded in {{highlightedAgency?.foundingYear}}</p>
+  </div>
+</div>
+
 <button *ngIf="isAdmin()" (click)="addAgency()" style="margin: 1vmin">Add agency</button>
+
+<p class="page-description">Take a look at all of the agencies that cooperate with us!</p>
+
 <div class="flex-container" style="justify-content: center">
   <div class="card">
     <label for="agencyNameSearch">Agency name</label>

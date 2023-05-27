@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AuthService} from "./auth.service";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, set, remove} from "firebase/database";
+import { getDatabase, ref, onValue, set, remove, push} from "firebase/database";
 import {Destination} from "./objects/Destination";
 import {User} from "./objects/User";
 import {Agency} from "./objects/Agency";
@@ -89,7 +89,7 @@ export class AgencyService {
     return agencies;
   }
 
-  private setDatabaseAgency(agencyId: string, agency: Agency): void {
+  private updateDatabaseAgency(agencyId: string, agency: Agency): void {
     set(ref(this.realtimeDatabase, 'agencies/' + agencyId), {
       address: agency.address,
       destinations: agency.destinations,
@@ -101,22 +101,26 @@ export class AgencyService {
     });
   }
 
-  private updateDatabaseAgencies(): void {
-    this.agencies.forEach((agency, agencyId) => {
-      set(ref(this.realtimeDatabase, 'agencies/' + agencyId), {
-        address: agency.address,
-        destinations: agency.destinations,
-        email: agency.email,
-        foundingYear: agency.foundingYear,
-        logo: agency.logo,
-        name: agency.name,
-        phoneNumber: agency.phoneNumber
-      })
-    })
-  }
+  public addAgency(agency: Agency): void {
+    agency.logo = "/assets/images/agency-placeholder.svg"
 
-  // TODO: danasnja top destinacija!!!!
-  // TODO: index.html dobrodosli na listu nasih partnera blablabla
+    // Create a new destination group on firebase and get the key
+    push(ref(this.realtimeDatabase, 'destinations/')).then((dest_snap) => {
+      let destinationGroupKey = dest_snap.key;
+      if (destinationGroupKey != null) {
+        agency.destinations = destinationGroupKey;
+      }
+
+      // Push the agency and get its' firebase reference
+      push(ref(this.realtimeDatabase, 'agencies/'), agency).then((agency_snap) => {
+          // Update agencies locally
+          let key = agency_snap.key;
+          if (key != null) {
+            this.agencies.set(key, agency);
+          }
+      });
+    });
+  }
 
   private deleteDatabaseAgency(agencyId: string): void {
     remove(ref(this.realtimeDatabase, 'agencies/' + agencyId));
@@ -154,7 +158,7 @@ export class AgencyService {
     return users;
   }
 
-  private setDatabaseUser(userId: string, user: User): void {
+  private updateDatabaseUser(userId: string, user: User): void {
     set(ref(this.realtimeDatabase, 'users/' + userId), {
       address: user.address,
       birthday: user.birthday,
@@ -167,6 +171,17 @@ export class AgencyService {
     });
   }
 
+  public addUser(user: User) {
+    // Push the user and get its' firebase reference
+    push(ref(this.realtimeDatabase, 'users/'), user).then((snapshot) => {
+      let key = snapshot.key;
+      if (key != null) {
+        // Update users locally
+        this.users.set(key, user);
+      }
+    });
+  }
+
   private deleteDatabaseUser(userId: string): void {
     remove(ref(this.realtimeDatabase, 'users/' + userId));
   }
@@ -176,13 +191,6 @@ export class AgencyService {
     return this.agencies;
   }
 
-  addAgency(agency: Agency) {
-    agency.logo = "/assets/images/agency-placeholder.svg"
-    let id = new Date().toString();
-    this.agencies.set(id, agency);
-    this.setDatabaseAgency(id, agency);
-  }
-
   getAgency(agencyId: string) {
     return this.agencies.get(agencyId);
   }
@@ -190,7 +198,7 @@ export class AgencyService {
   updateAgency(agency: Agency, agencyId: string, destinationGroupId: string) {
     agency.destinations = destinationGroupId; // The edit-destination component sends a DestinationForm without an id
     this.agencies.set(agencyId, agency);
-    this.setDatabaseAgency(agencyId, agency);
+    this.updateDatabaseAgency(agencyId, agency);
   }
 
   deleteAgency(agencyId: string) {
@@ -208,11 +216,20 @@ export class AgencyService {
   }
 
   addDestination(destination: Destination, destinationGroupId: string) {
-    // TODO: firebase
     destination.destinationGroupId = destinationGroupId;
-    destination.images = ["/assets/images/destination-placeholder.jpg", "/assets/images/people.png"]
-    this.destinations.set(new Date().toString(), destination);
+    destination.images = ["/assets/images/destination-placeholder.jpg", "/assets/images/people.png"];
+
+    // Push the destination and get its' firebase reference
+    push(ref(this.realtimeDatabase, 'destinations/' + destinationGroupId + '/'), destination)
+      .then((snapshot) => {
+      let key = snapshot.key;
+      if (key != null) {
+        // Update destinations locally
+        this.destinations.set(key, destination);
+      }
+    });
   }
+
   getDestinationsByGroupId(destinationGroupId: string): Map<string, Destination> {
     let groupedDestinations: Map<string, Destination> = new Map<string, Destination>;
     for (let [key, value] of this.destinations) {
@@ -236,18 +253,12 @@ export class AgencyService {
   // ------ USERS ------
   updateUser(userId: string, user: User) {
     this.users.set(userId, user);
-    this.setDatabaseUser(userId, user);
+    this.updateDatabaseUser(userId, user);
   }
 
   deleteUser(userId: string) {
     this.users.delete(userId);
     this.deleteDatabaseUser(userId);
-  }
-
-  addUser(user: User) {
-    let userId = new Date().toString();
-    this.users.set(userId, user);
-    this.setDatabaseUser(userId, user);
   }
 
   getLoggedInUserId(username: string): string | null {
