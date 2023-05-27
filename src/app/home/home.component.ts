@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {AgencyService} from "../agency.service";
 import {Destination} from "../objects/Destination";
@@ -10,7 +10,7 @@ import {Agency} from "../objects/Agency";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css', '../card.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   allAgencies: Map<string, Agency>  = new Map<string, Agency>;
   filteredAgencies: Map<string, Agency> = new Map<string, Agency>;
   allDestinations: Map<string, Destination> = new Map<string, Destination>;
@@ -20,26 +20,29 @@ export class HomeComponent implements OnInit {
   highlightedAgency: Agency | undefined;
 
   constructor(private router: Router, private agencyService: AgencyService) {
-  }
-
-  ngOnInit() {
     this.allAgencies = this.agencyService.getAgencies();
     this.filteredAgencies = this.allAgencies;
     this.allDestinations = this.agencyService.getDestinations();
     this.filteredDestinations = this.allDestinations;
+    this.highlightedAgency = {
+      name: "Agency name",
+      address: "Address",
+      foundingYear: "2010.",
+      logo: "/assets/images/agency-placeholder.svg",
+      phoneNumber: "123/456-789",
+      email: "email@email.com",
+      destinations: "",
+      filteredDestinations: new Map<string, Destination>
+    };
     this.highlightedAgency = this.getRandomAgency();
   }
 
-  // TODO: random nece jer dugo ucitava agencije
   getRandomAgency(): Agency | undefined {
-    console.table(this.allAgencies);
-    console.log(this.allAgencies.keys());
     let keys = [...this.allAgencies.keys()];
-    console.log("keys: " + keys);
     let randomKey = keys[Math.floor(Math.random() * keys.length)];
-    console.log("random key: " + randomKey);
     return this.allAgencies.get(randomKey);
   }
+
   viewDestinations(agencyId: string): void {
     this.router.navigate(['destinations'], {state: {agencyId: agencyId}});
   }
